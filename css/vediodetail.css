@@ -1,0 +1,153 @@
+.vediodetail-container{
+    background: #f8f8f8;
+}
+.vediodetail{
+    min-width: 960px;
+    width:80%;
+    margin: 0 auto;
+}
+.vedio-card{
+    -moz-box-shadow: 0 0 5px #f6f6f6;
+    box-shadow: 0 0 5px #f6f6f6;
+    background: #fff;
+    border-radius: 5px;
+}
+.card-wrap{
+    margin-top:15px;
+    padding:20px 28px 26px;
+}
+/*视频播放*/
+.lamp{
+    margin:30px 0 44px;
+    font-size: 16px;
+}
+.vedio-wrap{
+    position: relative;
+}
+.vedio-part{
+    padding: 14px;
+    width: 64%;
+    margin-right:20px;
+    display: inline-block;
+}
+.vedio-part video{
+    width:100%;
+    min-height: 400px;
+}
+.vedio-class{
+    width: 33%;
+    display: inline-block;
+    position: absolute;
+    top:0;
+    right: 0;
+}
+.class-list{
+    padding: 24px 36px;
+}
+.class-list h2{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.class-list li{
+    height: 28px;
+    margin-bottom: 10px;
+}
+.class-list img,.class-list p{
+    display: inline-block;   
+}
+.class-list img{
+    width:28px;
+}
+.class-list p{
+    line-height: 28px;
+    vertical-align: top;
+    margin-left: 10px;
+}
+.add-class{
+    background: #56b949;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    height: 50px;
+    border-radius: 5px;
+    line-height: 50px;
+}
+/*视频详情*/
+.detail-title{
+    font-weight: bold;
+    font-size: 20px;
+}
+.detail-person,.detail-pre{
+    font-size:15px;
+    margin-top:15px;
+}
+/*学生评价*/
+.comment-wrap{
+    margin-top:15px;
+    padding:20px 58px 26px 28px;
+}
+.comment-title{
+    font-size: 20px;
+    padding:0 15px;
+    border-left: 4px solid #56b949;
+}
+.comment{
+    position: relative;
+    margin:15px 0 15px 15px;
+    border-bottom:1px solid #d5d5d5;
+    padding-bottom: 15px;
+}
+.avatar{
+    position: absolute;
+    /*left:15px;*/
+    /*top:30px;*/
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.comment-right{
+    margin-left:63px;
+    
+}
+.start-list{
+    display: inline-block;
+}
+.comment-input{
+    border-radius: 10px;
+    border:1px solid #f0f0f0;
+    width: 100%;
+    resize:none;
+    padding: 10px;
+}
+.sumbit-btn{
+    width:18%;
+    background: #56b949;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    height: 35px;
+    border-radius: 5px;
+    line-height: 35px;
+}
+
+.user{
+    position: relative;
+}
+.user-info{
+    color:#888888;
+    font-size: 14px;
+    display: inline-block;
+}
+.user .start-list{
+    position: absolute;
+    right: 0;
+}
+.replay-title{
+    padding:0 10px;
+    border-left: 3px solid #56b949;
+}
+.replay-content{
+    margin-left:10px;
+}
