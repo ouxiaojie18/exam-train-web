@@ -6,12 +6,6 @@
     width:80%;
     margin: 0 auto;
 }
-.video-card{
-    -moz-box-shadow: 0 0 5px #f6f6f6;
-    box-shadow: 0 0 5px #f6f6f6;
-    background: #fff;
-    border-radius: 5px;
-}
 .card-wrap{
     margin-top:15px;
     padding:20px 28px 26px;

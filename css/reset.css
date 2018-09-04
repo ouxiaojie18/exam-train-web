@@ -43,4 +43,11 @@ a:hover {
 }
 input:focus,textarea {
     outline:none;
-} 
+}
+
+.video-card{
+    -moz-box-shadow: 0 0 5px #f6f6f6;
+    box-shadow: 0 0 5px #f6f6f6;
+    background: #fff;
+    border-radius: 5px;
+}
