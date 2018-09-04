@@ -1,12 +1,12 @@
-.vediodetail-container{
+.videodetail-container{
     background: #f8f8f8;
 }
-.vediodetail{
+.videodetail{
     min-width: 960px;
     width:80%;
     margin: 0 auto;
 }
-.vedio-card{
+.video-card{
     -moz-box-shadow: 0 0 5px #f6f6f6;
     box-shadow: 0 0 5px #f6f6f6;
     background: #fff;
@@ -21,20 +21,20 @@
     margin:30px 0 44px;
     font-size: 16px;
 }
-.vedio-wrap{
+.video-wrap{
     position: relative;
 }
-.vedio-part{
+.video-part{
     padding: 14px;
     width: 64%;
     margin-right:20px;
     display: inline-block;
 }
-.vedio-part video{
+.video-part video{
     width:100%;
     min-height: 400px;
 }
-.vedio-class{
+.video-class{
     width: 33%;
     display: inline-block;
     position: absolute;

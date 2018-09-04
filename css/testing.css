@@ -1,0 +1,64 @@
+#testComponent {
+    padding: 16px;
+}
+
+.test-question {
+    font-size: 15px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+
+}
+
+.test-question span {
+    padding-left: 5px;
+    display: inline-block;
+}
+
+#testComponent p {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px auto;
+}
+
+.test-anwsers {
+    display: flex;
+    padding: 0 20px;
+    font-size: 13px;
+    line-height: 20px;
+    margin: 5px 0;
+
+
+}
+
+.test-anwsers img {
+    margin-top: 5px;
+    height: 10px;
+}
+
+.test-anwsers span {
+    padding-left: 10px;
+    display: inline-block;
+}
+
+.btn-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.text-btn {
+    cursor: pointer;
+    width: 126px;
+    height: 32px;
+    background: #ffcc00;
+    border-radius: 20px;
+    line-height: 32px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.choose {
+    display: none;
+}

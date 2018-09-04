@@ -1,0 +1,42 @@
+.index-part{
+    min-width: 960px;
+    width:80%;
+    margin: 0 auto;
+}
+.language-list li{
+    float:left;
+    padding:15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.language-list .active{
+    color:#56b949;
+}
+.language-poster-big img:not(:first-child){
+    display: none;
+}
+.teacher-wrap{
+    background:#56b949;
+    color: #fff;
+    padding:5px 20px;
+    display: inline-block;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.video-btn{
+    height: 3rem;
+    width: 3rem; 
+    line-height: 2.8rem; 
+    text-align: center; 
+    background: #56b949; 
+    margin: 2rem;
+    box-shadow: 0 0 1rem gray;
+    cursor: pointer;
+    transition: all .3s;
+    border-radius: .5rem;
+}
+.video-btn:active{
+    box-shadow: 0 0 0px gray;
+    transform: scale(0.99);
+}
