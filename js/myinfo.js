@@ -145,4 +145,25 @@ $(document).ready(function () {
         }
     })
 
+
+
+    DS.upfile = function(){
+        $('.img_show').each(function(){
+         var $this = $(this),
+          btn = $this.find('.upfile'),
+          img = $this.find('img');
+         btn.on('change',function(){
+          var file = $(this)[0].files[0],
+           imgSrc = $(this)[0].value,
+           url = URL.createObjectURL(file);
+          if (!/\.(jpg|jpeg|png|JPG|PNG|JPEG)$/.test(imgSrc)){
+           alert("请上传jpg或png格式的图片！");
+           return false;
+          }else{
+           img.attr('src',url);
+           img.css({'opacity':'1'});
+          }
+         });
+        });
+       }();
 });
