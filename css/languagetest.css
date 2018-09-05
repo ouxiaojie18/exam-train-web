@@ -1,0 +1,88 @@
+.language-list li{
+    float:left;
+    padding:15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.language-list .active{
+    color:#56b949;
+}
+
+.test-card{
+    width:31%;
+    margin:0 2% 20px 0; 
+    display: inline-block;
+}
+.test-card img{
+    width:25%;
+    padding:3% 4%;
+}
+.test-card-left{
+    width:65%;
+    display: inline-block;
+    vertical-align: top;
+}
+.test-card-left p{
+    font-size: 14px;
+    margin:10px 0 10px 20px;
+    color: #c5c5c5;
+}
+.test-card-title{
+    background: #56b949;
+    color:#fff;
+    height: 45px;
+    line-height: 45px;   
+    text-align: center;
+    font-weight: 400px;
+    font-size: 15px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+
+}
+.start-test{
+    color:#00b7ee;
+    font-size:12px;
+    margin-left:20px;
+    padding-bottom: 20px;
+}
+
+
+/* 文档下载 */
+.pdf-logo{
+    background: #56b949;
+    color:#fff;
+    width:25%;
+    padding:3% 4%;
+    border-radius: 50%;
+    display: inline-block;
+}
+/* .adaptive-circle {
+    display: inline-block;
+    margin: 3% auto 0;
+    width: 25%;
+    height: 0;
+    padding-top: 25%;
+    border-radius: 100%;
+    background: #56b949;
+    box-sizing: border-box;
+    position: relative;
+}
+.adaptive-circle .layout {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    color: #fff;
+    font-size: 45px;
+}
+.adaptive-circle .layout.middle:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: '';
+    height: 100%;
+    width: 0;
+    overflow: hidden;
+} */

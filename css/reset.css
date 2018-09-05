@@ -41,13 +41,34 @@ a:hover {
 .clearfix {
     *zoom: 1; /* 兼容 IE 低版本 */
 }
-input:focus,textarea {
+input:focus,textarea,select:focus {
     outline:none;
 }
+
+
 
 .video-card{
     -moz-box-shadow: 0 0 5px #f6f6f6;
     box-shadow: 0 0 5px #f6f6f6;
     background: #fff;
     border-radius: 5px;
+}
+.lamp{
+    margin:30px 0 44px;
+    font-size: 16px;
+}
+body{
+    background:#f8f8f8;
+}
+.wrap-content{
+    min-width: 960px;
+    width:80%;
+    margin: 0 auto;
+}
+
+.test-poster{
+    display: none;
+}
+.ielts-test-poster{
+    display: inline-block;
 }

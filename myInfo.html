@@ -15,17 +15,17 @@
     <!-- <link rel="stylesheet" href="./css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/navbar.css">
-    <link rel="stylesheet" href="./css/videodetail.css">
+    <link rel="stylesheet" href="./css/my.css">
 </head>
 
 <body>
     <div class="videodetail-container">
         <div class="nav-bar-wrap">
             <div class="nav-bar">
-                <img src="./img/logo.png" style="height: 48px;width: 48px;display: inline-block;" alt="">
+                <img src="./img/logo.png" style="height: 36px;margin-top:14px;display: inline-block;" alt="">
                 <div class="nav-list">
                     <ul>
-                        <li class="active">
+                        <li>
                             <a href="">
                                 <span>课程</span>
                             </a>
@@ -40,7 +40,7 @@
                                 <span>语言评测</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="">
                                 <span>我的</span>
                             </a>
@@ -53,8 +53,70 @@
 
             </div>
         </div>
-        <div class="index-part">
-
+        <div class="my-tests wrap-content">
+            <div class="left-nav">
+                <ul>
+                    <li>
+                        <a class="hover" href="">个人信息</a>
+                    </li>
+                    <li>
+                        <a href="">我的课程</a>
+                    </li>
+                    <li>
+                        <a href="">我的测试</a>
+                    </li>
+                    <div id="lanPos"></div>
+                </ul>
+            </div>
+            <div class="my-tests-right update-info video-card">
+                <div class="update-avatar">
+                    <img class="avatar" src="./img/登录注册.png" alt="">
+                    <span>修改头像</span>
+                </div>
+                
+                <div class="input-row">
+                    <label for="nickname">昵称</label>
+                    <input type="text" name="nickname" placeholder="请输入昵称">
+                </div>
+                <div class="input-row">
+                    <label for="name">姓名</label>
+                    <input type="text" name="name" placeholder="请填写你的真实姓名">
+                </div>
+                <div class="input-row">
+                    <label for="phone">联系方式</label>
+                    <input type="text" name="phone" placeholder="请输入手机号">
+                </div>
+                <div class="input-row">
+                    <label for="grade">年级</label>
+                    <input type="text" name="grade" placeholder="请输入年级,例:大一、研一">
+                </div>
+                <div class="input-row">
+                    <label for="address">就读地区</label>
+                    <!-- <input type="text" name="address"> -->
+                    <div id="area" class="field-value">
+                        <p>
+                            <select name="province">
+                                <option value=""> - 请选择 - </option>
+                            </select>
+                            <select name="city" disabled>
+                                <option value=""> - 请选择 - </option>
+                            </select>
+                            <select name="area" disabled>
+                                <option value=""> - 请选择 - </option>
+                            </select>
+                            <select name="town" disabled>
+                                <option value=""> - 请选择 - </option>
+                            </select>
+                        </p>
+                        <!-- <p id="place">请选择地区</p> -->
+                    </div>
+                </div>
+                <div class="input-row">
+                    <label for="college">就读院校</label>
+                    <input type="text" name="college" placeholder="请输入院校">
+                </div>
+                <div class="update-btn">更新信息</div>
+            </div>
         </div>
     </div>
     <!--[if lt IE 7]>
@@ -62,7 +124,8 @@
         <![endif]-->
 
     <script src="./js/jquery-3.3.1.min.js"></script>
-
+    <script src="./js/left-nav.js"></script>
+    <script src="./js/myinfo.js"></script>
 </body>
 
 </html>

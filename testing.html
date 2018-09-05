@@ -12,6 +12,8 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/navbar.css">
     <link rel="stylesheet" href="./css/testing.css">
 </head>
 
@@ -19,65 +21,125 @@
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <div id="testComponent">
-        <p>XXX测试</p>
-        <div>
-            <div class="test-question">
-                <span>1、It seems that the viewer can sense the artists’vision in paintings, even if they can’t explain why</span>
-            </div>
-            <div class="test-anwsers">
-                <img class="no-choose" src="./img/A.png" alt="">
-                <img class="choose" src="./img/选中.png" alt="">
-                <span>Mostly favour works of art which they know well.</span>
-                <!--<span>{{isChoose[index][0]}}</span>-->
-            </div>
-            <div class="test-anwsers">
-                <img class="no-choose" src="./img/B.png" alt="">
-                <img class="choose" src="./img/选中.png" alt="">
-                <span>Hold fixed ideas about what makes a good work of art.</span>
-            </div>
-            <div class="test-anwsers">
-                <img class="no-choose" src="./img/C.png" alt="">
-                <img class="choose" src="./img/选中.png" alt="">
-                <span>Are often misled by their initial expectations of a work of art.</span>
-            </div>
-            <div class="test-anwsers">
-                <img class="no-choose" src="./img/D.png" alt="">
-                <img class="choose" src="./img/选中.png" alt="">
-                <span>Have the ability to perceive the intention behind works of art.</span>
+    <div class="nav-bar-wrap">
+        <div class="nav-bar">
+            <img src="./img/logo.png" style="height: 36px;margin-top:14px;display: inline-block;" alt="">
+            <div class="nav-list">
+                <ul>
+                    <li>
+                        <a href="">
+                            <span>课程</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span>文档下载</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="">
+                            <span>语言评测</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span>我的</span>
+                        </a>
+                    </li>
+                    <a href="">
+                        <span class="sign-in">登录/注册</span>
+                    </a>
+                </ul>
             </div>
         </div>
-        <div>
-            <div class="test-question">
-                <span>1、It seems that the viewer can sense the artists’vision in paintings, even if they can’t explain why</span>
-            </div>
-            <div class="test-anwsers">
-                <img class="no-choose" src="./img/A.png" alt="">
-                <img class="choose" src="./img/选中.png" alt="">
-                <span>Mostly favour works of art which they know well.</span>
-                <!--<span>{{isChoose[index][0]}}</span>-->
-            </div>
-            <div class="test-anwsers">
-                <img class="no-choose" src="./img/B.png" alt="">
-                <img class="choose" src="./img/选中.png" alt="">
-                <span>Hold fixed ideas about what makes a good work of art.</span>
-            </div>
-            <div class="test-anwsers">
-                <img class="no-choose" src="./img/C.png" alt="">
-                <img class="choose" src="./img/选中.png" alt="">
-                <span>Are often misled by their initial expectations of a work of art.</span>
-            </div>
-            <div class="test-anwsers">
-                <img class="no-choose" src="./img/D.png" alt="">
-                <img class="choose" src="./img/选中.png" alt="">
-                <span>Have the ability to perceive the intention behind works of art.</span>
+    </div>
+    <div class="test-part">
+        <div class="modal-part">
+            <div class="modal-wrap"></div>
+            <div class="modal-content">
+                <div class="score">
+                    <p>本次测试得分为</p>
+                    <p>59</p>
+                </div>
+                <div class="btn-part">
+                    <div class="click-btn study-btn">前往学习</div>
+                    <div class="click-btn check-btn">查看错题</div>
+                </div>
+
             </div>
         </div>
 
-        <div class="btn-wrap">
-            <div class="text-btn">完成测评</div>
+
+        <div class="lamp">语言评测 - 雅思 - 测试测试一</div>
+        <div class="test-right">
+            <div class="video-card">
+                <div class="test-time-tip first-tip">
+                    <img src="./img/测试时间.png" alt="">
+                    <h6>测试剩余时间</h6>
+                    <h6 id="has-time">02:00:00</h6>
+                </div>
+                <div class="test-time-tip">
+                    <img src="./img/已完成.png" alt="">
+                    <h6>已完成试题</h6>
+                    <h6>3/16</h6>
+                </div>
+            </div>
+            <div class="submit-btn">试卷提交</div>
         </div>
+        <div class="testComponent video-card">
+            <p>测试测试一</p>
+            <div class="test-con">
+                <div class="test-question">1、It seems that the viewer can sense the artists’vision in paintings, even if they can’t explain why</div>
+                <div class="test-anwsers">
+                    <img class="no-choose" src="./img/A.png" alt="">
+                    <img class="choose" src="./img/选中.png" alt="">
+                    <span>Mostly favour works of art which they know well.</span>
+                    <!--<span>{{isChoose[index][0]}}</span>-->
+                </div>
+                <div class="test-anwsers">
+                    <img class="no-choose" src="./img/B.png" alt="">
+                    <img class="choose" src="./img/选中.png" alt="">
+                    <span>Hold fixed ideas about what makes a good work of art.</span>
+                </div>
+                <div class="test-anwsers">
+                    <img class="no-choose" src="./img/C.png" alt="">
+                    <img class="choose" src="./img/选中.png" alt="">
+                    <span>Are often misled by their initial expectations of a work of art.</span>
+                </div>
+                <div class="test-anwsers">
+                    <img class="no-choose" src="./img/D.png" alt="">
+                    <img class="choose" src="./img/选中.png" alt="">
+                    <span>Have the ability to perceive the intention behind works of art.</span>
+                </div>
+            </div>
+            <div>
+                <div class="test-question">1、It seems that the viewer can sense the artists’vision in paintings, even if they can’t explain why</div>
+                <div class="test-anwsers">
+                    <img class="no-choose" src="./img/A.png" alt="">
+                    <img class="choose" src="./img/选中.png" alt="">
+                    <span>Mostly favour works of art which they know well.</span>
+                    <!--<span>{{isChoose[index][0]}}</span>-->
+                </div>
+                <div class="test-anwsers">
+                    <img class="no-choose" src="./img/B.png" alt="">
+                    <img class="choose" src="./img/选中.png" alt="">
+                    <span>Hold fixed ideas about what makes a good work of art.</span>
+                </div>
+                <div class="test-anwsers">
+                    <img class="no-choose" src="./img/C.png" alt="">
+                    <img class="choose" src="./img/选中.png" alt="">
+                    <span>Are often misled by their initial expectations of a work of art.</span>
+                </div>
+                <div class="test-anwsers">
+                    <img class="no-choose" src="./img/D.png" alt="">
+                    <img class="choose" src="./img/选中.png" alt="">
+                    <span>Have the ability to perceive the intention behind works of art.</span>
+                </div>
+            </div>
+        </div>
+
     </div>
+
     <script src="./js/jquery-3.3.1.min.js"></script>
     <script src="./js/testing.js"></script>
 </body>
