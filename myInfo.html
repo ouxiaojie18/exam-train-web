@@ -71,12 +71,11 @@
             <div class="my-tests-right update-info video-card">
                 <div class="update-avatar">
                     <img class="avatar" src="./img/登录注册.png" alt="">
-                    <span>修改头像</span>
+                    <div class="avatar-btn">
+                        <span id="pic">修改头像</span>
+                        <input id="upload" name="file" accept="image/*" type="file">
+                    </div>
                 </div>
-                <div class="img_show img_show1">
-                        <img src="img2/img06.jpg" width="103" height="103" alt="">
-                        <input type="file" class="upfile" accept="*/*">
-                      </div>
                 <div class="input-row">
                     <label for="nickname">昵称</label>
                     <input type="text" name="nickname" placeholder="请输入昵称">
@@ -95,7 +94,6 @@
                 </div>
                 <div class="input-row">
                     <label for="address">就读地区</label>
-                    <!-- <input type="text" name="address"> -->
                     <div id="area" class="field-value">
                         <p>
                             <select name="province">
@@ -111,7 +109,6 @@
                                 <option value=""> - 请选择 - </option>
                             </select>
                         </p>
-                        <!-- <p id="place">请选择地区</p> -->
                     </div>
                 </div>
                 <div class="input-row">

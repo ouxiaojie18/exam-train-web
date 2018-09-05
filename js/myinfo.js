@@ -1,43 +1,43 @@
 $(document).ready(function () {
     var provinceId = 0, areaId = 0, cityId = 0, townId = 0;
-    　　$(".pay-alipay-button").click(function () {
+    $(".pay-alipay-button").click(function () {
         var userName = $('input[name="userName"]').val();
         var mobile = $('input[name="mobile"]').val();
         var address = $('input[name="address"]').val();
-        var data={
-            userName:userName,
-            mobile:mobile,
+        var data = {
+            userName: userName,
+            mobile: mobile,
             area: {
-              provinceId:provinceId,
-              cityId:areaId,
-              countyId: cityId,
-              townId:townId,
+                provinceId: provinceId,
+                cityId: areaId,
+                countyId: cityId,
+                townId: townId,
             },
-            address:address,
+            address: address,
             returnUrl: 'http://jambo.jianbaolife.com/payresult.html',
             productId: 123123,
         };
-        
+
         $.ajax({
             url: 'https://jianbaopay-test.laobai.com/pay/special',
             type: 'POST',
             contentType: 'application/json',
-            data:JSON.stringify(data),
-            success:function(result){
-                if(result.rc===0){
+            data: JSON.stringify(data),
+            success: function (result) {
+                if (result.rc === 0) {
                     document.write(result.data.html);
                 }
                 // console.log(result)
             }
         })
         // console.log(provinceId, areaId, cityId, townId)
-        　　　　//adding your code here　　 
-    　　});
+        //adding your code here　　 
+    });
 
-    $('input[name="mobile"]').change(function(e){
-        var mobile=$(this).val();
-        
-        var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+    $('input[name="mobile"]').change(function (e) {
+        var mobile = $(this).val();
+
+        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
         if (!myreg.test(mobile)) {
             $(".error-tip").show();
         } else {
@@ -145,25 +145,46 @@ $(document).ready(function () {
         }
     })
 
-
-
-    DS.upfile = function(){
-        $('.img_show').each(function(){
-         var $this = $(this),
-          btn = $this.find('.upfile'),
-          img = $this.find('img');
-         btn.on('change',function(){
-          var file = $(this)[0].files[0],
-           imgSrc = $(this)[0].value,
-           url = URL.createObjectURL(file);
-          if (!/\.(jpg|jpeg|png|JPG|PNG|JPEG)$/.test(imgSrc)){
-           alert("请上传jpg或png格式的图片！");
-           return false;
-          }else{
-           img.attr('src',url);
-           img.css({'opacity':'1'});
-          }
-         });
+    $("#pic").click(function () {
+        $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+        $("#upload").on("change", function () {
+            var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+            if (objUrl) {
+                $(".avatar").attr("src", objUrl); //将图片路径存入src中，显示出图片
+                upimg();
+            }
         });
-       }();
+    });
+    //建立一?可存取到?file的url
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
+    //上传头像到服务器
+    function upimg() {
+        console.log(344)
+        var pic = $('#upload')[0].files[0];
+        var file = new FormData();
+        file.append('image', pic);
+        $.ajax({
+            url: "/uploadImg",
+            type: "post",
+            data: file,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log(data);
+                var res = data;
+                $("#resimg").append("<img src='/" + res + "'>")
+            }
+        });
+    }
 });
