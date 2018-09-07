@@ -10,25 +10,20 @@
     position: relative;
 }
 .video-part{
-    padding: 14px;
-    width: 64%;
-    margin-right:20px;
     display: inline-block;
 }
-.video-part video{
-    width:100%;
-    min-height: 400px;
-}
 .video-class{
-    width: 33%;
     display: inline-block;
     position: absolute;
     top:0;
     right: 0;
 }
-.class-list{
-    padding: 24px 36px;
-}
+/* .video-part video{
+    width:100%;
+    min-height: 400px;
+} */
+
+
 .class-list h2{
     font-size: 20px;
     font-weight: bold;

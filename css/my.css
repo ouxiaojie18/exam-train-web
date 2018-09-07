@@ -1,11 +1,38 @@
+@media (max-width: 1279px) {
+    .stage-card {
+        width: 80%;
+        margin-left: 0;
+        margin-right: 3%;
+    }
+}
+
+@media (min-width: 1280px) and (max-width: 1758px) {
+    .stage-card {
+        min-width: 333px;
+        width: 44%;
+        margin-left: 0;
+        margin-right: 2%;
+    }
+}
+
+@media (min-width: 1759px) {
+    .stage-card {
+        min-width: 333px;
+        width:29%;
+        margin-left: 0;
+        margin-right: 2%;
+    }
+}
 .left-nav{
     float: left;
 }
 .my-tests{
     margin-top: 20px;
 }
+
 .my-tests-right{
     margin-left:270px;
+    
 }
 .language-list{
     height: 50px;
@@ -15,15 +42,17 @@
     margin-left: 0px;
 }
 .stage-card {
-    margin-right: 3%;
-    margin-left: 0;
+    /* margin-right: 3%;
+    margin-left: 0; */
 }
 
 /* 修改信息 */
 .update-info{
     padding:50px 40px 30px;
     color: #c5c5c5;
+    min-width: 698px;;
 }
+
 .update-avatar{
     border-bottom: 1px solid #eee;
     padding-bottom: 30px;
@@ -61,7 +90,6 @@
     margin-right: 10px;
 }
 .input-row input{
-    /* display: inline-block; */
     padding:10px 20px;
     border-radius: 20px;
     border: 1px solid #d2d2d2;
@@ -69,18 +97,13 @@
     
 }
 .field-value {
-    /* float: left; */
     display: inline-block;
 }
 .field-value select {
-    /* width: 115.5px;
-    height: 35px; */
     width:130px;
     border: 1px solid #dddddd;
-    /* font-size: 14px; */
     border-radius: 20px;
     padding:10px 20px;
-    /* padding:0 10px; */
 }
 
 .field-value option {
@@ -96,4 +119,14 @@
     border-radius: 5px;
     margin:40px 0 0 20px;
     cursor: pointer;
+}
+
+/* .test-card {
+    width: 31%;
+    margin: 0 2% 20px 0;
+} */
+@media (max-width: 1532px) {
+    .test-card {
+        width: 47%;
+    }
 }
