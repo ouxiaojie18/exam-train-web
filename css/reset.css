@@ -72,3 +72,12 @@ body{
 .ielts-test-poster{
     display: inline-block;
 }
+.pagination>li>span{
+    cursor: pointer;
+}
+.pagination>li>.active {
+    z-index: 2;
+    color: #23527c;
+    background-color: #eee;
+    border-color: #ddd;
+}
