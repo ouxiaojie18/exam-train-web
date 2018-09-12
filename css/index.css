@@ -68,7 +68,16 @@
 .poster-bottom{
     width: 100%;
 }
-
+.poster-letter{
+    position: absolute;
+    left:0;
+    top:30px;
+    padding:0 7px 7px 10px;
+    border-bottom: 1px solid #fff;
+}
+.poster-letter img{
+    width: 40px;
+}
 
 .stage-left-info{
     position: absolute;

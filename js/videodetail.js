@@ -11,9 +11,6 @@ function rate(obj, oEvent) {
         imgArray[i].onclick = function () {
             if (obj.rateFlag) return;
             obj.rateFlag = true;
-            //this._num+1这个值写入到数据库中,作为评分的依据。
-
-            //可以在html页面加一个隐藏域，这里可以通过jquery把这个值赋值给隐藏域，保存的时候传给后台
         };
     }
     if (target.tagName == "IMG") {
