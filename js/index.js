@@ -17,19 +17,40 @@ $(document).ready(function () {
                         // ]
     var num = 1;
     var courseData = [];
+    $(document).on("click", ".video-btn", function () {
+        let videoid = 0;
+        window.location.href = "./videoDetail.html?videoid="+this.dataset.videoid+"&courseid="+this.dataset.parentid;
 
-    function getCourseTop(stage,categoryType,  course_line) {
+    })
+    getCourseTop=(stage,categoryType,  course_line)=>{
         const { course_left, course } = course_line;
         const {coursename,teacher} = course_left;
         let constLen = course.length;
         let str = '';
         course.map((courseItem,index)=>{
             const { course_info, course_video = [] } = courseItem;
-            const {teacher,courselistname}=course_info[0];
+            const {teacher,courselistname,id}=course_info[0];
             let courseType=courselistname.substring(courselistname.length-2);
             
             let videoLen = course_video.length;
-            
+            let videoBtn='';
+            let videoId=0;
+            for(let i=0;i<videoLen;i++){
+                if(i>6){
+                    videoBtn+=`<div data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
+                    break;
+                }
+                videoId=course_video[i].id;
+                if(i==0){
+                    
+                    videoBtn+=`<div data-parentid=${id} data-videoid=${videoId} class="video-btn active">1</div>`
+                }else if(i==(videoLen-1)){
+                    videoBtn+=`<div data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
+                }else{
+                    videoBtn+=`<div data-parentid=${id} data-videoid=${videoId} class="video-btn">${i+1}</div>`
+                }
+            }
+
             str +=`
                 <div class="stage-card video-card">
                     <div class="stage-card-left">
@@ -55,14 +76,7 @@ $(document).ready(function () {
                     </div>
                     <img src="./img/图层 7.png" alt="">
                     <div class="video-btn-wrap">
-                        <div class="video-btn active">1</div>
-                        <div class="video-btn">2</div>
-                        <div class="video-btn">3</div>
-                        <div class="video-btn">4</div>
-                        <div class="video-btn">5</div>
-                        <div class="video-btn">6</div>
-                        <div class="video-btn">7</div>
-                        <div class="video-btn">全部</div>
+                        ${videoBtn}
                     </div>
                 </div>
 
@@ -102,7 +116,7 @@ $(document).ready(function () {
         `);
     }
 
-    function getCourseLeft(item, num, video_num) {
+    getCourseLeft=(item, num, video_num)=>{
         $.ajax({
             url: "https://kaopeixia.com/webapi/courselist/getcourselistbyid",
             type: "GET",
@@ -129,7 +143,7 @@ $(document).ready(function () {
             }
         });
     }
-    function getCourseRight(item,num, course_info) {
+    getCourseRight=(item,num, course_info)=>{
         $.ajax({
             url: "https://kaopeixia.com/webapi/coursedetail/getcoursedetailbycourselistidp",
             type: "GET",
@@ -167,7 +181,7 @@ $(document).ready(function () {
             }
         });
     }
-    function getAjax(categoryType, clientPage, everyPage) {
+    getAjax=(categoryType, clientPage, everyPage)=>{
         $.ajax({
             url: "https://kaopeixia.com/webapi/course/getcoursebysearchv2",
             type: "GET",
@@ -182,7 +196,7 @@ $(document).ready(function () {
             success: function (result) {
                 if (result.status == "200") {
                     result.data.map((item, index) => {
-                        console.log(result)
+                        // console.log(result)
                         // var d1 = $.Deferred();
                         // var d2 = $.Deferred();
 

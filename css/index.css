@@ -154,7 +154,8 @@
     line-height: 30px; 
     text-align: center; 
     background: #e5e5e5;
-    margin-right:5px;
+    margin-right:4px;
+    margin-left:4px;
     box-shadow: -1px 1px 5px #b3b3b3;
     -moz-box-shadow:-1px 1px 5px #b3b3b3;
     cursor: pointer;
