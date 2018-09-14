@@ -1,64 +1,11 @@
 $(document).ready(function () {
-    var provinceId = 0, areaId = 0, cityId = 0, townId = 0;
-    $(".pay-alipay-button").click(function () {
-        var userName = $('input[name="userName"]').val();
-        var mobile = $('input[name="mobile"]').val();
-        var address = $('input[name="address"]').val();
-        var data = {
-            userName: userName,
-            mobile: mobile,
-            area: {
-                provinceId: provinceId,
-                cityId: areaId,
-                countyId: cityId,
-                townId: townId,
-            },
-            address: address,
-            returnUrl: 'http://jambo.jianbaolife.com/payresult.html',
-            productId: 123123,
-        };
-
-        $.ajax({
-            url: 'https://jianbaopay-test.laobai.com/pay/special',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            success: function (result) {
-                if (result.rc === 0) {
-                    document.write(result.data.html);
-                }
-                // console.log(result)
-            }
-        })
-        // console.log(provinceId, areaId, cityId, townId)
-        //adding your code here　　 
-    });
-
-    $('input[name="mobile"]').change(function (e) {
-        var mobile = $(this).val();
-
-        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
-        if (!myreg.test(mobile)) {
-            $(".error-tip").show();
-        } else {
-            $(".error-tip").hide()
-        }
-
-    });
-
-
     var $this = $("#area");
     var $province = $this.find('select[name="province"]'),
         $city = $this.find('select[name="city"]'),
         $area = $this.find('select[name="area"]'),
         $town = $this.find('select[name="town"]');
-    $.ajax({
-        url: 'http://core.laobai.com/legacy/jbu/JbuGetSortedArea',
-        type: 'POST',
-        dataType: 'json',
-        jsonpCallback: 'jsonp_location',
-        success: function (result) {
-            if (result.rc == 0) {
+    $.getJSON("./js/city.json", function (result){
+                  if (result.rc == 0) {
                 var formatProvince = [], provinceField = [], currentProvince = null, cityField = [], currentCity = null, areaField = [], currentArea = null, townField = [];
                 formatProvince = result.data.province_list;
                 formatProvince.map(function (value, index) {
@@ -141,9 +88,121 @@ $(document).ready(function () {
                 })
 
             }
+    }) 
 
+
+    let uid = sessionStorage.getItem('uid');
+    // 获取信息
+    function getAjax() {
+        $.ajax({
+            url: "https://kaopeixia.com/webapi/user/getuserbyid",
+            type: "GET",
+            data: {
+                'id': uid,
+            },
+            dataType: "json",
+            xhrFields: { withCredentials: true },
+            success: function (result) {
+                if (result.status == "200") {
+                    console.info(result);
+                    // var $info = $(".info-line");
+                    // var nickname = $info.find()
+                    $("input[name='nickname']").val('')
+                    // $(posterType).text('');
+                    // var data = result.data;
+                    // data.map((item, index) => {
+                    //     const { filename, introduce, fileaddress } = item;
+                    //     getDocCard(filename, introduce, fileaddress);
+                    // })
+                    // num=Math.ceil(result.pager.sumpage / result.pager.everypage);
+                    // getPagination(num);
+                    // console.log($(`${posterType} .page-btn`).eq(clientPage-1));
+                    // $(`${posterType} .page-btn`).eq(clientPage-1).css({
+                    //     zIndex: "2",
+                    //     color:"#23527c",
+                    //     backgroundColor:"#eee",
+                    //     borderColor: "#ddd",
+                    // })
+                    
+                    // if(clientPage==1){
+                    //     $(".laquo").children().css('color','#ddd');
+                    //     $(".laquo").addClass("disabled");
+                    // }else{
+                    //     $(".laquo").children().css('color','#337ab7');
+                    //     $(".laquo").removeClass("disabled");
+                    // }
+                    // if(clientPage==num){
+                    //     $(".raquo").children().css('color','#ddd');
+                    //     $(".raquo").addClass("disabled");
+                    // }else{
+                    //     $(".raquo").children().css('color','#337ab7');
+                    //     $(".raquo").removeClass("disabled");
+                    // }
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                //On error do this
+                console.info("error.");
+                if (xhr.status == 200) {
+
+                    alert(ajaxOptions);
+                }
+                else {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            }
+        });
+    }
+    getAjax()
+
+
+    var provinceId = 0, areaId = 0, cityId = 0, townId = 0;
+    $(".pay-alipay-button").click(function () {
+        var userName = $('input[name="userName"]').val();
+        var mobile = $('input[name="mobile"]').val();
+        var address = $('input[name="address"]').val();
+        var data = {
+            userName: userName,
+            mobile: mobile,
+            area: {
+                provinceId: provinceId,
+                cityId: areaId,
+                countyId: cityId,
+                townId: townId,
+            },
+            address: address,
+            returnUrl: 'http://jambo.jianbaolife.com/payresult.html',
+            productId: 123123,
+        };
+
+        $.ajax({
+            url: 'https://jianbaopay-test.laobai.com/pay/special',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (result) {
+                if (result.rc === 0) {
+                    document.write(result.data.html);
+                }
+                // console.log(result)
+            }
+        })
+        // console.log(provinceId, areaId, cityId, townId)
+        //adding your code here　　 
+    });
+
+    $('input[name="mobile"]').change(function (e) {
+        var mobile = $(this).val();
+
+        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(mobile)) {
+            $(".error-tip").show();
+        } else {
+            $(".error-tip").hide()
         }
-    })
+
+    });
 
     $("#pic").click(function () {
         $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
