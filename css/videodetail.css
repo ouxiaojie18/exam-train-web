@@ -11,12 +11,13 @@
 }
 .video-part{
     display: inline-block;
+    /* height: 95.5%; */
+    position: absolute;
+    top:0;
+    left: 0;
 }
 .video-class{
     display: inline-block;
-    position: absolute;
-    top:0;
-    right: 0;
 }
 /* .video-part video{
     width:100%;
@@ -29,9 +30,14 @@
     font-weight: bold;
     margin-bottom: 15px;
 }
+.class-list ul{
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 .class-list li{
     height: 28px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .class-list img,.class-list p{
     display: inline-block;   
@@ -52,6 +58,7 @@
     height: 50px;
     border-radius: 5px;
     line-height: 50px;
+    margin-top:15px;
 }
 /*视频详情*/
 .detail-title{
