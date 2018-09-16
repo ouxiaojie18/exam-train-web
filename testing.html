@@ -15,6 +15,13 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/navbar.css">
     <link rel="stylesheet" href="./css/testing.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+        .modal-body {
+            text-align: center;
+            font-size: 17px;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,42 +31,42 @@
     <div class="nav-bar-wrap">
         <div class="nav-bar">
             <img src="./img/logo.png" style="height: 36px;margin-top:14px;display: inline-block;" alt="">
-                <div class="nav-list">
-                    <ul>
-                        <li>
-                            <a href="./index.html">
+            <div class="nav-list">
+                <ul>
+                    <li>
+                        <a href="./index.html">
                                 <span>课程</span>
                             </a>
-                        </li>
-                        <li>
-                            <a href="./documentdownload.html">
+                    </li>
+                    <li>
+                        <a href="./documentdownload.html">
                                 <span>文档下载</span>
                             </a>
-                        </li>
-                        <li class="active">
-                            <a href="./languagetest.html">
+                    </li>
+                    <li class="active">
+                        <a href="./languagetest.html">
                                 <span>语言评测</span>
                             </a>
-                        </li>
-                        <li>
-                            <a href="./myInfo.html">
+                    </li>
+                    <li>
+                        <a href="./myInfo.html">
                                 <span>我的</span>
                             </a>
-                        </li>
-                        <a href="./login.html">
+                    </li>
+                    <a href="./login.html">
                             <span class="sign-in">登录/注册</span>
                         </a>
-                    </ul>
-                </div>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="test-part">
         <div class="modal-part">
             <div class="modal-wrap"></div>
-            <div class="modal-content">
+            <div class="modal-con">
                 <div class="score">
                     <p>本次测试得分为</p>
-                    <p>59</p>
+                    <p class="score-num"></p>
                 </div>
                 <div class="btn-part">
                     <div class="click-btn study-btn">前往学习</div>
@@ -68,9 +75,28 @@
 
             </div>
         </div>
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            语言评测
+                        </h4>
+                    </div>
+                    <div class="modal-body">
 
-
-        <div class="lamp">语言评测 - 雅思 - 测试测试一</div>
+                    </div>
+                    <div class="modal-footer">
+                        <!--btn-default btn-primary-->
+                        <button type="button" class="btn btn11" data-dismiss="modal"></button>
+                        <button type="button" class="btn btn12"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="lamp">语言评测 - 雅思 - <span></span></div>
         <div class="test-right">
             <div class="video-card">
                 <div class="test-time-tip first-tip">
@@ -81,67 +107,26 @@
                 <div class="test-time-tip">
                     <img src="./img/已完成.png" alt="">
                     <h6>已完成试题</h6>
-                    <h6>3/16</h6>
+                    <h6><span class="done"></span>/<span class="testNum"></span></h6>
                 </div>
             </div>
-            <div class="submit-btn">试卷提交</div>
+            <div class="submit-btn" data-toggle="modal" data-target="#myModal">试卷提交</div>
         </div>
         <div class="testComponent video-card">
-            <p>测试测试一</p>
+            <p></p>
             <div class="test-con">
-                <div class="test-question">1、It seems that the viewer can sense the artists’vision in paintings, even if they can’t explain why</div>
-                <div class="test-anwsers">
-                    <img class="no-choose" src="./img/A.png" alt="">
-                    <img class="choose" src="./img/选中.png" alt="">
-                    <span>Mostly favour works of art which they know well.</span>
-                    <!--<span>{{isChoose[index][0]}}</span>-->
-                </div>
-                <div class="test-anwsers">
-                    <img class="no-choose" src="./img/B.png" alt="">
-                    <img class="choose" src="./img/选中.png" alt="">
-                    <span>Hold fixed ideas about what makes a good work of art.</span>
-                </div>
-                <div class="test-anwsers">
-                    <img class="no-choose" src="./img/C.png" alt="">
-                    <img class="choose" src="./img/选中.png" alt="">
-                    <span>Are often misled by their initial expectations of a work of art.</span>
-                </div>
-                <div class="test-anwsers">
-                    <img class="no-choose" src="./img/D.png" alt="">
-                    <img class="choose" src="./img/选中.png" alt="">
-                    <span>Have the ability to perceive the intention behind works of art.</span>
-                </div>
+
+
             </div>
-            <div>
-                <div class="test-question">1、It seems that the viewer can sense the artists’vision in paintings, even if they can’t explain why</div>
-                <div class="test-anwsers">
-                    <img class="no-choose" src="./img/A.png" alt="">
-                    <img class="choose" src="./img/选中.png" alt="">
-                    <span>Mostly favour works of art which they know well.</span>
-                    <!--<span>{{isChoose[index][0]}}</span>-->
-                </div>
-                <div class="test-anwsers">
-                    <img class="no-choose" src="./img/B.png" alt="">
-                    <img class="choose" src="./img/选中.png" alt="">
-                    <span>Hold fixed ideas about what makes a good work of art.</span>
-                </div>
-                <div class="test-anwsers">
-                    <img class="no-choose" src="./img/C.png" alt="">
-                    <img class="choose" src="./img/选中.png" alt="">
-                    <span>Are often misled by their initial expectations of a work of art.</span>
-                </div>
-                <div class="test-anwsers">
-                    <img class="no-choose" src="./img/D.png" alt="">
-                    <img class="choose" src="./img/选中.png" alt="">
-                    <span>Have the ability to perceive the intention behind works of art.</span>
-                </div>
-            </div>
+
         </div>
 
     </div>
 
     <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./js/util.js"></script>
     <script src="./js/testing.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -19,7 +19,8 @@ $(document).ready(function () {
     var courseData = [];
     $(document).on("click", ".video-btn", function () {
         let videoid = 0;
-        window.location.href = "./videoDetail.html?videoid="+this.dataset.videoid+"&courseid="+this.dataset.parentid;
+        let url = "./videoDetail.html?videoid="+this.dataset.videoid+"&courseid="+this.dataset.parentid+"&coursename="+encodeURI(this.dataset.coursename)+"&teacher="+encodeURI(this.dataset.teacher);
+        window.location.href =url;
 
     })
     getCourseTop=(stage,categoryType,  course_line)=>{
@@ -27,6 +28,7 @@ $(document).ready(function () {
         const {coursename,teacher} = course_left;
         let constLen = course.length;
         let str = '';
+        
         course.map((courseItem,index)=>{
             const { course_info, course_video = [] } = courseItem;
             const {teacher,courselistname,id}=course_info[0];
@@ -35,19 +37,20 @@ $(document).ready(function () {
             let videoLen = course_video.length;
             let videoBtn='';
             let videoId=0;
+            
             for(let i=0;i<videoLen;i++){
                 if(i>6){
-                    videoBtn+=`<div data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
+                    videoBtn+=`<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
                     break;
                 }
                 videoId=course_video[i].id;
                 if(i==0){
                     
-                    videoBtn+=`<div data-parentid=${id} data-videoid=${videoId} class="video-btn active">1</div>`
+                    videoBtn+=`<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn active">1</div>`
                 }else if(i==(videoLen-1)){
-                    videoBtn+=`<div data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
+                    videoBtn+=`<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
                 }else{
-                    videoBtn+=`<div data-parentid=${id} data-videoid=${videoId} class="video-btn">${i+1}</div>`
+                    videoBtn+=`<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn">${i+1}</div>`
                 }
             }
 
@@ -195,6 +198,10 @@ $(document).ready(function () {
             },
             success: function (result) {
                 if (result.status == "200") {
+                    // debugger;
+                    $(posterType).val('');
+                    courseData.length=0;
+                    
                     result.data.map((item, index) => {
                         // console.log(result)
                         // var d1 = $.Deferred();
