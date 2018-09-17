@@ -134,11 +134,11 @@ $(document).ready(function () {
             error: function (xhr, ajaxOptions, thrownError) {
                 console.info("error.");
                 if (xhr.status == 200) {
-                    alert(ajaxOptions);
+                    console.log(ajaxOptions);
                 }
                 else {
-                    alert(xhr.status);
-                    alert(thrownError);
+                    console.log(xhr.status);
+                    console.log(thrownError);
                 }
             }
         });
@@ -172,11 +172,11 @@ $(document).ready(function () {
             error: function (xhr, ajaxOptions, thrownError) {
                 console.info("error.");
                 if (xhr.status == 200) {
-                    alert(ajaxOptions);
+                    console.log(ajaxOptions);
                 }
                 else {
-                    alert(xhr.status);
-                    alert(thrownError);
+                    console.log(xhr.status);
+                    console.log(thrownError);
                 }
             }
         });
@@ -242,11 +242,11 @@ $(document).ready(function () {
                 console.info("error.");
                 if (xhr.status == 200) {
 
-                    alert(ajaxOptions);
+                    console.log(ajaxOptions);
                 }
                 else {
-                    alert(xhr.status);
-                    alert(thrownError);
+                    console.log(xhr.status);
+                    console.log(thrownError);
                 }
             }
         });
