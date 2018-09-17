@@ -3,6 +3,7 @@ $(document).ready(function () {
   var posterType = ".ielts-test-poster";
   var clientPage = 1;
   var num = 1;
+  let uid = sessionStorage.getItem('uid');
   function getDocCard(name, time, id) {
     // var name = fileaddress.replace(/.*(\/|\\)/, "");
     // var fileExt = (/[.]/.exec(name)) ? /[^.]+$/.exec(name.toLowerCase()) : '';
@@ -36,9 +37,10 @@ $(document).ready(function () {
   // console.log(sessionStorage.getItem('uid'));
   function getAjax(category, clientPage, everyPage) {
     $.ajax({
-      url: "https://kaopeixia.com/webapi/document/getexaminationbysearch",
-      type: "POST",
+      url: "https://kaopeixia.com/webapi/examinationrecord/getexaminationrecordbyuseridx",
+      type: "GET",
       data: {
+        user_id:uid,
         category: category,
         clientPage: clientPage,
         everyPage: everyPage

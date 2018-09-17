@@ -1,4 +1,116 @@
 $(document).ready(function() {
+
+
+  let uid = sessionStorage.getItem("uid");
+  // 获取信息
+  function getAjax() {
+    $.ajax({
+      url: "https://kaopeixia.com/webapi/user/getuserbyid",
+      type: "GET",
+      data: {
+        id: uid
+      },
+      dataType: "json",
+      xhrFields: { withCredentials: true },
+      success: function(result) {
+        if (result.status == "200") {
+          let info = result.data[0];
+          console.log(result);
+          console.log(info);
+          // $("input[name='nickname']").val("mosquito").attr("readonly","readonly");;
+          $(".avatar").attr("src", info.headimg);
+          $("input[name='nickname']").val(info.nickname);
+          $("input[name='username']").val(info.username);
+          $("input[name='phone']").val(info.phone);
+          $("input[name='grade']").val(info.grade);
+          $("input[name='address']").val(info.area);
+          $("input[name='school']").val(info.school);
+        }
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        //On error do this
+        console.info("error.");
+        if (xhr.status == 200) {
+          alert(ajaxOptions);
+        } else {
+          alert(xhr.status);
+          alert(thrownError);
+        }
+      }
+    });
+  }
+  getAjax();
+
+
+
+  $("#pic").click(function() {
+    $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+    $("#upload").on("change", function() {
+      var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+      if (objUrl) {
+        $(".avatar").attr("src", objUrl); //将图片路径存入src中，显示出图片
+      }
+    });
+  });
+  //建立一?可存取到?file的url
+  function getObjectURL(file) {
+    var url = null;
+    if (window.createObjectURL != undefined) {
+      // basic
+      url = window.createObjectURL(file);
+    } else if (window.URL != undefined) {
+      // mozilla(firefox)
+      url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) {
+      // webkit or chrome
+      url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+  }
+
+  $(".update-btn").click(function() {
+    let avatar=$(".avatar").attr("src");
+    let nickname = $("input[name='nickname']").val();
+    let username = $("input[name='username']").val();
+    let phone = $("input[name='phone']").val();
+    let grade = $("input[name='grade']").val();
+    let area = $("input[name='address']").val();
+    let school = $("input[name='school']").val();
+    $.ajax({
+      url: "https://kaopeixia.com/webapi/user/updateuser",
+      type: "POST",
+      data: {
+        id: uid,
+        headimg:avatar,
+        nickname,
+        username,
+        phone,
+        grade,
+        area,
+        school
+      },
+      dataType: "json",
+      xhrFields: { withCredentials: true },
+      success: function(result) {
+        if (result.status == "200") {
+        //   let info = result.data[0];
+          console.log(result);
+        }
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        //On error do this
+        console.info("error.");
+        if (xhr.status == 200) {
+          alert(ajaxOptions);
+        } else {
+          alert(xhr.status);
+          alert(thrownError);
+        }
+      }
+    });
+  });
+});
+
   // var $this = $("#area");
   // var $province = $this.find('select[name="province"]'),
   //     $city = $this.find('select[name="city"]'),
@@ -90,47 +202,9 @@ $(document).ready(function() {
   //         }
   // })
 
-  let uid = sessionStorage.getItem("uid");
-  // 获取信息
-  function getAjax() {
-    $.ajax({
-      url: "https://kaopeixia.com/webapi/user/getuserbyid",
-      type: "GET",
-      data: {
-        id: uid
-      },
-      dataType: "json",
-      xhrFields: { withCredentials: true },
-      success: function(result) {
-        if (result.status == "200") {
-          let info = result.data[0];
-          console.log(result);
-          console.log(info);
-          // $("input[name='nickname']").val("mosquito").attr("readonly","readonly");;
-          $(".avatar").attr("src", info.headimg);
-          $("input[name='nickname']").val(info.nickname);
-          $("input[name='username']").val(info.username);
-          $("input[name='phone']").val(info.phone);
-          $("input[name='grade']").val(info.grade);
-          $("input[name='address']").val(info.area);
-          $("input[name='school']").val(info.school);
-        }
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-        //On error do this
-        console.info("error.");
-        if (xhr.status == 200) {
-          alert(ajaxOptions);
-        } else {
-          alert(xhr.status);
-          alert(thrownError);
-        }
-      }
-    });
-  }
-  getAjax();
 
-  // $('input[name="mobile"]').change(function (e) {
+
+    // $('input[name="mobile"]').change(function (e) {
   //     var mobile = $(this).val();
 
   //     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
@@ -142,31 +216,9 @@ $(document).ready(function() {
 
   // });
 
-  $("#pic").click(function() {
-    $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
-    $("#upload").on("change", function() {
-      var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
-      if (objUrl) {
-        $(".avatar").attr("src", objUrl); //将图片路径存入src中，显示出图片
-      }
-    });
-  });
-  //建立一?可存取到?file的url
-  function getObjectURL(file) {
-    var url = null;
-    if (window.createObjectURL != undefined) {
-      // basic
-      url = window.createObjectURL(file);
-    } else if (window.URL != undefined) {
-      // mozilla(firefox)
-      url = window.URL.createObjectURL(file);
-    } else if (window.webkitURL != undefined) {
-      // webkit or chrome
-      url = window.webkitURL.createObjectURL(file);
-    }
-    return url;
-  }
-    //上传头像到服务器
+
+
+      //上传头像到服务器
     // function upimg() {
     //     console.log(344)
     //     var pic = $('#upload')[0].files[0];
@@ -186,45 +238,3 @@ $(document).ready(function() {
     //         }
     //     });
     // }
-  $(".update-btn").click(function() {
-    let avatar=$(".avatar").attr("src");
-    let nickname = $("input[name='nickname']").val();
-    let username = $("input[name='username']").val();
-    let phone = $("input[name='phone']").val();
-    let grade = $("input[name='grade']").val();
-    let area = $("input[name='address']").val();
-    let school = $("input[name='school']").val();
-    $.ajax({
-      url: "https://kaopeixia.com/webapi/user/updateuser",
-      type: "POST",
-      data: {
-        id: uid,
-        headimg:avatar,
-        nickname,
-        username,
-        phone,
-        grade,
-        area,
-        school
-      },
-      dataType: "json",
-      xhrFields: { withCredentials: true },
-      success: function(result) {
-        if (result.status == "200") {
-        //   let info = result.data[0];
-          console.log(result);
-        }
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-        //On error do this
-        console.info("error.");
-        if (xhr.status == 200) {
-          alert(ajaxOptions);
-        } else {
-          alert(xhr.status);
-          alert(thrownError);
-        }
-      }
-    });
-  });
-});

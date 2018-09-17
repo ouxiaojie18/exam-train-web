@@ -137,12 +137,49 @@ $(document).ready(function() {
       }
     });
   };
+  showComment=(comment_info)=>{
+    const {comment,commentdate,headimg,nickname,comment_reply=[]} = comment_info;
+    let str ="";
+    if(comment_reply.length!=0){
+
+    }
+    
+    $(".comment-list-wrap").append(
+      `
+      <div class="comment comment-list">
+        <img class="avatar" src=${headimg} alt="">
+        <div class="comment-right">
+            <div class="user">
+                <div class="user-info">
+                    <span>${nickname}</span>
+                    <span>${commentdate}</span>
+                </div>
+                <div class="start-list">
+                    <img src="./img/start-active.png" alt="">
+                    <img src="./img/start-active.png" alt="">
+                    <img src="./img/start-active.png" alt="">
+                    <img src="./img/start-active.png" alt="">
+                    <img src="./img/start.png" alt="">
+                </div>
+            </div>
+            <div>
+                ${comment}
+            </div>
+            <div class="replay-list">
+                <p class="replay-title">主讲人回复</p>
+                <p class="replay-content">谢谢支持，我们会继续努力的！</p>
+            </div>
+        </div>
+      </div>
+      `
+    ) 
+  }
   getComment = () => {
     $.ajax({
       url: "https://kaopeixia.com/webapi/comment/getcommentbycoursedetailid",
       type: "GET",
       data: {
-        courselist_id: courseid,
+        coursedetail_id: courseid,
         clientPage: 1,
         everyPage: 20
       },
@@ -150,6 +187,11 @@ $(document).ready(function() {
       xhrFields: { withCredentials: true },
       success: function(result) {
         if (result.status == "200") {
+          let commentData=result.data;
+          commentData.map((index)=>{
+            showComment(index);
+          })
+
           console.log(result);
         }
       },
