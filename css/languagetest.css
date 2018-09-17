@@ -45,6 +45,7 @@
     margin-left:20px;
     padding-bottom: 20px;
     display: inline-block;
+    cursor: pointer;
 }
 
 
@@ -57,6 +58,7 @@
     border-radius: 50%;
     display: inline-block;
 }
+
 /* .adaptive-circle {
     display: inline-block;
     margin: 3% auto 0;

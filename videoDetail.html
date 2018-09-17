@@ -99,6 +99,9 @@
             .class-list {
                 padding: 4% 4.5%;
             }
+            .class-list ul {
+                height: 290px;
+            }
         }
 
         @media (min-width: 1330px) and (max-width: 1599px) {
@@ -116,6 +119,9 @@
             }
             .class-list {
                 padding: 4% 4.5%;
+            }
+            .class-list ul {
+                height: 395px;
             }
         }
 
@@ -139,7 +145,6 @@
             }
             .class-list ul {
                 height: 495px;
-
             }
         }
     </style>
@@ -181,12 +186,16 @@
             </div>
         </div>
         <div class="videodetail wrap-content">
+            <div class="alert"></div>
             <div class="lamp">课程 - 雅思 - 第一期 - 第一期课程之听</div>
             <div class="video-wrap">
                 <!-- <div class="video-part video-card">
                     <video src="https://dl.laobai.com/movie/ebaolife2018072702.mp4" controls="controls">您的浏览器不支持 video 标签。</video>
                 </div> -->
                 <div class="video-part video-card">
+                    <!--<div class="video-part-wrap">
+
+                    </div>-->
                     <!-- https://kpx.oss-cn-beijing.aliyuncs.com/j0769lrl71g      http://vjs.zencdn.net/v/oceans.mp4-->
                     <!-- <video id="my-video aaa" class="video-js vjs-big-play-centered" controls preload="auto" poster="./img/m.jpg" data-setup="{}">
                         <source src="" type="">
@@ -210,9 +219,9 @@
                 </div>
             </div>
             <div class="card-wrap video-card">
-                <p class="detail-title">第一节 如何辨别正确对待雅思考试</p>
-                <p class="detail-person">主讲人：贾建彬</p>
-                <p class="detail-pre">学英语，总是一个看上去简单，做的时候似乎又很难的事情。简单是因为学的时候那些东西你都能看懂，难又是因为，真正动手从零开始接触的时候，又不知道如何运用、从何下手。</p>
+                <!--<p class="detail-title">第一节 如何辨别正确对待雅思考试</p>
+                <p class="detail-person">主讲人：贾建彬</p>-->
+                <!--<p class="detail-pre">学英语，总是一个看上去简单，做的时候似乎又很难的事情。简单是因为学的时候那些东西你都能看懂，难又是因为，真正动手从零开始接触的时候，又不知道如何运用、从何下手。</p>-->
             </div>
             <div class="comment-wrap video-card">
                 <p class="comment-title">学生评价(219)</p>
@@ -267,6 +276,7 @@
         <![endif]-->
 
     <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./js/util.js"></script>
     <script src="./js/videodetail.js"></script>
     <script src="js/video.min.js"></script>
     <script src="http://vjs.zencdn.net/5.19/lang/zh-CN.js"></script>
@@ -281,7 +291,7 @@
         // });
 
     </script>
-
+    
 </body>
 
 </html>

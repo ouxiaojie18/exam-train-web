@@ -59,6 +59,7 @@
     border-radius: 5px;
     line-height: 50px;
     margin-top:15px;
+    cursor: pointer;
 }
 /*视频详情*/
 .detail-title{
@@ -117,6 +118,7 @@
     height: 35px;
     border-radius: 5px;
     line-height: 35px;
+    cursor: pointer;
 }
 
 .user{

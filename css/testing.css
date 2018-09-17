@@ -29,7 +29,6 @@
     line-height: 20px;
     margin: 5px 0;
 
-
 }
 
 .test-anwsers img {
@@ -37,11 +36,7 @@
     height: 20px;
 }
 
-.test-anwsers span {
-    padding-left: 10px;
-    display: inline-block;
-    vertical-align: top;
-}
+
 
 
 .choose {
@@ -121,12 +116,12 @@
     color: #fff;
 }
 
-.modal-content {
+.modal-con {
     width: 360px;
     /* height: 300px; */
     margin: 0 auto;
     position: fixed;
-    top: 200px;
+    top: 50px;
     left: 50%;
     margin-left: -180px;
     /* margin-top: -150px; */

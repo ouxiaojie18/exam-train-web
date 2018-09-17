@@ -69,6 +69,7 @@ $(document).ready(function () {
             xhrFields: { withCredentials: true },
             success: function (result) {
                 if (result.status === "200") {
+                    console.log(result)
                     sessionStorage.setItem('uid', result.uid);
                     window.location.href = "./documentdownload.html";
                 }
