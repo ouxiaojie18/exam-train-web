@@ -71,7 +71,7 @@ $(document).ready(function () {
                 if (result.status === "200") {
                     console.log(result)
                     sessionStorage.setItem('uid', result.uid);
-                    window.location.href = "./documentdownload.html";
+                    window.location.href = "./index.html";
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {

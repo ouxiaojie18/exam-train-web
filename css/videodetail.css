@@ -99,6 +99,13 @@
     margin-left:63px;
     
 }
+.comment-right textarea{
+    margin:15px 0;
+    font-size: 15px;
+}
+.comment-content{
+    margin:5px 0 15px;
+}
 .start-list{
     display: inline-block;
 }
@@ -136,7 +143,11 @@
 .replay-title{
     padding:0 10px;
     border-left: 3px solid #56b949;
+    color:#747474;
+    font-size: 15px;
 }
 .replay-content{
+    margin-top:5px;
     margin-left:10px;
+    font-size: 16px;
 }

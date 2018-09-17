@@ -138,16 +138,32 @@ $(document).ready(function() {
     });
   };
   showComment=(comment_info)=>{
-    const {comment,commentdate,headimg,nickname,comment_reply=[]} = comment_info;
+    const {comment,commentdate,headimg,nickname,comment_reply=[],score} = comment_info;
     let str ="";
-    if(comment_reply.length!=0){
-
+    let scoreStr=""
+    if(comment_reply!=null){
+      comment_reply.map((reply)=>{
+        str +=`
+            <div class="replay-list">
+                <p class="replay-title">主讲人回复</p>
+                <p class="replay-content">${reply}</p>
+            </div>
+        `;
+      })
     }
-    
+    for(let i=0;i<5;i++){
+      if(i<score){
+        scoreStr+=`<img src="./img/start-active.png" alt="">`
+      }else{
+        scoreStr+=`<img src="./img/start.png" alt="">`
+      }
+      
+    }
+    // <img class="avatar" src=${headimg} alt="">
     $(".comment-list-wrap").append(
       `
       <div class="comment comment-list">
-        <img class="avatar" src=${headimg} alt="">
+        <img class="avatar" src="./img/登录注册.png" alt="">
         <div class="comment-right">
             <div class="user">
                 <div class="user-info">
@@ -155,20 +171,13 @@ $(document).ready(function() {
                     <span>${commentdate}</span>
                 </div>
                 <div class="start-list">
-                    <img src="./img/start-active.png" alt="">
-                    <img src="./img/start-active.png" alt="">
-                    <img src="./img/start-active.png" alt="">
-                    <img src="./img/start-active.png" alt="">
-                    <img src="./img/start.png" alt="">
+                    ${scoreStr}
                 </div>
             </div>
-            <div>
+            <div class="comment-content">
                 ${comment}
             </div>
-            <div class="replay-list">
-                <p class="replay-title">主讲人回复</p>
-                <p class="replay-content">谢谢支持，我们会继续努力的！</p>
-            </div>
+            ${str}
         </div>
       </div>
       `

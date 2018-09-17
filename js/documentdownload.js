@@ -14,7 +14,7 @@ $(document).ready(function () {
                     <div class="test-card-left">
                         <div class="test-card-title">${filename}</div>
                         <p>简介：${introduce}</p>
-                        <a href="${fileaddress}" class="start-test" download="${fileaddress}" >下载文档</a>
+                        <a href="https://kpx.oss-cn-beijing.aliyuncs.com/${fileaddress}" class="start-test" download="https://kpx.oss-cn-beijing.aliyuncs.com/${fileaddress}" >下载文档</a>
                     </div>
                     <img src="./img/格式/${fileExt}.png" alt="">
                 </div>
