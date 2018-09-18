@@ -1,12 +1,14 @@
 $(document).ready(function() {
   let videoid = 0,
-      courseid = 0,
-      courselist = "",
-      coursename = "",
-      teacher = "",
-      uid = sessionStorage.getItem("uid"),
-      start_num = 0,
-      type="";
+    courseid = 0,
+    courselist = "",
+    coursename = "",
+    teacher = "",
+    uid = sessionStorage.getItem("uid"),
+    start_num = 0,
+    target_num=0,
+    type = "",
+    filename_active = "";
   //   fail_prompt("请完善收货信息", 1500);
   _getId = () => {
     var query = decodeURI(window.location.search.substring(1));
@@ -29,8 +31,8 @@ $(document).ready(function() {
       if (pair[0] == "type") {
         type = pair[1];
       }
-      if(pair[0] == "from"){
-        from=pair[1];
+      if (pair[0] == "from") {
+        from = pair[1];
       }
     }
     $(".language-from").text(from);
@@ -42,37 +44,29 @@ $(document).ready(function() {
         `);
     return;
   };
-  $(".language-type-page").click(function(){
-    if(from=="课程"){
-      window.location.href="./index.html#"+type;
-    }else if(from=="我的课程"){
-      window.location.href="./myclasses.html#"+type;
+  $(".language-type-page").click(function() {
+    if (from == "课程") {
+      window.location.href = "./index.html#" + type;
+    } else if (from == "我的课程") {
+      window.location.href = "./myclasses.html#" + type;
     }
-  })
+  });
   $(document).on("click", ".course_list_btn", function() {
-    // let videoid = 0;
-    window.location.href =
+    let url =
       "./videoDetail.html?videoid=" +
       this.dataset.videoid +
       "&courseid=" +
-      courseid;
+      courseid +
+      "&coursename=" +
+      coursename +
+      "&teacher=" +
+      teacher +
+      "&type=" +
+      type +
+      "&from=课程";
+    window.location.href = url;
   });
-  getCourseList = video_list => {
-    let str = "";
-    video_list.map((courseItem, index) => {
-      //   console.log(courseItem);
-      const { filename, id } = courseItem;
-      str += `
-            <li class="course_list_btn" data-videoid=${id}>
-                <img src="./img/video.png" alt="">
-                <p>${filename}</p>
-            </li>
-            `;
-    });
-    $(".class-list ul").append(`
-            ${str}
-        `);
-  };
+
   getCourseRight = () => {
     $.ajax({
       url:
@@ -100,7 +94,31 @@ $(document).ready(function() {
       }
     });
   };
-
+  getCourseList = video_list => {
+    let str = "";
+    video_list.map((courseItem, index) => {
+      //   console.log(courseItem);
+      const { filename, id } = courseItem;
+      if (filename_active == filename) {
+        str += `
+            <li class="course_list_btn" data-videoid=${id} >
+                <img src="./img/video-选中.png" alt="">
+                <p>${filename}</p>
+            </li>
+            `;
+      } else {
+        str += `
+            <li class="course_list_btn" data-videoid=${id}>
+                <img src="./img/video.png" alt="">
+                <p>${filename}</p>
+            </li>
+            `;
+      }
+    });
+    $(".class-list ul").append(`
+            ${str}
+        `);
+  };
   getAjax = () => {
     $.ajax({
       url: "https://kaopeixia.com/webapi/coursedetail/getcoursedetailbyid",
@@ -112,9 +130,13 @@ $(document).ready(function() {
       xhrFields: { withCredentials: true },
       success: function(result) {
         if (result.status == "200") {
-          console.log("video",result)
-          let src = "https://v.qq.com/txp/iframe/player.html?vid="+result.data[0].fileaddress;
-          $("#my-videos").attr("src",src)
+          console.log("video", result);
+          filename_active = result.data[0].filename;
+          let src =
+            "https://v.qq.com/txp/iframe/player.html?vid=" +
+            result.data[0].fileaddress;
+          $("#my-videos").attr("src", src);
+          getCourseRight();
           // var videoSrc = "https://dl.laobai.com/movie/ebaolife2018072702.mp4"; //新的视频播放地址
 
           // let videoStr = `
@@ -138,33 +160,39 @@ $(document).ready(function() {
       }
     });
   };
-  showComment=(comment_info)=>{
-    const {comment,commentdate,headimg,nickname,comment_reply=[],score} = comment_info;
-    let str ="";
-    let scoreStr=""
-    if(comment_reply!=null){
-      comment_reply.map((reply)=>{
-        str +=`
+  showComment = comment_info => {
+    const {
+      comment,
+      commentdate,
+      headimg,
+      nickname,
+      comment_reply = [],
+      score
+    } = comment_info;
+    let str = "";
+    let scoreStr = "";
+    if (comment_reply != null) {
+      comment_reply.map(reply => {
+        str += `
             <div class="replay-list">
                 <p class="replay-title">主讲人回复</p>
                 <p class="replay-content">${reply}</p>
             </div>
         `;
-      })
+      });
     }
-    for(let i=0;i<5;i++){
-      if(i<score){
-        scoreStr+=`<img src="./img/start-active.png" alt="">`
-      }else{
-        scoreStr+=`<img src="./img/start.png" alt="">`
+    for (let i = 0; i < 5; i++) {
+      if (i < score) {
+        scoreStr += `<img src="./img/start-active.png" alt="">`;
+      } else {
+        scoreStr += `<img src="./img/start.png" alt="">`;
       }
-      
     }
     // <img class="avatar" src=${headimg} alt="">
     $(".comment-list-wrap").append(
       `
       <div class="comment comment-list">
-        <img class="avatar" src="./img/登录注册.png" alt="">
+        <img class="avatar" src=${headimg} alt="">
         <div class="comment-right">
             <div class="user">
                 <div class="user-info">
@@ -182,8 +210,8 @@ $(document).ready(function() {
         </div>
       </div>
       `
-    ) 
-  }
+    );
+  };
   getComment = () => {
     $.ajax({
       url: "https://kaopeixia.com/webapi/comment/getcommentbycoursedetailid",
@@ -197,10 +225,11 @@ $(document).ready(function() {
       xhrFields: { withCredentials: true },
       success: function(result) {
         if (result.status == "200") {
-          let commentData=result.data;
-          commentData.map((index)=>{
+          let commentData = result.data;
+          $(".comment-title span").text(commentData.length);
+          commentData.map(index => {
             showComment(index);
-          })
+          });
 
           console.log(result);
         }
@@ -220,8 +249,36 @@ $(document).ready(function() {
   _getId();
 
   getAjax();
-  getCourseRight();
+  // getCourseRight();
   getComment();
+
+    function getInfo() {
+    $.ajax({
+      url: "https://kaopeixia.com/webapi/user/getuserbyid",
+      type: "GET",
+      data: {
+        id: uid
+      },
+      dataType: "json",
+      xhrFields: { withCredentials: true },
+      success: function (result) {
+        if (result.status == "200") {
+          $(".avatar")[0].src=result.data[0].headimg;
+        }
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        //On error do this
+        console.info("error.");
+        if (xhr.status == 200) {
+          alert(ajaxOptions);
+        } else {
+          alert(xhr.status);
+          alert(thrownError);
+        }
+      }
+    });
+  }
+  getInfo();
   $(".add-class").click(function() {
     let getDate = new Date();
     let joindate = format(getDate, "yyyy-MM-dd");
@@ -258,6 +315,14 @@ $(document).ready(function() {
     let getDate = new Date();
     let commentdate = format(getDate, "yyyy-MM-dd");
     let comment = $(".comment-input").val();
+    if (comment == "") {
+      fail_prompt("你还没有评论哦~", 1500);
+      return;
+    }
+    if (start_num == 0) {
+      fail_prompt("你还没有评分哦~", 1500);
+      return;
+    }
     $.ajax({
       url: "https://kaopeixia.com/webapi/comment/createcomment",
       type: "POST",
@@ -272,13 +337,14 @@ $(document).ready(function() {
       xhrFields: { withCredentials: true },
       success: function(result) {
         if (result.status == "201") {
+          $(".comment-list-wrap").text("");
           $(".comment-input").val("");
           var imgSrc = "./img/start.png";
           var imgArray = $(".start-list img");
           for (var k = 0; k < imgArray.length; k++) {
             imgArray[k].src = imgSrc;
           }
-          $(".start-list").rateFlag=false;
+          getComment();
         }
       },
       error: function(xhr, ajaxOptions, thrownError) {
@@ -292,37 +358,53 @@ $(document).ready(function() {
       }
     });
   });
-  rate = (obj, oEvent) => {
-    // 图片地址设置
-    var imgSrc = "./img/start.png"; //没有填色的星星
-    var imgSrc_2 = "./img/start-active.png"; //打分后有颜色的星星,这里的star_full图片时实心的有颜色的五星。
-    if (obj.rateFlag) return;
-    var e = oEvent || window.event;
-    var target = e.target || e.srcElement;
-    var imgArray = obj.getElementsByTagName("img");
-    for (var i = 0; i < imgArray.length; i++) {
-      imgArray[i]._num = i;
-      imgArray[i].onclick = function() {
-        if (obj.rateFlag) return;
-        obj.rateFlag = true;
-        start_num = target._num + 1;
-        // console.log("imgArray",target._num)
-      };
-    }
-    if (target.tagName == "IMG") {
-      for (var j = 0; j < imgArray.length; j++) {
-        if (j <= target._num) {
-          imgArray[j].src = imgSrc_2;
+
+  startArray = (num) => {
+    let imgSrc = "./img/start.png"; //没有填色的星星
+    let imgSrc_2 = "./img/start-active.png"; //打分后有颜色的星星,这里的star_full图片时实心的有颜色的五星。
+    let imgArray = $(".start-list img");
+    // if(isClick){
+      for (let j = 0; j < imgArray.length; j++) {
+        if (j <= num - 1) {
+          imgArray.eq(j).attr("src",imgSrc_2);
         } else {
-          imgArray[j].src = imgSrc;
+          imgArray.eq(j).attr("src",imgSrc);
         }
       }
-    } else {
-      for (var k = 0; k < imgArray.length; k++) {
-        imgArray[k].src = imgSrc;
-      }
-    }
+    // }
+
   };
+  $(".start-list img").mouseover(function () {
+      target_num=this.dataset.index;
+      if(target_num<start_num){
+        startArray(start_num);
+      }else{
+        startArray(target_num);
+      }
+      
+  });
+  
+  $(".start-list img").mouseout(function () {
+    if(start_num>0){
+      startArray(start_num);
+    }else{
+      startArray(0);
+    }
+  });
+  $(".start-list img").click(function() {
+    start_num = this.dataset.index;
+    startArray(start_num);
+  });
+  //   for (var i = 0; i < imgArray.length; i++) {
+  //   imgArray[i]._num = i;
+  //   imgArray[i].onclick = function() {
+  //     // if (obj.rateFlag) return;
+  //     obj.rateFlag = true;
+  //     start_num = target._num + 1;
+  //     // return;
+  //     // console.log("imgArray",target._num)
+  //   };
+  // }
 });
 
 // function changeVideo(obj) {

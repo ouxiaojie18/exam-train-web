@@ -22,7 +22,6 @@ $(document).ready(function () {
 
 
     $(document).on("click", ".video-btn", function () {
-        let videoid = 0;
         let url = "./videoDetail.html?videoid=" + this.dataset.videoid + "&courseid=" + this.dataset.parentid + "&coursename=" + encodeURI(this.dataset.coursename) + "&teacher=" + encodeURI(this.dataset.teacher)+ "&type=" + categoryType+"&from=课程";
         window.location.href = url;
 
