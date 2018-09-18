@@ -1,11 +1,12 @@
 $(document).ready(function() {
-  let videoid = 0;
-  let courseid = 0;
-  let courselist = "";
-  let coursename = "";
-  let teacher = "";
-  let uid = sessionStorage.getItem("uid");
-  let start_num = 0;
+  let videoid = 0,
+      courseid = 0,
+      courselist = "",
+      coursename = "",
+      teacher = "",
+      uid = sessionStorage.getItem("uid"),
+      start_num = 0,
+      type="";
   //   fail_prompt("请完善收货信息", 1500);
   _getId = () => {
     var query = decodeURI(window.location.search.substring(1));
@@ -25,13 +26,29 @@ $(document).ready(function() {
       if (pair[0] == "teacher") {
         teacher = pair[1];
       }
+      if (pair[0] == "type") {
+        type = pair[1];
+      }
+      if(pair[0] == "from"){
+        from=pair[1];
+      }
     }
+    $(".language-from").text(from);
+    $(".language-type-page").text(type);
+    $(".language-test-page").text(coursename);
     $(".card-wrap").append(`
             <p class="detail-title">${coursename}</p>
             <p class="detail-person">主讲人：${teacher}</p>
         `);
     return;
   };
+  $(".language-type-page").click(function(){
+    if(from=="课程"){
+      window.location.href="./index.html#"+type;
+    }else if(from=="我的课程"){
+      window.location.href="./myclasses.html#"+type;
+    }
+  })
   $(document).on("click", ".course_list_btn", function() {
     // let videoid = 0;
     window.location.href =
@@ -95,35 +112,19 @@ $(document).ready(function() {
       xhrFields: { withCredentials: true },
       success: function(result) {
         if (result.status == "200") {
-          // let source_list = $("#my-video source");
-          // for (let i = 0; i < source_list.length; i++) {
-          //     // source_list[i].src = result.data[0].fileaddress;
-          //     source_list[i].src = "http://vjs.zencdn.net/v/oceans.mp4"
-          // }
-          // http://vjs.zencdn.net/v/oceans.mp4
-          var videoSrc = "https://dl.laobai.com/movie/ebaolife2018072702.mp4"; //新的视频播放地址
+          console.log("video",result)
+          let src = "https://v.qq.com/txp/iframe/player.html?vid="+result.data[0].fileaddress;
+          $("#my-videos").attr("src",src)
+          // var videoSrc = "https://dl.laobai.com/movie/ebaolife2018072702.mp4"; //新的视频播放地址
 
-          let videoStr = `
-                        <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" poster="./img/m.jpg" data-setup="{}">
-                            <source src=${videoSrc} type="">
-                        </video>
-                    `;
-          $(".video-part").append(videoStr);
-          var myPlayer = videojs("#my-video");
-          myPlayer.load();
-          // videojs("#my-video").ready(function () {
-          //     var myPlayer = this;
-          //     myPlayer.play();
-          // });
-          // document.getElementById("my-video").src= videoSrc;
-          //你在动态赋值src后要加载这个视频文件即:
-          // $("#my-video").load();
-          // //然后在判断是否可以播放了,在播放即:
-          // $("#my-video").addEventListener("canplaythrough", function() {
-          //     $("#my-video").play();
-          // } );
-
-          //   console.log(result);
+          // let videoStr = `
+          //               <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" poster="./img/m.jpg" data-setup="{}">
+          //                   <source src=${videoSrc} type="">
+          //               </video>
+          //           `;
+          // $(".video-part").append(videoStr);
+          // var myPlayer = videojs("#my-video");
+          // myPlayer.load();
         }
       },
       error: function(xhr, ajaxOptions, thrownError) {

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   let uid = sessionStorage.getItem("uid");
   // 获取信息
   function getAjax() {
@@ -10,7 +10,7 @@ $(document).ready(function() {
       },
       dataType: "json",
       xhrFields: { withCredentials: true },
-      success: function(result) {
+      success: function (result) {
         if (result.status == "200") {
           let info = result.data[0];
           console.log(result);
@@ -24,7 +24,7 @@ $(document).ready(function() {
           $("input[name='school']").val(info.school);
         }
       },
-      error: function(xhr, ajaxOptions, thrownError) {
+      error: function (xhr, ajaxOptions, thrownError) {
         //On error do this
         console.info("error.");
         if (xhr.status == 200) {
@@ -38,138 +38,45 @@ $(document).ready(function() {
   }
   getAjax();
 
-  var image = "";
-  var canvas;
-  var base64; //将canvas压缩为base64格式
 
-  $("#pic").click(function() {
+  $("#pic").click(function () {
     $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
-    $("#upload").on("change", function() {
-      let file = this.files[0].lastModifiedDate;
+    $("#upload").on("change", function () {
+      let file = this.files[0];
       var formData = new FormData();
-      formData.append('file',file);
-      console.log(this.files[0].lastModifiedDate);
-      // formData.get('file')
-          $.ajax({
-            url: "https://kaopeixia.com/webapi/file/getfilepath",
-            type: "POST",
-              // async: false,  
-              cache: false,  
-              contentType: false,  
-              processData: false,  
-            data: {
-              "file": formData
-            },
-            // dataType: "json",
-            xhrFields: { withCredentials: true },
-            success: function(data) {
-              console.log("upimg", data);
-              // var res = data;
-            }
-          });
-        });
+      formData.append('file', file);
+      $.ajax({
+        url: "https://kaopeixia.com/webapi/file/getfilepath",
+        type: "POST",
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        xhrFields: { withCredentials: true },
+        success: function (result) {
+          if(result.status==201){
+            $(".avatar").attr("src","https://kaopeixia.com/webapi/"+result.filename);
+          }
+          
+        }
       });
-      // let file = this.files[0];
-      // console.log(this.files[0]);
-      // if (window.FileReader) {
-      //   var reader = new FileReader();
-      //   reader.readAsDataURL(file);
-      //   //监听文件读取结束后事件
-      //   reader.onloadend = function(e) {
-      //     $(".avatar").attr("src", e.target.result); //e.target.result就是最后的路径地址
-      //     $.ajax({
-      //       url: "https://kaopeixia.com/webapi/file/getfilepath",
-      //       type: "POST",
-      //       data: {
-      //         file: e.target.result
-      //       },
-      //       dataType: "json",
-      //       xhrFields: { withCredentials: true },
-      //       success: function(data) {
-      //         console.log("upimg", data);
-      //         var res = data;
-      //       }
-      //     });
-      //   };
-      // }
+    });
+  });
 
+  $('input[name="phone"]').change(function (e) {
+    var mobile = $(this).val();
 
-  //  function selectImg(file){
-
-  //  }
-
-  //建立一?可存取到?file的url
-  function getObjectURL(file) {
-    var url = null;
-    if (window.createObjectURL != undefined) {
-      // basic
-      url = window.createObjectURL(file);
-    } else if (window.URL != undefined) {
-      // mozilla(firefox)
-      url = window.URL.createObjectURL(file);
-    } else if (window.webkitURL != undefined) {
-      // webkit or chrome
-      url = window.webkitURL.createObjectURL(file);
+    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    if (!myreg.test(mobile)) {
+      $(".error-tip").show();
+    } else {
+      $(".error-tip").hide()
     }
-    return url;
-  }
-  // // 这是一个转换base64的一个方法
-  //     function convertBase64UrlToBlob(urlData){
 
-  //         var bytes=window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte
+  });
 
-  //         //处理异常,将ascii码小于0的转换为大于0
-  //         var ab = new ArrayBuffer(bytes.length);
-  //         var ia = new Uint8Array(ab);
-  //         for (var i = 0; i < bytes.length; i++) {
-  //             ia[i] = bytes.charCodeAt(i);
-  //         }
-
-  //         return new Blob( [ab] , {type : 'image/jpeg'});
-  //     }
-  //       //上传头像到服务器
-  //     function upimg() {
-  //         // console.log(344)
-  //         var pic = $('#upload')[0].files[0];
-  //         var file = new FormData();
-  //         file.append('image', pic);
-  //         $.ajax({
-  //             url: "https://kaopeixia.com/webapi/file/getfilepath",
-  //             type: "POST",
-  //             data: file,
-  //             cache: false,
-  //             contentType: false,
-  //             processData: false,
-  //             dataType: "json",
-  //             xhrFields: { withCredentials: true },
-  //             success: function (data) {
-  //                 console.log("upimg",data);
-  //                 var res = data;
-  //                 // $(".avatar").attr("src", res);
-  //                 // $("#resimg").append("<img src='/" + res + "'>")
-  //             }
-  //         });
-  //     }
-
-  // $('.uploadbtn').click(function(){
-  //     //这里用formDate对象向后端传输文件完成交互
-  //     var formDate = new FormData();
-  //     formDate.append('image', convertBase64UrlToBlob(imgdata));
-  //     $.ajax({
-  //         type: 'POST',
-  //         url: 'url',
-  //         data: formDate,
-  //         contentType: false,
-  //         processData: false,
-  //         success: function(data){
-  //             alert(data.data);
-  //         },
-  //         error: function(data){
-  //             alert('error');
-  //         }
-  //     })
-  // })
-  $(".update-btn").click(function() {
+  $(".update-btn").click(function () {
     let avatar = $(".avatar").attr("src");
     console.log("avatar", avatar);
     let nickname = $("input[name='nickname']").val();
@@ -193,14 +100,14 @@ $(document).ready(function() {
       },
       dataType: "json",
       xhrFields: { withCredentials: true },
-      success: function(result) {
+      success: function (result) {
         if (result.status == "200") {
           //   let info = result.data[0];
           getAjax();
           console.log(result);
         }
       },
-      error: function(xhr, ajaxOptions, thrownError) {
+      error: function (xhr, ajaxOptions, thrownError) {
         //On error do this
         console.info("error.");
         if (xhr.status == 200) {
@@ -305,14 +212,4 @@ $(document).ready(function() {
 //         }
 // })
 
-// $('input[name="mobile"]').change(function (e) {
-//     var mobile = $(this).val();
 
-//     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
-//     if (!myreg.test(mobile)) {
-//         $(".error-tip").show();
-//     } else {
-//         $(".error-tip").hide()
-//     }
-
-// });

@@ -65,9 +65,12 @@ $(document).ready(function() {
     timeout = false,
     answers = [],
     uid = sessionStorage.getItem("uid"),
-    store_id=0;
-  let getDate = new Date();
-  let examinationdate = format(getDate, "yyyy-MM-dd HH:mm:ss");
+    store_id=0,
+    type="",
+    from="",
+    time=0,
+    getDate = new Date(),
+    examinationdate = format(getDate, "yyyy-MM-dd HH:mm:ss");
   // let str="A．National Forget About It Week should be held to stop awareness weeks.";
   // let str2="A. called over"
   // // console.log(str.substring(str.indexOf(".") + 1).replace(/^\s*|\s*$/g, ""))
@@ -84,11 +87,39 @@ $(document).ready(function() {
       if (pair[0] == "testname") {
         testname = pair[1];
       }
+      if (pair[0] == "type") {
+        type = pair[1];
+      }
+      if(pair[0] == "from"){
+        from=pair[1];
+      }
+      if(pair[0] == "time"){
+        time=pair[1];
+      }
     }
-    $(".lamp span").text(testname);
+    $(".language-from").text(from);
+    $(".language-type-page").text(type);
+    $(".language-test-page").text(testname);
     $(".testComponent p").text(testname);
+    let hour = parseInt(time/60);
+    if (hour < 10) {
+        hour = "0" + hour;
+    }
+    let minute = time-(60*hour);
+    if (minute < 10) {
+        minute = "0" + hour;
+    }
+    $(".has-time").text(hour+":"+minute+":00");
     return;
   };
+  $(".language-type-page").click(function(){
+    if(from=="语言测评"){
+      window.location.href="./languagetest.html#"+type;
+    }else if(from=="我的测试"){
+      window.location.href="./mytests.html#"+type;
+    }
+    
+  })
   test = testOption => {
     const { title, option1, option2, option3, option4, answer } = testOption;
     let num = title.substring(0, title.indexOf("."));
@@ -256,7 +287,7 @@ $(document).ready(function() {
   }
 
   //调用函数：
-  getCountDown(new Date().getTime() + 1000 * 60 * 60 * 2);
+  getCountDown(new Date().getTime() + 1000 * 60 * time);
   document.addEventListener(
     "visibilitychange",
     function() {

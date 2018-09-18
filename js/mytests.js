@@ -4,6 +4,33 @@ $(document).ready(function () {
   var clientPage = 1;
   var num = 1;
   let uid = sessionStorage.getItem('uid');
+  var hash;
+  hash = window.location.hash ? decodeURI(window.location.hash).substring(1) : "雅思";
+  //调整地址栏地址，使前进、后退按钮能使用 
+  if (hash != "") {
+      switch (hash) {
+          case "托福":
+              $(".language-list li").removeClass("active");
+              $(".language-list li").eq(1).addClass("active");
+
+              getAjax("托福", 1, 12);
+              break;
+          case "日语":
+              $(".language-list li").removeClass("active");
+              $(".language-list li").eq(2).addClass("active");
+              getAjax("日语", 1, 12);
+              break;
+          case "韩语":
+              $(".language-list li").removeClass("active");
+              $(".language-list li").eq(3).addClass("active");
+              getAjax("韩语", 1, 12);
+              break;
+          default:
+              $(".language-list li").removeClass("active");
+              $(".language-list li").eq(0).addClass("active");
+              getAjax("雅思", 1, 12);
+      }
+  }
   function getDocCard(name, time, id) {
     // var name = fileaddress.replace(/.*(\/|\\)/, "");
     // var fileExt = (/[.]/.exec(name)) ? /[^.]+$/.exec(name.toLowerCase()) : '';
@@ -13,7 +40,7 @@ $(document).ready(function () {
                     <div class="test-card-title">${name}</div>
                     <p>满 分：100分</p>
                     <p>测试时长：${time}分钟</p>
-                    <div data-testid=${id} data-testname=${name} class="start-test">开始考试</div>
+                    <div data-testid=${id} data-testname=${name} data-time=${time} class="start-test">开始考试</div>
                 </div>
                 <img src="./img/测试.png" alt="">
             </div>
@@ -107,7 +134,7 @@ $(document).ready(function () {
   }
   getAjax(categoryType, 1, 12);
   $(document).on("click", ".start-test", function () {
-    let url = "./testing.html?testid=" + this.dataset.testid + "&testname=" + this.dataset.testname;
+    let url = "./testing.html?testid=" + this.dataset.testid + "&testname=" + this.dataset.testname+ "&type=" + categoryType+"&from=我的测试&time=" + this.dataset.time;
     window.location.href = url;
   });
   $(document).on("click", ".laquo", function () {
@@ -135,6 +162,7 @@ $(document).ready(function () {
     $(".language-list li").removeClass("active");
     $(this).addClass("active");
     categoryType = $(".language-list .active span").text();
+    window.location.hash = categoryType;
     var index = $(this).data("index");
     $(".test-poster").css("display", "none");
     clientPage = 1;

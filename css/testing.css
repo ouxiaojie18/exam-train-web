@@ -36,7 +36,16 @@
     height: 20px;
 }
 
-
+.lamp a{
+    cursor: pointer;
+    color:#353535;
+}
+.lamp a:hover{
+    color:#56b949;
+}
+.lamp .active{
+    color:#56b949;
+}
 
 
 .choose {

@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="./css/videodetail.css">
     <link href="css/video-js.min.css" rel="stylesheet">
     <style>
-        .vjs-paused .vjs-big-play-button,
+        /* .vjs-paused .vjs-big-play-button,
         .vjs-paused.vjs-has-started .vjs-big-play-button {
             display: block;
         }
@@ -36,17 +36,17 @@
             border-width: 0.15em;
             margin-top: -1.25em;
             margin-left: -1.75em;
-        }
+        } */
 
         /* 中间的播放箭头 */
 
-        .vjs-big-play-button .vjs-icon-placeholder {
+        /* .vjs-big-play-button .vjs-icon-placeholder {
             font-size: 1.63em;
-        }
+        } */
 
         /* 加载圆圈 */
 
-        .vjs-loading-spinner {
+        /* .vjs-loading-spinner {
             font-size: 2.5em;
             width: 2em;
             height: 2em;
@@ -61,7 +61,7 @@
 
         .video-js .vjs-remaining-time {
             display: none;
-        }
+        } */
 
         @media (max-width: 1199px) {
             .video-part {
@@ -73,12 +73,15 @@
                 width: 288px;
                 margin-left: 670px;
             }
-            .my-video-dimensions {
+            iframe {
                 width: 100%;
                 height: 400px;
             }
             .class-list {
                 padding: 11px 15px;
+            }
+            .class-list ul {
+                height: 290px;
             }
         }
 
@@ -92,7 +95,7 @@
                 width: 30%;
                 margin-left: 70%;
             }
-            .my-video-dimensions {
+            iframe {
                 width: 100%;
                 height: 400px;
             }
@@ -113,7 +116,7 @@
                 width: 25%;
                 margin-left: 75%;
             }
-            .my-video-dimensions {
+            iframe {
                 width: 100%;
                 height: 500px;
             }
@@ -136,7 +139,7 @@
                 margin-left: 75%;
 
             }
-            .my-video-dimensions {
+            iframe {
                 width: 100%;
                 height: 600px;
             }
@@ -187,15 +190,13 @@
         </div>
         <div class="videodetail wrap-content">
             <div class="alert"></div>
-            <div class="lamp">课程 - 雅思 - 第一期 - 第一期课程之听</div>
+            <div class="lamp"><a href="./index.html" class="language-from"></a> - <a class="language-type-page"></a> - <a class="language-test-page active"></a></div>
             <div class="video-wrap">
                 <!-- <div class="video-part video-card">
                     <video src="https://dl.laobai.com/movie/ebaolife2018072702.mp4" controls="controls">您的浏览器不支持 video 标签。</video>
                 </div> -->
                 <div class="video-part video-card">
-                    <!--<div class="video-part-wrap">
-
-                    </div>-->
+                        <iframe id="my-videos" frameborder="0" src="" allowFullScreen="true"></iframe>
                     <!-- https://kpx.oss-cn-beijing.aliyuncs.com/j0769lrl71g      http://vjs.zencdn.net/v/oceans.mp4-->
                     <!-- <video id="my-video aaa" class="video-js vjs-big-play-centered" controls preload="auto" poster="./img/m.jpg" data-setup="{}">
                         <source src="" type="">
