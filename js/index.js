@@ -244,7 +244,7 @@ $(document).ready(function () {
                     })
                     $(posterType).append(`
                         <div class="language-poster-big">
-                            <img src="./img/雅思图.png" alt="">
+                            <img src="./img/index图/${categoryType}.png" alt="">
                         </div>
                     `)
                     courseData.map((item, index) => {

@@ -3,7 +3,7 @@ function setAjax(url,type,data,callback) {
     $.ajax({
         url: url,
         type:type,
-        data: JSON.stringify(data),
+        data: data,
         dataType: "json",
         xhrFields: { withCredentials: true },
         success: function (result) {
