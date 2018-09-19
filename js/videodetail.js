@@ -85,7 +85,7 @@ $(document).ready(function () {
     getAjax = () => {
         setAjax("https://kaopeixia.com/webapi/coursedetail/getcoursedetailbyid", "GET", { id: videoid }, function (result) {
             if (result.status == "200") {
-                console.log("video", result);
+                // console.log("video", result);
                 filename_active = result.data[0].filename;
                 let src =
                     "http://v.qq.com/txp/iframe/player.html?vid=" +
@@ -168,7 +168,7 @@ $(document).ready(function () {
                     showComment(index);
                 });
 
-                console.log(result);
+                // console.log(result);
             }
         })
     };
@@ -286,7 +286,7 @@ $(document).ready(function () {
         let hour = Math.floor((t / 1000 / 60 / 60) % 24);
         let min = Math.floor((t / 1000 / 60) % 60);
         let sec = Math.floor((t / 1000) % 60);
-        console.log(hour+"小时"+min+"分钟"+sec+"秒");
+        // console.log(hour+"小时"+min+"分钟"+sec+"秒");
         studytime=hour+"小时"+min+"分钟"+sec+"秒";
         let studydate = format(startTime, "yyyy-MM-dd HH:mm:ss");
         let learnData={
@@ -296,7 +296,7 @@ $(document).ready(function () {
             studytime
         }
         setAjax("https://kaopeixia.com/webapi/studyrecord/createstudyrecord", "POST", learnData, function (result) {
-            console.log(result);
+            // console.log(result);
         })
         // return '确认离开网页？';
     };

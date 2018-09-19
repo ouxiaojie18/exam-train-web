@@ -188,7 +188,7 @@ $(document).ready(function () {
 					});
 					num = Math.ceil(result.pager.sumpage / result.pager.everypage);
 					getPagination(num);
-					console.log($(`${posterType} .page-btn`).eq(clientPage - 1));
+					// console.log($(`${posterType} .page-btn`).eq(clientPage - 1));
 					$(`${posterType} .page-btn`)
 						.eq(clientPage - 1)
 						.css({

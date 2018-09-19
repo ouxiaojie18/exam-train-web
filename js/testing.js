@@ -2,63 +2,63 @@ $(document).ready(function () {
     let testname = "",
         testid = "",
         testLen = 0,
-        doneNum = 0,
+        doneNum = 49,
         // "1":"3",
-        // myobj = {
-        //     // "1":"3",
-        //     "2": "2",
-        //     "3": "0",
-        //     "4": "0",
-        //     "5": "3",
-        //     "6": "1",
-        //     "7": "1",
-        //     "8": "0",
-        //     "9": "0",
-        //     "10": "2",
-        //     "11": "1",
-        //     "12": "0",
-        //     "13": "2",
-        //     "14": "0",
-        //     "15": "3",
-        //     "16": "2",
-        //     "17": "1",
-        //     "18": "0",
-        //     "19": "2",
-        //     "20": "0",
-        //     "21": "0",
-        //     "22": "0",
-        //     "23": "1",
-        //     "24": "2",
-        //     "25": "1",
-        //     "26": "1",
-        //     "27": "2",
-        //     "28": "2",
-        //     "29": "0",
-        //     "30": "1",
-        //     "31": "2",
-        //     "32": "0",
-        //     "33": "0",
-        //     "34": "1",
-        //     "35": "0",
-        //     "36": "1",
-        //     "37": "1",
-        //     "38": "1",
-        //     "39": "2",
-        //     "40": "2",
-        //     "41": "0",
-        //     "42": "0",
-        //     "43": "1",
-        //     "44": "2",
-        //     "45": "1",
-        //     "46": "1",
-        //     "47": "1",
-        //     "48": "0",
-        //     "49": "2",
-        //     "50": "1"
-        // },
+        myobj = {
+            // "1":"3",
+            "2": "2",
+            "3": "0",
+            "4": "0",
+            "5": "3",
+            "6": "1",
+            "7": "1",
+            "8": "0",
+            "9": "0",
+            "10": "2",
+            "11": "1",
+            "12": "0",
+            "13": "2",
+            "14": "0",
+            "15": "3",
+            "16": "2",
+            "17": "1",
+            "18": "0",
+            "19": "2",
+            "20": "0",
+            "21": "0",
+            "22": "0",
+            "23": "1",
+            "24": "2",
+            "25": "1",
+            "26": "1",
+            "27": "2",
+            "28": "2",
+            "29": "0",
+            "30": "1",
+            "31": "2",
+            "32": "0",
+            "33": "0",
+            "34": "1",
+            "35": "0",
+            "36": "1",
+            "37": "1",
+            "38": "1",
+            "39": "2",
+            "40": "2",
+            "41": "0",
+            "42": "0",
+            "43": "1",
+            "44": "2",
+            "45": "1",
+            "46": "1",
+            "47": "1",
+            "48": "0",
+            "49": "2",
+            "50": "1"
+        },
 
         // 
-        myobj={},
+        // myobj={},
         testDate = [],
         score = 0,
         oneScore = 0,
@@ -324,6 +324,7 @@ $(document).ready(function () {
         $(".btn11").click();
         $(".score-num").text(score);
         $(".modal-part").css("display", "block");
+        ans = JSON.stringify(answers);
         $.ajax({
             url: "https://kaopeixia.com/webapi/examinationrecord/createexaminationrecord",
             type: "POST",
@@ -331,10 +332,11 @@ $(document).ready(function () {
                 examination_id: testid,
                 user_id: uid,
                 examinationdate: examinationdate,
-                answers: answers
+                answers: ans
             },
             dataType: "json",
             traditional: true,
+            cache: false,
             xhrFields: { withCredentials: true },
             success: function (result) {
                 if (result.status == "201") {
@@ -368,32 +370,4 @@ $(document).ready(function () {
             test(testOption, index);
         });
     })
-    //   $.ajax({
-    //     url:
-    //       "https://kaopeixia.com/webapi/examinationrecord/geterrorexam",
-    //     type: "GET",
-    //     data: {
-    //       user_id: uid,
-    //       id:store_id,
-    //     },
-    //     dataType: "json",
-    //     traditional: true,
-    //     xhrFields: { withCredentials: true },
-    //     success: function(result) {
-    //       console.log(result);
-    //       // if (result.status == "200") {
-    //       //   console.log(result);
-    //       // }
-    //     },
-    //     error: function(xhr, ajaxOptions, thrownError) {
-    //       console.info("error.");
-    //       if (xhr.status == 200) {
-    //         console.log(ajaxOptions);
-    //       } else {
-    //         console.log(xhr.status);
-    //         console.log(thrownError);
-    //       }
-    //     }
-    //   });
-    // });
 });

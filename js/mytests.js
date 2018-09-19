@@ -5,9 +5,6 @@ $(document).ready(function () {
     var num = 1;
     let uid = sessionStorage.getItem('uid');
     var hash;
-    setAjax("https://kaopeixia.com/webapi/examinationrecord/geterrorexam", "GET", { user_id: uid, id: 107 }, function (result) {
-        console.log(result);
-    })
     hash = window.location.hash ? decodeURI(window.location.hash).substring(1) : "雅思";
     //调整地址栏地址，使前进、后退按钮能使用 
     if (hash != "") {
@@ -34,6 +31,8 @@ $(document).ready(function () {
                 getAjax("雅思", 1, 12);
         }
     }
+    
+    
     function getDocCard(name, time, id) {
         // var name = fileaddress.replace(/.*(\/|\\)/, "");
         // var fileExt = (/[.]/.exec(name)) ? /[^.]+$/.exec(name.toLowerCase()) : '';
@@ -43,7 +42,7 @@ $(document).ready(function () {
                     <div class="test-card-title">${name}</div>
                     <p>满 分：100分</p>
                     <p>测试时长：${time}分钟</p>
-                    <div data-testid=${id} data-testname=${name} data-time=${time} class="start-test">查看错题</div>
+                    <div data-errorid=${id} data-testname=${name} class="start-test">查看错题</div>
                 </div>
                 <img src="./img/测试.png" alt="">
             </div>
@@ -77,7 +76,7 @@ $(document).ready(function () {
                 $(posterType).text("");
                 var data = result.data;
                 data.map((item, index) => {
-                    console.log(item);
+                    // console.log(item);
                     const { name, time, id } = item;
                     getDocCard(name, time, id);
                 });
@@ -119,8 +118,9 @@ $(document).ready(function () {
     }
     getAjax(categoryType, 1, 12);
     $(document).on("click", ".start-test", function () {
-        let url = "./testing.html?testid=" + this.dataset.testid + "&testname=" + this.dataset.testname + "&type=" + categoryType + "&from=我的测试&time=" + this.dataset.time;
+        let url = "./errortest.html?errorid=" + this.dataset.errorid + "&testname=" + this.dataset.testname + "&type=" + categoryType + "&from=我的测试";
         window.location.href = url;
+        // console.log(url)
     });
     $(document).on("click", ".laquo", function () {
         if (clientPage - 1 <= 0) {

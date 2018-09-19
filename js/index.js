@@ -202,7 +202,7 @@ $(document).ready(function () {
             success: function (result) {
                 if (result.status == "200") {
                     // debugger;
-                    console.log(categoryType, clientPage, everyPage)
+                    // console.log(categoryType, clientPage, everyPage)
                     $(posterType).text('');
                     courseData.length = 0;
 
@@ -248,13 +248,13 @@ $(document).ready(function () {
                         </div>
                     `)
                     courseData.map((item, index) => {
-                        console.log(item);
+                        // console.log(item);
                         const { stage, course_line } = item;
                         getCourseTop(stage, categoryType, course_line, );
                     })
                     num = Math.ceil(result.pager.sumpage / result.pager.everypage);
                     getPagination(num);
-                    console.log($(`${posterType} .page-btn`).eq(clientPage - 1));
+                    // console.log($(`${posterType} .page-btn`).eq(clientPage - 1));
                     $(`${posterType} .page-btn`).eq(clientPage - 1).css({
                         zIndex: "2",
                         color: "#23527c",

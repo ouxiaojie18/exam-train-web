@@ -7,7 +7,7 @@ $(document).ready(function () {
     setAjax("https://kaopeixia.com/webapi/user/getuserbyid", "GET", userData, function (result) {
         if (result.status == "200") {
             let info = result.data[0];
-            console.log(result);
+            // console.log(result);
             // $("input[name='nickname']").val("mosquito").attr("readonly","readonly");;
             $(".avatar").attr("src", info.headimg);
             $("input[name='nickname']").val(info.nickname);
@@ -67,7 +67,7 @@ $(document).ready(function () {
 
     $(".update-btn").click(function () {
         let avatar = $(".avatar").attr("src");
-        console.log("avatar", avatar);
+        // console.log("avatar", avatar);
         let nickname = $("input[name='nickname']").val();
         let username = $("input[name='username']").val();
         let phone = $("input[name='phone']").val();
@@ -93,7 +93,7 @@ $(document).ready(function () {
                 if (result.status == "200") {
                     //   let info = result.data[0];
                     getAjax();
-                    console.log(result);
+                    // console.log(result);
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
