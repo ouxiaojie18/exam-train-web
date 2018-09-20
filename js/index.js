@@ -303,7 +303,6 @@ $(document).ready(function () {
             case "托福":
                 $(".language-list li").removeClass("active");
                 $(".language-list li").eq(1).addClass("active");
-
                 getAjax("托福", 1, 12);
                 break;
             case "日语":
@@ -345,7 +344,7 @@ $(document).ready(function () {
             clientPage = clientPage - 1;
         }
 
-        getAjax(categoryType, clientPage, 4)
+        getAjax(categoryType, clientPage, 12)
 
     })
     $(document).on("click", ".raquo", function () {
@@ -354,12 +353,12 @@ $(document).ready(function () {
         } else {
             clientPage = clientPage + 1;
         }
-        getAjax(categoryType, clientPage, 4)
+        getAjax(categoryType, clientPage, 12)
 
     })
     $(document).on("click", ".pagination>li .page-btn", function () {
         clientPage = $(this).text();
-        getAjax(categoryType, clientPage, 4)
+        getAjax(categoryType, clientPage, 12)
     })
     $(".language-list li").click(function () {
         $(".language-list li").removeClass("active");
@@ -382,12 +381,12 @@ $(document).ready(function () {
                 posterType = ".japan-test-poster";
                 $(".japan-test-poster").css('display', 'block');
                 break;
-            case 4:
+            case 12:
                 posterType = ".korea-test-poster";
                 $(".korea-test-poster").css('display', 'block');
                 break;
         }
-        getAjax(categoryType, 1, 4);
+        getAjax(categoryType, 1, 12);
     })
 })
 

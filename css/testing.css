@@ -58,7 +58,10 @@
     color: #6f6f6f;
     font-size: 14px;
     text-align: center;
-    float:right;
+    position: fixed;
+    top:160px;
+    right: 0;
+    margin-right:17%;
 }
 .test-time-tip{
     margin:0 10px;

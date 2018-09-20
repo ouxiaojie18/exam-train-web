@@ -167,6 +167,9 @@
     color: #fff;
     font-size: 12px;
 }
+.video-btn:hover{
+    background: #56b949; 
+}
 .video-btn-wrap .active{
     background: #56b949; 
 }
