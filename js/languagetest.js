@@ -125,7 +125,6 @@ $(document).ready(function() {
       }
     );
   }
-  getAjax(categoryType, 1, 12);
   $(document).on("click", ".start-test", function() {
     let url =
       "./testing.html?testid=" +

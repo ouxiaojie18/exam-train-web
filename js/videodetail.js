@@ -90,7 +90,7 @@ $(document).ready(function () {
                 // console.log("video", result);
                 filename_active = result.data[0].filename;
                 let src =
-                    "http://v.qq.com/txp/iframe/player.html?vid=" +
+                    "https://v.qq.com/txp/iframe/player.html?vid=" +
                     result.data[0].fileaddress;
                 $("#my-videos").attr("src", src);
                 setAjax("https://kaopeixia.com/webapi/coursedetail/getcoursedetailbycourselistidp", "GET", { courselist_id: courseid }, function (result) {

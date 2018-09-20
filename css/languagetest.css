@@ -8,14 +8,40 @@
     color:#56b949;
 }
 
+
+@media (max-width: 1309px) {
+    /* 1248 */
+    .wrap-content{
+        min-width: 985px;
+    }
+    .test-card {
+        width: 31%;
+        margin: 0 20px 20px 0;
+    }
+}
+@media (min-width: 1309px) and (max-width: 1634px) {
+    .test-card {
+        width: 29%;
+        margin: 0 4% 20px 0;
+    }
+}
+@media (min-width: 1634px) {
+    .test-card {
+        width: 23%;
+        margin: 0 20px 20px 0;
+    }
+    
+}
 .test-card{
-    width:31%;
-    margin:0 2% 20px 0; 
+    min-width: 300px;
     display: inline-block;
+    position: relative;
+    height: 146px;
+    overflow: hidden;
 }
 .test-card img{
-    width:25%;
-    padding:3% 4%;
+    width: 33%;
+    padding: 20px 10px;
 }
 .test-card-left{
     width:65%;
@@ -26,6 +52,13 @@
     font-size: 14px;
     margin:10px 0 10px 20px;
     color: #c5c5c5;
+}
+.test-card-left .introduce{
+    font-size: 14px;
+    margin:10px 0 10px 20px;
+    color: #c5c5c5;
+    height: 40px;
+    overflow:auto;
 }
 .test-card-title{
     background: #56b949;

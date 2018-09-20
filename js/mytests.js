@@ -116,7 +116,6 @@ $(document).ready(function () {
             }
         })
     }
-    getAjax(categoryType, 1, 12);
     $(document).on("click", ".start-test", function () {
         let url = "./errortest.html?errorid=" + this.dataset.errorid + "&testname=" + this.dataset.testname + "&type=" + categoryType + "&from=我的测试";
         window.location.href = url;
