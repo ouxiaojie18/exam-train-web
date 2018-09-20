@@ -71,14 +71,13 @@ $(document).ready(function() {
     divWrap.append(ulPagi);
     $(posterType).append(divWrap);
   }
-  // console.log(sessionStorage.getItem('uid'));
   function getAjax(category, clientPage, everyPage) {
     let testData = {
       category: category,
       clientPage: clientPage,
       everyPage: everyPage
     };
-    setAjax("https://kaopeixia.com/webapi/document/getexaminationbysearch","POST",testData,function(result) {
+    wetChatAjax("https://kaopeixia.com/webapi/document/getexaminationbysearch","POST",testData,function(result) {
         if (result.status == "200") {
           // console.info(result);
           $(posterType).text("");

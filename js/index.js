@@ -127,6 +127,9 @@ $(document).ready(function () {
             url: "https://kaopeixia.com/webapi/courselist/getcourselistbyid",
             type: "GET",
             async: false,
+            headers: {
+                'Authorization': 'wechat'
+            },
             data: {
                 'id': item.id,
             },
@@ -153,6 +156,9 @@ $(document).ready(function () {
         $.ajax({
             url: "https://kaopeixia.com/webapi/coursedetail/getcoursedetailbycourselistidp",
             type: "GET",
+            headers: {
+                'Authorization': 'wechat'
+            },
             async: false,
             data: {
                 'courselist_id': item.id,

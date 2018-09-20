@@ -71,6 +71,9 @@ $(document).ready(function () {
         time = 0,
         getDate = new Date(),
         examinationdate = format(getDate, "yyyy-MM-dd HH:mm:ss");
+        if(uid==null){
+            $(".mymodal-part").css("display","block");
+        }
     // let str="A．National Forget About It Week should be held to stop awareness weeks.";
     // let str2="A. called over"
     // // console.log(str.substring(str.indexOf(".") + 1).replace(/^\s*|\s*$/g, ""))

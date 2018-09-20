@@ -11,7 +11,9 @@ $(document).ready(function () {
         filename_active = "",
         startTime=new Date(),
         duration=0;
-
+    if(uid==null){
+        $(".mymodal-part").css("display","block");
+    }
     _getId = () => {
         var query = decodeURI(window.location.search.substring(1));
         var vars = query.split("&");

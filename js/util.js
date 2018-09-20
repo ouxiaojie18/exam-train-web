@@ -62,3 +62,8 @@ format = (time, format) => {
         }
     });
 }
+
+
+$(".mymodal-btn").click(function(){
+    window.location.href="./login.html"
+})
