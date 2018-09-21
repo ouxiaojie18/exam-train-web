@@ -1,27 +1,13 @@
 $(document).ready(function () {
-    //https://kpx.oss-cn-beijing.aliyuncs.com/%E8%80%83%E5%9F%B9%E4%BE%A01zsfrM4TYrp.png
     var categoryType = $(".language-list .active span").text();
     var posterType = ".ielts-test-poster";
     var clientPage = 1;
-    // courseData:[
-    //     {
-    //         stage:"A",
-    //         course_line:{
-    //             course_left:{},
-    //             course:[{
-    //                 course_info:[],
-    //                 course_video:[]
-    //             }],
-    //         },
-    //     }
-    // ]
     var num = 1;
     var courseData = [];
     var hash;
     let videoArr=[];
     let videoNum=7;
     hash = window.location.hash ? decodeURI(window.location.hash).substring(1) : "雅思";
-
 
     $(document).on("click", ".video-btn", function () {
         let url = "./videoDetail.html?videoid=" + this.dataset.videoid + "&courseid=" + $(this).parent()[0].dataset.parentid + "&coursename=" + encodeURI($(this).parent()[0].dataset.coursename) + "&teacher=" + encodeURI($(this).parent()[0].dataset.teacher)+ "&type=" + categoryType+"&from=课程";
@@ -67,25 +53,6 @@ $(document).ready(function () {
             let courseType = courselistname.substring(courselistname.length - 2);
 
             let videoLen = course_video.length;
-            // let videoBtn = '';
-            // let videoId = 0;
-
-            // for (let i = 0; i < videoLen; i++) {
-            //     if (i > 6) {
-            //         videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
-            //         break;
-            //     }
-            //     videoId = course_video[i].id;
-            //     if (i == 0) {
-
-            //         videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn active">1</div>`
-            //     } else if (i == (videoLen - 1)) {
-            //         videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
-            //     } else {
-            //         videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn">${i + 1}</div>`
-            //     }
-            // }
-
             str += `
                 <div class="stage-card video-card">
                     <div class="stage-card-left">
@@ -117,7 +84,6 @@ $(document).ready(function () {
 
             `
         })
-        // ${videoBtn}
         $(posterType).append(`
             <div class="course-content-wrap">
                 <div class="stage-title">
@@ -213,7 +179,6 @@ $(document).ready(function () {
                     }
                     courseData[num].course_line.course.push(obj);
                 }
-                // d2.resolve("Pizza");
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.info("error.");
@@ -241,15 +206,10 @@ $(document).ready(function () {
             },
             success: function (result) {
                 if (result.status == "200") {
-                    // debugger;
-                    // console.log(categoryType, clientPage, everyPage)
                     $(posterType).text('');
                     courseData.length = 0;
 
                     result.data.map((item, index) => {
-                        // console.log(result)
-                        // var d1 = $.Deferred();
-                        // var d2 = $.Deferred();
 
                         let reg = /[A-Z]/g;
                         let stage = item.courselistname.match(reg)[0];
@@ -278,9 +238,6 @@ $(document).ready(function () {
 
                         video_num = courseData[num].course_line.course.length - 1;
                         getCourseLeft(item, num, video_num);
-                        // getCourseRight(item,num, video_num);
-                        // $.when(d1, d2).done(function (v1, v2) {
-                        // });
                     })
                     $(posterType).append(`
                         <div class="language-poster-big">
@@ -288,11 +245,9 @@ $(document).ready(function () {
                         </div>
                     `)
                     courseData.map((item, index) => {
-                        // console.log(item);
                         const { stage, course_line } = item;
                         getCourseTop(stage, categoryType, course_line, );
                     })
-                    console.log(videoArr)
                     let videoBoxWidth=$(".video-btn-wrap").width();
                     videoNum = Math.floor(videoBoxWidth / 41);
                     videoArr.map((videoItem,index)=>{
@@ -300,7 +255,6 @@ $(document).ready(function () {
                     })
                     num = Math.ceil(result.pager.sumpage / result.pager.everypage);
                     getPagination(num);
-                    // console.log($(`${posterType} .page-btn`).eq(clientPage - 1));
                     $(`${posterType} .page-btn`).eq(clientPage - 1).css({
                         zIndex: "2",
                         color: "#23527c",
@@ -337,7 +291,6 @@ $(document).ready(function () {
             }
         });
     }
-    // getAjax(categoryType, 1,4)
     if (hash != "") {
         switch (hash) {
             case "托福":

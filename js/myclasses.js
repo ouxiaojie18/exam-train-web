@@ -1,11 +1,11 @@
+ /* jshint esversion: 6 */
 $(document).ready(function () {
-	let uid = sessionStorage.getItem("uid");
-	//https://kpx.oss-cn-beijing.aliyuncs.com/%E8%80%83%E5%9F%B9%E4%BE%A01zsfrM4TYrp.png
-	var categoryType = $(".language-list .active span").text();
-	var posterType = ".ielts-test-poster";
-	var clientPage = 1;
-	var num = 1;
-	var courseData = [];
+	let uid = sessionStorage.getItem("uid"),
+		categoryType = $(".language-list .active span").text(),
+		posterType = ".ielts-test-poster",
+		clientPage = 1,
+		num = 1,
+		courseData = [];
 	$(document).on("click", ".video-btn", function () {
 		let videoid = 0;
 		let url =
@@ -22,7 +22,7 @@ $(document).ready(function () {
 	getCourseTop = course => {
 		const { coursename, course_info = [] } = course;
 		let str = "";
-		course_info.map(course_info => {
+		course_info.map((course_info) => {
 			const { teacher, id, courselistname, course_video = [] } = course_info;
 			let courseType = courselistname.substring(courselistname.length - 2);
 			let videoLen = course_video.length;
@@ -85,7 +85,6 @@ $(document).ready(function () {
 	};
 
 	getCourseLeft = (item, index) => {
-		//, num, video_num
 		$.ajax({
 			url: "https://kaopeixia.com/webapi/courselist/getcourselistbycourseidx",
 			type: "GET",
@@ -99,11 +98,9 @@ $(document).ready(function () {
 				if (result.status == "200") {
 					courseData[index].course_info = [];
 					courseData[index].course_info = result.data;
-					// console.log("getCourseLeft", courseData)
 					result.data.map((item1, index1) => {
 						getCourseRight(item1, index, index1);
 					});
-					//     getCourseRight(item,num,result.data);
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -118,7 +115,6 @@ $(document).ready(function () {
 		});
 	};
 	getCourseRight = (item, index, index1) => {
-		//,num, course_info
 		$.ajax({
 			url:
 				"https://kaopeixia.com/webapi/coursedetail/getcoursedetailbycourselistid",
@@ -132,7 +128,6 @@ $(document).ready(function () {
 			xhrFields: { withCredentials: true },
 			success: function (result) {
 				courseData[index].course_info[index1].course_video = [];
-				// console.log("getCourseRight", courseData);
 				if (result.status == "200") {
 					courseData[index].course_info[index1].course_video = result.data;
 				}
@@ -169,8 +164,7 @@ $(document).ready(function () {
 						for (var i = 0; i < objcArray.length; i++) {
 							for (var j = i + 1; j < objcArray.length;) {
 								if (objcArray[i].id == objcArray[j].id) {
-									//通过id属性进行匹配；
-									objcArray.splice(j, 1); //去除重复的对象；
+									objcArray.splice(j, 1);
 								} else {
 									j++;
 								}
@@ -183,12 +177,10 @@ $(document).ready(function () {
 						getCourseLeft(item, index);
 					});
 					courseData.map((item, index) => {
-						// console.log(item)
 						getCourseTop(item);
 					});
 					num = Math.ceil(result.pager.sumpage / result.pager.everypage);
 					getPagination(num);
-					// console.log($(`${posterType} .page-btn`).eq(clientPage - 1));
 					$(`${posterType} .page-btn`)
 						.eq(clientPage - 1)
 						.css({
