@@ -186,6 +186,12 @@ $(document).ready(function () {
     getComment();
     getInfo();
 
+    $(".mymodal-cancel").click(function(){
+        window.history.go(-1);
+    })
+    $(".mymodal-login").click(function(){
+        window.location.href="./login.html"
+    })
     $(".add-class").click(function () {
         let getDate = new Date();
         let joindate = format(getDate, "yyyy-MM-dd");

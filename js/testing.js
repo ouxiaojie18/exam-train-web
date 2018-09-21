@@ -73,7 +73,17 @@ $(document).ready(function() {
     examinationdate = format(getDate, "yyyy-MM-dd HH:mm:ss");
   if (uid == null) {
     $(".mymodal-part").css("display", "block");
+  } else {
+    $(window).bind("beforeunload", function() {
+      return "您的测试题尚未提交，确定离开此页面吗？";
+    });
   }
+  $(".mymodal-cancel").click(function() {
+    window.history.go(-1);
+  });
+  $(".mymodal-login").click(function() {
+    window.location.href = "./login.html";
+  });
   // let str="A．National Forget About It Week should be held to stop awareness weeks.";
   // let str2="A. called over"
   // // console.log(str.substring(str.indexOf(".") + 1).replace(/^\s*|\s*$/g, ""))
@@ -174,10 +184,13 @@ $(document).ready(function() {
       });
     }
 
+    {
+      /*<pre data-num=${num} class="test-question" style="white-space:pre-wrap">${title}</pre>*/
+    }
     let str = "";
     str = `
         <div>
-            <div data-num=${num} class="test-question">${title}</div>
+            <div style="white-space:pre-wrap" data-num=${num} class="test-question">${title}</div>
             ${optionStr}
         </div>
     `;
@@ -206,90 +219,202 @@ $(document).ready(function() {
   }
   _getId();
   getAjax();
-//   $(document).on("mouseover mouseout", ".test-ing img", function(event) {
-//     if (event.type == "mouseover") {
-//         console.log($(this).parent().children(".no-choose").css("display"));
-//         if($(this).parent().children(".no-choose").css("display")=="inline-block"){
-//             return;
-//         }
-//         console.log($(this))
-//         $(this).parent().children(".no-choose").css("display", "none");
-//         $(this).parent().children(".choose").css("display", "inline-block");
-        
-//     } else if (event.type == "mouseout") {
-//         $(this).parent().children(".no-choose").css("display", "inline-block");
-//         $(this).parent().children(".choose").css("display", "none");
-//     }
-//   });
-  $(document).on("click", ".test-ing img", function() {
+  $(document).on("mouseover click mouseout", ".test-ing img", function(event) {
     let option = $(this).parent(".test-anwsers")[0].dataset.option;
-    let testnum = $(this)
-      .parent(".test-anwsers")
-      .siblings(".test-question")[0].dataset.num;
-    // console.log(testnum);
-    if (!myobj[testnum]) {
-      doneNum++;
-      $(".done").text(doneNum);
+    if (event.type == "mouseover") {
+      if (
+        $(this)
+          .parent()
+          .children(".no-choose")
+          .css("display") == "inline-block"
+      ) {
+        return;
+      }
+      $(this)
+        .parent()
+        .children(".no-choose")
+        .css("display", "none");
+      $(this)
+        .parent()
+        .children(".choose")
+        .css("display", "inline-block");
+    } else if (event.type == "click") {
+      let option = $(this).parent(".test-anwsers")[0].dataset.option;
+      let testnum = $(this)
+        .parent(".test-anwsers")
+        .siblings(".test-question")[0].dataset.num;
+
+      if (!myobj[testnum]) {
+        doneNum++;
+        $(".done").text(doneNum);
+      }
+      myobj[testnum] = option;
+      console.log($(this), option, testnum, myobj);
+      // if (
+      //   decodeURI(this.src.substring(this.src.indexOf("img/") + 4)) == "选中.png"
+      // )
+      //   return;
+      $(this)
+        .parent(".test-anwsers")
+        .siblings(".test-anwsers")
+        .children(".choose")
+        .css("display", "none");
+      $(this)
+        .parent(".test-anwsers")
+        .siblings(".test-anwsers")
+        .children(".no-choose")
+        .css("display", "inline-block");
+      // $(this).css("display", "none");
+      // $(this)
+      //   .next()
+      //   .css("display", "inline-block");
+      $(this)
+        .parent()
+        .children(".no-choose")
+        .css("display", "none");
+      $(this)
+        .parent()
+        .children(".choose")
+        .css("display", "inline-block");
+    } else if (event.type == "mouseout") {
+      let testnum = $(this)
+        .parent(".test-anwsers")
+        .siblings(".test-question")[0].dataset.num;
+      let option = $(this).parent(".test-anwsers")[0].dataset.option;
+      if (myobj[testnum] != option) {
+        $(this)
+          .parent()
+          .children(".no-choose")
+          .css("display", "inline-block");
+        $(this)
+          .parent()
+          .children(".choose")
+          .css("display", "none");
+      }
     }
-    myobj[testnum] = option;
-    if (decodeURI(this.src.substring(this.src.indexOf("img/") + 4)) == "选中.png")
-      return;
-    $(this)
-      .parent(".test-anwsers")
-      .siblings(".test-anwsers")
-      .children(".choose")
-      .css("display", "none");
-    $(this)
-      .parent(".test-anwsers")
-      .siblings(".test-anwsers")
-      .children(".no-choose")
-      .css("display", "inline-block");
-    $(this).css("display", "none");
-    $(this)
-      .next()
-      .css("display", "inline-block");
   });
-  $(document).on("click", ".test-ing span", function() {
-    let option = $(this)
-      .parent()
-      .parent(".test-anwsers")[0].dataset.option;
-    let testnum = $(this)
-      .parent()
-      .parent(".test-anwsers")
-      .siblings(".test-question")[0].dataset.num;
-    if (!myobj[testnum]) {
-      doneNum++;
-      $(".done").text(doneNum);
-    }
-    myobj[testnum] = option;
-    if (
+  $(document).on("mouseover click mouseout", ".test-ing span", function(event) {
+    if (event.type == "mouseover") {
+      if (
+        $(this)
+          .parent()
+          .siblings(".no-choose")
+          .css("display") == "inline-block"
+      ) {
+        return;
+      }
       $(this)
         .parent()
         .siblings(".no-choose")
-        .css("display") == "none"
-    )
-      return;
-    $(this)
-      .parent()
-      .parent(".test-anwsers")
-      .siblings(".test-anwsers")
-      .children(".choose")
-      .css("display", "none");
-    $(this)
-      .parent()
-      .parent(".test-anwsers")
-      .siblings(".test-anwsers")
-      .children(".no-choose")
-      .css("display", "inline-block");
-    $(this)
-      .parent()
-      .siblings(".choose")
-      .css("display", "inline-block");
-    $(this)
-      .parent()
-      .siblings(".no-choose")
-      .css("display", "none");
+        .css("display", "none");
+      $(this)
+        .parent()
+        .siblings(".choose")
+        .css("display", "inline-block");
+    } else if (event.type == "click") {
+      let option = $(this)
+        .parent()
+        .parent(".test-anwsers")[0].dataset.option;
+      let testnum = $(this)
+        .parent()
+        .parent(".test-anwsers")
+        .siblings(".test-question")[0].dataset.num;
+
+      if (!myobj[testnum]) {
+        doneNum++;
+        $(".done").text(doneNum);
+      }
+      myobj[testnum] = option;
+      console.log($(this), option, testnum, myobj);
+      // if (
+      //   decodeURI(this.src.substring(this.src.indexOf("img/") + 4)) == "选中.png"
+      // )
+      //   return;
+      $(this)
+        .parent()
+        .parent(".test-anwsers")
+        .siblings(".test-anwsers")
+        .children(".choose")
+        .css("display", "none");
+      $(this)
+        .parent()
+        .parent(".test-anwsers")
+        .siblings(".test-anwsers")
+        .children(".no-choose")
+        .css("display", "inline-block");
+      // $(this).css("display", "none");
+      // $(this)
+      //   .next()
+      //   .css("display", "inline-block");
+      $(this)
+        .parent()
+        .siblings(".no-choose")
+        .css("display", "none");
+      $(this)
+        .parent()
+        .siblings(".choose")
+        .css("display", "inline-block");
+    } else if (event.type == "mouseout") {
+      let testnum = $(this)
+        .parent()
+        .parent(".test-anwsers")
+        .siblings(".test-question")[0].dataset.num;
+      let option = $(this)
+        .parent()
+        .parent(".test-anwsers")[0].dataset.option;
+      if (myobj[testnum] != option) {
+        $(this)
+          .parent()
+          .siblings(".no-choose")
+          .css("display", "inline-block");
+        $(this)
+          .parent()
+          .siblings(".choose")
+          .css("display", "none");
+      }
+    }
   });
+  //   $(document).on("click", ".test-ing span", function() {
+  //     let option = $(this)
+  //       .parent()
+  //       .parent(".test-anwsers")[0].dataset.option;
+  //     let testnum = $(this)
+  //       .parent()
+  //       .parent(".test-anwsers")
+  //       .siblings(".test-question")[0].dataset.num;
+  //     if (!myobj[testnum]) {
+  //       doneNum++;
+  //       $(".done").text(doneNum);
+  //     }
+  //     myobj[testnum] = option;
+  //     if (
+  //       $(this)
+  //         .parent()
+  //         .siblings(".no-choose")
+  //         .css("display") == "none"
+  //     )
+  //       return;
+  //     $(this)
+  //       .parent()
+  //       .parent(".test-anwsers")
+  //       .siblings(".test-anwsers")
+  //       .children(".choose")
+  //       .css("display", "none");
+  //     $(this)
+  //       .parent()
+  //       .parent(".test-anwsers")
+  //       .siblings(".test-anwsers")
+  //       .children(".no-choose")
+  //       .css("display", "inline-block");
+  //     $(this)
+  //       .parent()
+  //       .siblings(".choose")
+  //       .css("display", "inline-block");
+  //     $(this)
+  //       .parent()
+  //       .siblings(".no-choose")
+  //       .css("display", "none");
+  //   });
   // 倒计时
   var timer = null;
   var t = 0;
@@ -437,8 +562,5 @@ $(document).ready(function() {
       // console.log(testOption);
       test(testOption, index);
     });
-  });
-  $(window).bind("beforeunload", function() {
-    return "您的测试题尚未提交，确定离开此页面吗？";
   });
 });

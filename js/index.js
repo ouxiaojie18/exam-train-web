@@ -3,7 +3,6 @@ $(document).ready(function () {
     var categoryType = $(".language-list .active span").text();
     var posterType = ".ielts-test-poster";
     var clientPage = 1;
-    let n=0;
     // courseData:[
     //     {
     //         stage:"A",
@@ -19,14 +18,43 @@ $(document).ready(function () {
     var num = 1;
     var courseData = [];
     var hash;
+    let videoArr=[];
+    let videoNum=7;
     hash = window.location.hash ? decodeURI(window.location.hash).substring(1) : "雅思";
 
 
     $(document).on("click", ".video-btn", function () {
-        let url = "./videoDetail.html?videoid=" + this.dataset.videoid + "&courseid=" + this.dataset.parentid + "&coursename=" + encodeURI(this.dataset.coursename) + "&teacher=" + encodeURI(this.dataset.teacher)+ "&type=" + categoryType+"&from=课程";
+        let url = "./videoDetail.html?videoid=" + this.dataset.videoid + "&courseid=" + $(this).parent()[0].dataset.parentid + "&coursename=" + encodeURI($(this).parent()[0].dataset.coursename) + "&teacher=" + encodeURI($(this).parent()[0].dataset.teacher)+ "&type=" + categoryType+"&from=课程";
         window.location.href = url;
 
     })
+    getVideoBtn=(videoItem,index)=>{
+        let videoLen = videoItem.length;
+        let videoBtn = '';
+        let videoId = 0;
+        if(videoLen==0){
+            videoBtn="课程即将上线，敬请期待！"
+        }else{
+        for (let i = 0; i < videoLen; i++) {
+            if (i > videoNum-1) {
+                videoBtn += `<div data-videoid="all" class="video-btn">全部</div>`
+                break;
+            }
+            videoId = videoItem[i].id;
+            if (i == 0) {
+
+                videoBtn += `<div data-videoid=${videoId} class="video-btn active">1</div>`
+            } else if (i == (videoLen - 1)) {
+                videoBtn += `<div data-videoid="all" class="video-btn">全部</div>`
+            } else {
+                videoBtn += `<div data-videoid=${videoId} class="video-btn">${i + 1}</div>`
+            }
+        }
+        }
+
+
+        $(".video-btn-wrap").eq(index).append(videoBtn);
+    }
     getCourseTop = (stage, categoryType, course_line) => {
         const { course_left, course } = course_line;
         const { coursename, teacher } = course_left;
@@ -39,28 +67,24 @@ $(document).ready(function () {
             let courseType = courselistname.substring(courselistname.length - 2);
 
             let videoLen = course_video.length;
-            let videoBtn = '';
-            let videoId = 0;
-            if(videoLen==0){
-                videoBtn="课程即将上线，敬请期待！"
-            }else{
-            for (let i = 0; i < videoLen; i++) {
-                if (i > 6) {
-                    videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
-                    break;
-                }
-                videoId = course_video[i].id;
-                if (i == 0) {
+            // let videoBtn = '';
+            // let videoId = 0;
 
-                    videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn active">1</div>`
-                } else if (i == (videoLen - 1)) {
-                    videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
-                } else {
-                    videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn">${i + 1}</div>`
-                }
-            }
-            }
+            // for (let i = 0; i < videoLen; i++) {
+            //     if (i > 6) {
+            //         videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
+            //         break;
+            //     }
+            //     videoId = course_video[i].id;
+            //     if (i == 0) {
 
+            //         videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn active">1</div>`
+            //     } else if (i == (videoLen - 1)) {
+            //         videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
+            //     } else {
+            //         videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn">${i + 1}</div>`
+            //     }
+            // }
 
             str += `
                 <div class="stage-card video-card">
@@ -86,14 +110,14 @@ $(document).ready(function () {
                         </div>
                     </div>
                     <img src="./img/图层 7.png" alt="">
-                    <div class="video-btn-wrap">
-                        ${videoBtn}
+                    <div  data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} class="video-btn-wrap">
+                        
                     </div>
                 </div>
 
             `
         })
-        // 
+        // ${videoBtn}
         $(posterType).append(`
             <div class="course-content-wrap">
                 <div class="stage-title">
@@ -172,13 +196,17 @@ $(document).ready(function () {
             dataType: "json",
             xhrFields: { withCredentials: true },
             success: function (result) {
+                
                 if (result.status == "200") {
+                    videoArr.push(result.data);
+                    
                     let obj = {
                         course_info,
                         course_video: result.data
                     }
                     courseData[num].course_line.course.push(obj);
                 } else {
+                    videoArr.push([]);
                     let obj = {
                         course_info,
                         course_video: []
@@ -263,6 +291,12 @@ $(document).ready(function () {
                         // console.log(item);
                         const { stage, course_line } = item;
                         getCourseTop(stage, categoryType, course_line, );
+                    })
+                    console.log(videoArr)
+                    let videoBoxWidth=$(".video-btn-wrap").width();
+                    videoNum = Math.floor(videoBoxWidth / 41);
+                    videoArr.map((videoItem,index)=>{
+                        getVideoBtn(videoItem,index);
                     })
                     num = Math.ceil(result.pager.sumpage / result.pager.everypage);
                     getPagination(num);
