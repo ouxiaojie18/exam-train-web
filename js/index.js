@@ -3,6 +3,7 @@ $(document).ready(function () {
     var categoryType = $(".language-list .active span").text();
     var posterType = ".ielts-test-poster";
     var clientPage = 1;
+    let n=0;
     // courseData:[
     //     {
     //         stage:"A",
@@ -40,7 +41,9 @@ $(document).ready(function () {
             let videoLen = course_video.length;
             let videoBtn = '';
             let videoId = 0;
-
+            if(videoLen==0){
+                videoBtn="课程即将上线，敬请期待！"
+            }else{
             for (let i = 0; i < videoLen; i++) {
                 if (i > 6) {
                     videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
@@ -56,6 +59,8 @@ $(document).ready(function () {
                     videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn">${i + 1}</div>`
                 }
             }
+            }
+
 
             str += `
                 <div class="stage-card video-card">
@@ -88,6 +93,7 @@ $(document).ready(function () {
 
             `
         })
+        // 
         $(posterType).append(`
             <div class="course-content-wrap">
                 <div class="stage-title">

@@ -1,7 +1,7 @@
 @media (max-width: 1329px) {
     .stage-card{
-        width:80%;
-        margin-left:3%;  
+        width:60%;
+        margin-left:5%;  
     }
 }
 @media (min-width: 1329px) and (max-width: 1776px) {
@@ -170,7 +170,14 @@
 .video-btn:hover{
     background: #56b949; 
 }
+.video-btn-wrap{
+    /*display:flex;
+    justify-content: space-between;*/
+    text-align: center;
+    font-size: 12px;
+}
 .video-btn-wrap .active{
+
     background: #56b949; 
 }
 .video-btn:active{

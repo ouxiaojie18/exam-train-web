@@ -36,6 +36,10 @@
     height: 20px;
 }
 
+.test-anwsers span {
+    cursor: pointer;
+}
+
 .lamp a{
     cursor: pointer;
     color:#353535;
