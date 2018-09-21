@@ -64,4 +64,24 @@ format = (time, format) => {
 }
 
 
-
+let uid = sessionStorage.getItem('uid');
+console.log(uid)
+if(uid!=null){
+    $(".sign-in-wrap").css("display","none");
+    $(".user-wrap").css("display","inline-block");
+    setAjax("https://kaopeixia.com/webapi/user/getuserbyid", "GET", { id: uid }, function (result) {
+        if (result.status == "200") {
+            $(".user-avatar")[0].src = result.data[0].headimg;
+            $(".user-nickname").text(result.data[0].nickname)
+            console.log(result)
+        }
+    })
+}else{
+    $(".sign-in-wrap").css("display","inline-block");
+    $(".user-wrap").css("display","none");
+}
+$(".sign-up").click(function(){
+    sessionStorage.removeItem("uid");
+    $(".sign-in-wrap").css("display","inline-block");
+    $(".user-wrap").css("display","none");
+})
