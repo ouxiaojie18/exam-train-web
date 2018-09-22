@@ -1,28 +1,28 @@
 $(document).ready(function() {
-  //写cookies，一个小时过期
-  function setCookie(name, value) {
-    var exp = new Date();
-    exp.setTime(exp.getTime() + 60 * 60 * 1000);
-    document.cookie =
-      name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ";path=/";
-  }
-  //读取cookies
-  function getCookie(name) {
-    var arr,
-      reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+    let my_code=""
+    //   _getId = () => {
+    //     var query = decodeURI(window.location.search.substring(1));
+    //     var vars = query.split("&");
 
-    if ((arr = document.cookie.match(reg))) return unescape(arr[2]);
-    else return null;
-  }
-  //删除cookies
-  function delCookie(name) {
-    var exp = new Date();
-    exp.setTime(exp.getTime() - 60 * 60 * 1000);
-    var cval = getCookie(name);
-    if (cval != null)
-      document.cookie =
-        name + "=" + cval + ";expires=" + exp.toGMTString() + ";path=/";
-  }
+    //     for (var i = 0; i < vars.length; i++) {
+    //         var pair = vars[i].split("=");
+    //         if (pair[0] == "code") {
+    //             my_code = pair[1];
+    //         }
+    //     }
+    //     return;
+    // };
+    // if(my_code!=""){
+    //     let data={
+    //         appid:"wx2b9c8cd08c79022b",
+    //         secret:"23ce8d416477b572a80edea4ca789bb6",
+    //         code:my_code,
+    //         grant_type:authorization_code
+    //     }
+    //     setAjax("https://api.weixin.qq.com/sns/oauth2/access_token", "GET", data, function (result) {
+    //         console.log(result)
+    //     })
+    // }
   $('input[name="phone"]').change(function(e) {
     var mobile = $(this).val();
 
@@ -52,8 +52,9 @@ $(document).ready(function() {
       id: "login_container",
       appid: "wx2b9c8cd08c79022b",
       scope: "snsapi_login",
-      redirect_uri: "http%3a%2f%2fwww.kaopeixia.com"
+      redirect_uri: "https%3a%2f%2fkaopeixia.com%2fwebapi%2fopenid%2fgetwebtoken"
     });
+    // https%3a%2f%2fkaopeixia.com%2flogin.html
     console.log(obj);
     $(".user-phone-login").css("display", "none");
     $(".phone-btn").removeClass("active");
