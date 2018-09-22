@@ -68,7 +68,12 @@
     font-size: 15px;
     margin-left:22px;
 }
-
+.sign-up{
+    color:#bdbdbd;
+    font-size: 15px;
+    margin-left:22px;
+    cursor: pointer;
+}
 
 /* 左侧导航栏 */
 .left-nav ul{
@@ -120,3 +125,14 @@
 	width:960px;
 	height: 80vh;
 } */
+.user-wrap{
+     /*display:inline-block;*/
+     display: none;
+}
+.user-wrap .user-avatar{
+    border-radius: 100%;
+    width:45px;
+    height:45px;
+    vertical-align:middle;
+    margin-right:10px;
+}

@@ -12,6 +12,9 @@
     height: 100%;
     top:-32px;
 }
+.phone-box{
+    margin-bottom: 20px;
+}
 .login-logo{
     position: absolute;
     top:50%;
@@ -56,11 +59,11 @@
     border: 1px solid #d2d2d2;
     width: 250px;
     display: block;
-    margin:0 auto 20px;
+    margin:0 auto;
 }
-.user-login .pwd{
+/*.user-login .pwd{
     margin-bottom:30px;
-}
+}*/
 .login-btn{
     display: inline-block;
     background:#56b949;
