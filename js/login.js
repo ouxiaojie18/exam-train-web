@@ -45,7 +45,7 @@ $(document).ready(function() {
       id: "login_container",
       appid: "wx2b9c8cd08c79022b",
       scope: "snsapi_login",
-      redirect_uri: "http%3a%2f%2fwww.kaopeixia.com"
+      redirect_uri: "https%3a%2f%2fwww.kaopeixia.com"
     });
     console.log(obj);
     $(".phone-part").css("display", "none");

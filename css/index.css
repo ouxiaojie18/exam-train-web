@@ -26,14 +26,11 @@
 .language-list .active{
     color:#56b949;
 }
-/* .language-poster-big img:not(:first-child){
-    display: none;
-} */
 .language-poster-big img{
     width: 100%;
 }
 
-/*阶段视频*/
+
 .stage-title{
     margin:30px 0 20px;
 }
@@ -119,7 +116,7 @@
     vertical-align: top;
 }
 
-/*视频阶段卡片*/
+
 .stage-card-list{
     margin-left: 330px;
 }
@@ -171,8 +168,6 @@
     background: #56b949; 
 }
 .video-btn-wrap{
-    /*display:flex;
-    justify-content: space-between;*/
     text-align: center;
     font-size: 12px;
 }
