@@ -34,24 +34,31 @@ $(document).ready(function() {
     }
   });
   $(".phone-btn").click(function() {
-    $(".wechat-part").css("display", "none");
+    $(".user-phone-login").css("display", "inline-block");
+    $(".user-wechat-login").css("display", "none");
     $(".wechat-btn").removeClass("active");
-    $(".phone-part").css("display", "block");
-    $(this).addClass("active");
+     $(".phone-part").css("display", "block");
+    $(".phone-btn").addClass("active");
+    
+   
+    
   });
   $(".wechat-btn").click(function() {
+    // https://open.weixin.qq.com/connect/qrconnect?appid=wx2b9c8cd08c79022b&redirect_uri=http%3a%2f%2fwww.kaopeixia.com&response_type=code&scope=snsapi_login#wechat_redirect
+// https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx2b9c8cd08c79022b&secret=23ce8d416477b572a80edea4ca789bb6&code=0618HuA20CIr3E1IMCB20ae5A208HuAq&grant_type=authorization_code
+    $(".user-wechat-login").css("display", "inline-block");
     var obj = new WxLogin({
       self_redirect: true,
       id: "login_container",
       appid: "wx2b9c8cd08c79022b",
       scope: "snsapi_login",
-      redirect_uri: "https%3a%2f%2fwww.kaopeixia.com"
+      redirect_uri: "http%3a%2f%2fwww.kaopeixia.com"
     });
     console.log(obj);
-    $(".phone-part").css("display", "none");
+    $(".user-phone-login").css("display", "none");
     $(".phone-btn").removeClass("active");
     $(".wechat-part").css("display", "block");
-    $(this).addClass("active");
+    $(".wechat-btn").addClass("active");
   });
   $(".login-link").click(function() {
     $(".user-register").css("display", "none");
