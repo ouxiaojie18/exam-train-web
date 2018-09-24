@@ -65,7 +65,6 @@ format = (time, format) => {
 
 
 let uid = sessionStorage.getItem('uid');
-console.log(uid)
 if(uid!=null){
     $(".sign-in-wrap").css("display","none");
     $(".user-wrap").css("display","inline-block");

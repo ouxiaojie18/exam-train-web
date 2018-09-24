@@ -59,51 +59,51 @@
         </div>
         <div class="login-part">
             <img src="./img/登录注册.png" class="login-logo" alt="">
-            <div class="login-right video-card user-phone-login">
-                <h2>用户登录</h2>
-                <div class="choose-login">
-                    <span class="phone-btn active">手机账号登录</span>
-                    <span class="wechat-btn">微信扫码登录</span>
-                </div>
-                <div class="phone-part">
-                    <div class="phone-box">
-                        <input name="phone" placeholder="请输入手机号" type="text">
-                        <span class="error-tip err_phone">请输入正确手机号码</span>
-                    </div>
-                    <div class="phone-box">
-                        <input name="pwd" class="pwd" placeholder="请输入密码" type="password">
-                        <span class="error-tip err_pwd">密码错误</span>
-                    </div>
-                    <div class="login-btn">登录</div>
-                </div>
-                <p class="to-register">还没有账号？点击<span class="register-link">立即注册</span></p>
-            </div>
 
-            <div class="login-right video-card user-wechat-login">
-                <h2>用户登录</h2>
-                <div class="choose-login">
-                    <span class="phone-btn">手机账号登录</span>
-                    <span class="wechat-btn active">微信扫码登录</span>
+            <!--<div class="login-right video-card user-register">
+                <h2>用户注册</h2>
+                <div class="register-part" id="login_container">
                 </div>
-                <div class="wechat-part" id="login_container">
-                    <!--<img class="erweima" src="./img/登录注册.png" alt="">
-                    <div class="erweima-logo-wrap">
-                        <img class="erweima-logo" src="./img/扫码.png" alt="">
-                        <span>打开微信客户端扫码登录</span>
-                    </div>-->
+                <p class="to-register">已有账号？点击<span class="login-link">登录</span></p>
+            </div>-->
+            <div class="login-right video-card user-info">
+                <h3></h3>
+                <div class="info">
+                    <h4>完善你的信息，以后就可以使用</h4>
+                    <h4>手机号登录考培侠了</h4>
                 </div>
-                <p class="to-register">还没有账号？点击<span class="register-link">立即注册</span></p>
+
+                <div class="phone-part">
+                    <input name="phone" placeholder="请输入手机号" type="text">
+                    <span class="error-tip err_phone">请输入正确手机号码</span>
+                    <div class="code">
+                        <input placeholder="请输入验证码" type="text">
+                        <span>获取验证码</span>
+                    </div>
+
+                    <input class="pwd"  name="pwd" placeholder="请输入密码" type="password">
+                    <div class="login-btn" style="margin:20px auto 0;">进入考培侠</div>
+                </div>
             </div>
         </div>
     </div>
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+    <!--<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+    <script>
+        var obj = new WxLogin({
+            self_redirect: true,
+            id: "login_container",
+            appid: "wx2b9c8cd08c79022b",
+            scope: "snsapi_login",
+            redirect_uri: "https%3a%2f%2fkaopeixia.com%2fwebapi%2fopenid%2fgetwebtoken"
+        });
+    </script>-->
     <script src="./js/jquery-3.3.1.min.js"></script>
     <script src="./js/ajax.js"></script>
     <script src="./js/util.js"></script>
-    <script src="./js/login.js"></script>
+    <script src="./js/register.js"></script>
 
 </body>
 

@@ -59,7 +59,8 @@ $(document).ready(function () {
   function getDocCard(filename, introduce, fileaddress,index) {
     var name = fileaddress.replace(/.*(\/|\\)/, "");
     var fileExt = /[.]/.exec(name) ? /[^.]+$/.exec(name.toLowerCase()) : "";
-
+    console.log(introduce)
+// ${introduce}
     $(posterType).append(`
                 <div class="video-card test-card">
                     <div class="test-card-left">
@@ -76,14 +77,14 @@ $(document).ready(function () {
     // console.log(el,n,p[0].scrollHeight)
     // debugger;
     
-    for (i = 0; i < introduce.length; i++) {
-      p[0].innerHTML = introduce.substr(0, i);
-      if (n < p[0].scrollHeight) {
-        p[0].style.overflow = 'hidden';
-        p[0].innerHTML = introduce.substr(0, i - 3) + '...';
-        break;
-      }
-    }
+    // for (i = 0; i < introduce.length; i++) {
+    //   p[0].innerHTML = introduce.substr(0, i);
+    //   if (n < p[0].scrollHeight) {
+    //     p[0].style.overflow = 'hidden';
+    //     p[0].innerHTML = introduce.substr(0, i - 3) + '...';
+    //     break;
+    //   }
+    // }
   }
 
   function getPagination(num) {
@@ -108,11 +109,12 @@ $(document).ready(function () {
     };
     wetChatAjax("https://kaopeixia.com/webapi/document/getdocumentbysearch", "POST", documentData, function (result) {
       if (result.status == "200") {
-        console.info(result);
+        // console.info(result);
         $(posterType).text("");
         var data = result.data;
         data.map((item, index) => {
           const { filename, introduce, fileaddress } = item;
+          console.log(item);
           getDocCard(filename, introduce, fileaddress,index);
         });
         num = Math.ceil(result.pager.sumpage / result.pager.everypage);

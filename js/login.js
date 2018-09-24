@@ -39,9 +39,6 @@ $(document).ready(function() {
     $(".wechat-btn").removeClass("active");
      $(".phone-part").css("display", "block");
     $(".phone-btn").addClass("active");
-    
-   
-    
   });
   $(".wechat-btn").click(function() {
     // https://open.weixin.qq.com/connect/qrconnect?appid=wx2b9c8cd08c79022b&redirect_uri=http%3a%2f%2fwww.kaopeixia.com&response_type=code&scope=snsapi_login#wechat_redirect
@@ -66,41 +63,7 @@ $(document).ready(function() {
     $(".user-login").css("display", "block");
   });
   $(".register-link").click(function() {
-    // var obj = new WxLogin({
-    //   self_redirect: true,
-    //   id: "login_container",
-    //   appid: "wx2b9c8cd08c79022b",
-    //   scope: "snsapi_login",
-    //   redirect_uri: "http%3a%2f%2fwww.kaopeixia.com"
-    // });
-    // console.log(obj);
-    // $.ajax({
-    //   url: "https://kaopeixia.com/webapi/login/login",
-    //   type: "GET",
-    //   data: {
-    //     nickname: "admin",
-    //     userpassword: "admin123"
-    //   },
-    //   dataType: "json",
-    //   xhrFields: { withCredentials: true },
-    //   success: function(result) {
-    //     if (result.status === "200") {
-    //       console.log(result);
-    //       sessionStorage.setItem("uid", result.uid);
-    //       window.location.href = "./index.html";
-    //     }
-    //   },
-    //   error: function(xhr, ajaxOptions, thrownError) {
-    //     if (xhr.status == 200) {
-    //       console.log(ajaxOptions);
-    //     } else {
-    //       console.log(xhr.status);
-    //       console.log(thrownError);
-    //     }
-    //   }
-    // });
-    $(".user-login").css("display", "none");
-    $(".user-register").css("display", "block");
+
   });
   $(".login-btn").click(function() {
     let phone = $("input[name='phone']").val();

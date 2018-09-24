@@ -18,24 +18,23 @@ $(document).ready(function () {
         let videoLen = videoItem.length;
         let videoBtn = '';
         let videoId = 0;
+        
         if(videoLen==0){
             videoBtn="课程即将上线，敬请期待！"
         }else{
-        for (let i = 0; i < videoLen; i++) {
-            if (i > videoNum-1) {
-                videoBtn += `<div data-videoid="all" class="video-btn">全部</div>`
-                break;
+            let video_one=videoItem[0].id;
+            for (let i = 0; i < videoLen; i++) {
+                videoId = videoItem[i].id;
+                if (i == 0) {
+                    videoBtn += `<div data-videoid=${videoId} class="video-btn active">1</div>`
+                }else {
+                    videoBtn += `<div data-videoid=${videoId} class="video-btn">${i + 1}</div>`
+                }
+                if (i >= videoNum-1) {
+                    videoBtn += `<div data-videoid=${video_one} class="video-btn">全部</div>`
+                    break;
+                }
             }
-            videoId = videoItem[i].id;
-            if (i == 0) {
-
-                videoBtn += `<div data-videoid=${videoId} class="video-btn active">1</div>`
-            } else if (i == (videoLen - 1)) {
-                videoBtn += `<div data-videoid="all" class="video-btn">全部</div>`
-            } else {
-                videoBtn += `<div data-videoid=${videoId} class="video-btn">${i + 1}</div>`
-            }
-        }
         }
 
 
@@ -84,6 +83,7 @@ $(document).ready(function () {
 
             `
         })
+        // debugger;
         $(posterType).append(`
             <div class="course-content-wrap">
                 <div class="stage-title">
@@ -93,7 +93,7 @@ $(document).ready(function () {
                     </p>
                 </div>
                 <div class="stage-left">
-                    <img src="./img/图层 5 拷贝.png" alt="">
+                    <img src="./img/图层 5 拷贝.png" alt="" style="height: 275px;">
                     <div class="stage-left-info-wrap">
                         <img class="poster-bottom" src="./img/海报底部.png" alt="">
                         <div class="poster-letter">
@@ -244,7 +244,9 @@ $(document).ready(function () {
                             <img src="./img/index图/${categoryType}.png" alt="">
                         </div>
                     `)
+                    console.log(courseData)
                     courseData.map((item, index) => {
+
                         const { stage, course_line } = item;
                         getCourseTop(stage, categoryType, course_line, );
                     })
@@ -293,6 +295,11 @@ $(document).ready(function () {
     }
     if (hash != "") {
         switch (hash) {
+            case "韩语":
+                $(".language-list li").removeClass("active");
+                $(".language-list li").eq(3).addClass("active");
+                getAjax("韩语", 1, 12);
+                break;
             case "托福":
                 $(".language-list li").removeClass("active");
                 $(".language-list li").eq(1).addClass("active");
@@ -303,11 +310,7 @@ $(document).ready(function () {
                 $(".language-list li").eq(2).addClass("active");
                 getAjax("日语", 1, 12);
                 break;
-            case "韩语":
-                $(".language-list li").removeClass("active");
-                $(".language-list li").eq(3).addClass("active");
-                getAjax("韩语", 1, 12);
-                break;
+
             default:
                 $(".language-list li").removeClass("active");
                 $(".language-list li").eq(0).addClass("active");
@@ -374,7 +377,7 @@ $(document).ready(function () {
                 posterType = ".japan-test-poster";
                 $(".japan-test-poster").css('display', 'block');
                 break;
-            case 12:
+            case 4:
                 posterType = ".korea-test-poster";
                 $(".korea-test-poster").css('display', 'block');
                 break;
