@@ -1,58 +1,72 @@
-$(document).ready(function () {
-    var categoryType = $(".language-list .active span").text();
-    var posterType = ".ielts-test-poster";
-    var clientPage = 1;
-    var num = 1;
-    var courseData = [];
-    var hash;
-    let videoArr=[];
-    let videoNum=7;
-    hash = window.location.hash ? decodeURI(window.location.hash).substring(1) : "雅思";
+$(document).ready(function() {
+  var categoryType = $(".language-list .active span").text();
+  var posterType = ".ielts-test-poster";
+  var clientPage = 1;
+  var num = 1;
+  var courseData = [];
+  var hash;
+  let videoArr = [];
+  let videoNum = 7;
+  let everyPage = 4;
+  hash = window.location.hash
+    ? decodeURI(window.location.hash).substring(1)
+    : "雅思";
 
-    $(document).on("click", ".video-btn", function () {
-        let url = "./videoDetail.html?videoid=" + this.dataset.videoid + "&courseid=" + $(this).parent()[0].dataset.parentid + "&coursename=" + encodeURI($(this).parent()[0].dataset.coursename) + "&teacher=" + encodeURI($(this).parent()[0].dataset.teacher)+ "&type=" + categoryType+"&from=课程";
-        window.location.href = url;
-
-    })
-    getVideoBtn=(videoItem,index)=>{
-        let videoLen = videoItem.length;
-        let videoBtn = '';
-        let videoId = 0;
-        
-        if(videoLen==0){
-            videoBtn="课程即将上线，敬请期待！"
-        }else{
-            let video_one=videoItem[0].id;
-            for (let i = 0; i < videoLen; i++) {
-                videoId = videoItem[i].id;
-                if (i == 0) {
-                    videoBtn += `<div data-videoid=${videoId} class="video-btn active">1</div>`
-                }else {
-                    videoBtn += `<div data-videoid=${videoId} class="video-btn">${i + 1}</div>`
-                }
-                if (i >= videoNum-1) {
-                    videoBtn += `<div data-videoid=${video_one} class="video-btn">全部</div>`
-                    break;
-                }
-            }
+  $(document).on("click", ".video-btn", function() {
+    let url =
+      "./videoDetail.html?videoid=" +
+      this.dataset.videoid +
+      "&courseid=" +
+      $(this).parent()[0].dataset.parentid +
+      "&coursename=" +
+      encodeURI($(this).parent()[0].dataset.coursename) +
+      "&teacher=" +
+      encodeURI($(this).parent()[0].dataset.teacher) +
+      "&type=" +
+      categoryType +
+      "&from=课程";
+    window.location.href = url;
+  });
+  getVideoBtn = (videoItem, index) => {
+    let videoLen = videoItem.length;
+    let videoBtn = "";
+    let videoId = 0;
+    if (videoLen == 0) {
+      videoBtn = "课程即将上线，敬请期待！";
+    } else {
+      let video_one = videoItem[0].id;
+      for (let i = 0; i < videoLen; i++) {
+        videoId = videoItem[i].id;
+        if (i == 0) {
+          videoBtn += `<div data-videoid=${videoId} class="video-btn active">1</div>`;
+        } else {
+          videoBtn += `<div data-videoid=${videoId} class="video-btn">${i +
+            1}</div>`;
         }
-
-
-        $(".video-btn-wrap").eq(index).append(videoBtn);
+        if (i >= videoNum - 1) {
+          videoBtn += `<div data-videoid=${video_one} class="video-btn">全部</div>`;
+          break;
+        }
+      }
     }
-    getCourseTop = (stage, categoryType, course_line) => {
-        const { course_left, course } = course_line;
-        const { coursename, teacher } = course_left;
-        let constLen = course.length;
-        let str = '';
 
-        course.map((courseItem, index) => {
-            const { course_info, course_video = [] } = courseItem;
-            const { teacher, courselistname, id } = course_info[0];
-            let courseType = courselistname.substring(courselistname.length - 2);
+    $(".video-btn-wrap")
+      .eq(index)
+      .append(videoBtn);
+  };
+  getCourseTop = (stage, categoryType, course_line) => {
+    const { course_left, course } = course_line;
+    const { coursename, teacher } = course_left;
+    let constLen = course.length;
+    let str = "";
 
-            let videoLen = course_video.length;
-            str += `
+    course.map((courseItem, index) => {
+      const { course_info, course_video = [] } = courseItem;
+      const { teacher, courselistname, id } = course_info[0];
+      let courseType = courselistname.substring(courselistname.length - 2);
+
+      let videoLen = course_video.length;
+      str += `
                 <div class="stage-card video-card">
                     <div class="stage-card-left">
                         <h5>${coursename}</h5>
@@ -81,10 +95,10 @@ $(document).ready(function () {
                     </div>
                 </div>
 
-            `
-        })
-        // debugger;
-        $(posterType).append(`
+            `;
+    });
+    // debugger;
+    $(posterType).append(`
             <div class="course-content-wrap">
                 <div class="stage-title">
                     <img src="./img/title_ABC/${stage}.png" alt="">
@@ -116,273 +130,386 @@ $(document).ready(function () {
                 <div class="stage-card-list">${str}</div>
             </div>
         `);
-    }
+  };
 
-    getCourseLeft = (item, num, video_num) => {
-        $.ajax({
-            url: "https://kaopeixia.com/webapi/courselist/getcourselistbyid",
-            type: "GET",
-            async: false,
-            headers: {
-                'Authorization': 'wechat'
-            },
-            data: {
-                'id': item.id,
-            },
-            dataType: "json",
-            xhrFields: { withCredentials: true },
-            success: function (result) {
-                if (result.status == "200") {
-                    getCourseRight(item, num, result.data);
-                }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.info("error.");
-                if (xhr.status == 200) {
-                    console.log(ajaxOptions);
-                }
-                else {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                }
+  getCourseLeft = (item, num, video_num) => {
+    $.ajax({
+      url: "https://kaopeixia.com/webapi/courselist/getcourselistbyid",
+      type: "GET",
+      async: false,
+      headers: {
+        Authorization: "wechat"
+      },
+      data: {
+        id: item.id
+      },
+      dataType: "json",
+      xhrFields: { withCredentials: true },
+      success: function(result) {
+        if (result.status == "200") {
+          getCourseRight(item, num, result.data);
+        }
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        console.info("error.");
+        if (xhr.status == 200) {
+          console.log(ajaxOptions);
+        } else {
+          console.log(xhr.status);
+          console.log(thrownError);
+        }
+      }
+    });
+  };
+  getCourseRight = (item, num, course_info) => {
+    $.ajax({
+      url:
+        "https://kaopeixia.com/webapi/coursedetail/getcoursedetailbycourselistidp",
+      type: "GET",
+      headers: {
+        Authorization: "wechat"
+      },
+      async: false,
+      data: {
+        courselist_id: item.id
+      },
+      dataType: "json",
+      xhrFields: { withCredentials: true },
+      success: function(result) {
+        if (result.status == "200") {
+          videoArr.push(result.data);
+
+          let obj = {
+            course_info,
+            course_video: result.data
+          };
+          courseData[num].course_line.course.push(obj);
+        } else {
+          videoArr.push([]);
+          let obj = {
+            course_info,
+            course_video: []
+          };
+          courseData[num].course_line.course.push(obj);
+        }
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        console.info("error.");
+        if (xhr.status == 200) {
+          console.log(ajaxOptions);
+        } else {
+          console.log(xhr.status);
+          console.log(thrownError);
+        }
+      }
+    });
+  };
+  getAjax = (categoryType, clientPage, everyPage) => {
+    $.ajax({
+      url: "https://kaopeixia.com/webapi/course/getcoursebysearchv2",
+      type: "GET",
+      headers: {
+        Authorization: "wechat"
+      },
+      data: {
+        category: categoryType,
+        clientPage: clientPage,
+        everyPage: everyPage
+      },
+      success: function(result) {
+        if (result.status == "200") {
+          $(posterType).text("");
+          courseData.length = 0;
+
+          result.data.map((item, index) => {
+            let reg = /[A-Z]/g;
+            let stage = item.courselistname.match(reg)[0];
+            let isHas = false;
+            let num = 0,
+              video_num = 0;
+            for (let i = 0; i < courseData.length; i++) {
+              if (stage == courseData[i].stage) {
+                isHas = true;
+                num = i;
+                break;
+              }
             }
-        });
-    }
-    getCourseRight = (item, num, course_info) => {
-        $.ajax({
-            url: "https://kaopeixia.com/webapi/coursedetail/getcoursedetailbycourselistidp",
-            type: "GET",
-            headers: {
-                'Authorization': 'wechat'
-            },
-            async: false,
-            data: {
-                'courselist_id': item.id,
-            },
-            dataType: "json",
-            xhrFields: { withCredentials: true },
-            success: function (result) {
-                
-                if (result.status == "200") {
-                    videoArr.push(result.data);
-                    
-                    let obj = {
-                        course_info,
-                        course_video: result.data
-                    }
-                    courseData[num].course_line.course.push(obj);
-                } else {
-                    videoArr.push([]);
-                    let obj = {
-                        course_info,
-                        course_video: []
-                    }
-                    courseData[num].course_line.course.push(obj);
+            if (!isHas) {
+              let obj = {
+                stage: "",
+                course_line: {
+                  course_left: {},
+                  course: []
                 }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.info("error.");
-                if (xhr.status == 200) {
-                    console.log(ajaxOptions);
-                }
-                else {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                }
+              };
+              obj.stage = stage;
+              obj.course_line.course_left = item;
+              courseData.push(obj);
+              num = courseData.length - 1;
             }
-        });
-    }
-    getAjax = (categoryType, clientPage, everyPage) => {
-        $.ajax({
-            url: "https://kaopeixia.com/webapi/course/getcoursebysearchv2",
-            type: "GET",
-            headers: {
-                'Authorization': 'wechat'
-            },
-            data: {
-                'category': categoryType,
-                'clientPage': clientPage,
-                'everyPage': everyPage
-            },
-            success: function (result) {
-                if (result.status == "200") {
-                    $(posterType).text('');
-                    courseData.length = 0;
 
-                    result.data.map((item, index) => {
-
-                        let reg = /[A-Z]/g;
-                        let stage = item.courselistname.match(reg)[0];
-                        let isHas = false;
-                        let num = 0, video_num = 0;
-                        for (let i = 0; i < courseData.length; i++) {
-                            if (stage == courseData[i].stage) {
-                                isHas = true;
-                                num = i;
-                                break;
-                            }
-                        }
-                        if (!isHas) {
-                            let obj = {
-                                stage: '',
-                                course_line: {
-                                    course_left: {},
-                                    course: []
-                                }
-                            };
-                            obj.stage = stage;
-                            obj.course_line.course_left = item;
-                            courseData.push(obj);
-                            num = courseData.length - 1;
-                        }
-
-                        video_num = courseData[num].course_line.course.length - 1;
-                        getCourseLeft(item, num, video_num);
-                    })
-                    $(posterType).append(`
+            video_num = courseData[num].course_line.course.length - 1;
+            getCourseLeft(item, num, video_num);
+          });
+          $(posterType).append(`
                         <div class="language-poster-big">
                             <img src="./img/index图/${categoryType}.png" alt="">
                         </div>
-                    `)
-                    console.log(courseData)
-                    courseData.map((item, index) => {
-
-                        const { stage, course_line } = item;
-                        getCourseTop(stage, categoryType, course_line, );
-                    })
-                    let videoBoxWidth=$(".video-btn-wrap").width();
-                    videoNum = Math.floor(videoBoxWidth / 41);
-                    videoArr.map((videoItem,index)=>{
-                        getVideoBtn(videoItem,index);
-                    })
-                    num = Math.ceil(result.pager.sumpage / result.pager.everypage);
-                    getPagination(num);
-                    $(`${posterType} .page-btn`).eq(clientPage - 1).css({
-                        zIndex: "2",
-                        color: "#23527c",
-                        backgroundColor: "#eee",
-                        borderColor: "#ddd",
-                    })
-
-                    if (clientPage == 1) {
-                        $(".laquo").children().css('color', '#ddd');
-                        $(".laquo").addClass("disabled");
-                    } else {
-                        $(".laquo").children().css('color', '#337ab7');
-                        $(".laquo").removeClass("disabled");
-                    }
-                    if (clientPage == num) {
-                        $(".raquo").children().css('color', '#ddd');
-                        $(".raquo").addClass("disabled");
-                    } else {
-                        $(".raquo").children().css('color', '#337ab7');
-                        $(".raquo").removeClass("disabled");
-                    }
+                    `);
+          console.log(courseData);
+          courseData.map((item, index) => {
+            const { stage, course_line } = item;
+            getCourseTop(stage, categoryType, course_line);
+          });
+          let videoBoxWidth = $(".video-btn-wrap").width();
+          videoNum = Math.floor(videoBoxWidth / 41);
+          videoArr.map((videoItem, index) => {
+            getVideoBtn(videoItem, index);
+          });
+          num = Math.ceil(result.pager.sumpage / result.pager.everypage);
+        //   console.log(result.pager.sumpage,result.pager.everypage,num);
+          getPagination(num, clientPage);
+          $(`${posterType} .page-btn`)
+            .eq(clientPage - 1)
+            .css({
+              zIndex: "2",
+              color: "#23527c",
+              backgroundColor: "#eee",
+              borderColor: "#ddd"
+            });
+          if (clientPage == 1) {
+            $(".my_laquo")
+              .children()
+              .css("color", "#888888");
+            $(".my_first_page")
+              .children()
+              .css("color", "#888888");
+            $(
+              document
+            ).on(
+              "mouseover mouseout",
+              ".my_laquo span,.my_first_page span",
+              function(event) {
+                if (event.type == "mouseover") {
+                  $(this)
+                    .css("background-color", "#fff")
+                    .css("color", "#888888")
+                    .css("cursor", "no-drop");
+                } else if (event.type == "mouseout") {
+                  $(this)
+                    .css("background-color", "#fff")
+                    .css("cursor", "no-drop")
+                    .css("color", "#888888");
                 }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.info("error.");
-                if (xhr.status == 200) {
-
-                    console.log(ajaxOptions);
+              }
+            );
+            $(".my_laquo").removeClass("my_laquo_can");
+            $(".my_first_page").removeClass("my_first_page_can");
+          } else {
+            $(".my_laquo")
+              .children()
+              .css("color", "#000");
+            $(".my_first_page")
+              .children()
+              .css("color", "#000");
+            $(
+              document
+            ).on(
+              "mouseover mouseout",
+              ".my_laquo span,.my_first_page span",
+              function(event) {
+                if (event.type == "mouseover") {
+                  $(this)
+                    .css("background-color", "#56b949")
+                    .css("color", "#fff")
+                    .css("cursor", "pointer");
+                } else if (event.type == "mouseout") {
+                  $(this)
+                    .css("background-color", "#fff")
+                    .css("color", "#000")
+                    .css("cursor", "pointer");
                 }
-                else {
-                    console.log(xhr.status);
-                    console.log(thrownError);
+              }
+            );
+            $(".my_laquo").addClass("my_laquo_can");
+            $(".my_first_page").addClass("my_first_page_can");
+          }
+          if (clientPage == num) {
+            $(".my_raquo")
+              .children()
+              .css("color", "#888888");
+            $(".my_last_page")
+              .children()
+              .css("color", "#888888");
+            $(
+              document
+            ).on(
+              "mouseover mouseout",
+              ".my_raquo span,.my_last_page span",
+              function(event) {
+                if (event.type == "mouseover") {
+                  $(this)
+                    .css("background-color", "#fff")
+                    .css("color", "#888888")
+                    .css("cursor", "no-drop");
+                } else if (event.type == "mouseout") {
+                  $(this)
+                    .css("background-color", "#fff")
+                    .css("color", "#888888")
+                    .css("cursor", "no-drop");
                 }
-            }
-        });
-    }
-    if (hash != "") {
-        switch (hash) {
-            case "韩语":
-                $(".language-list li").removeClass("active");
-                $(".language-list li").eq(3).addClass("active");
-                getAjax("韩语", 1, 12);
-                break;
-            case "托福":
-                $(".language-list li").removeClass("active");
-                $(".language-list li").eq(1).addClass("active");
-                getAjax("托福", 1, 12);
-                break;
-            case "日语":
-                $(".language-list li").removeClass("active");
-                $(".language-list li").eq(2).addClass("active");
-                getAjax("日语", 1, 12);
-                break;
-
-            default:
-                $(".language-list li").removeClass("active");
-                $(".language-list li").eq(0).addClass("active");
-                getAjax("雅思", 1, 12);
+              }
+            );
+            $(".my_raquo").removeClass("my_raquo_can");
+            $(".my_last_page").removeClass("my_last_page_can");
+          } else {
+            $(".my_raquo")
+              .children()
+              .css("color", "#000");
+            $(".my_last_page")
+              .children()
+              .css("color", "#000");
+            $(
+              document
+            ).on(
+              "mouseover mouseout",
+              ".my_raquo span,.my_last_page span",
+              function(event) {
+                if (event.type == "mouseover") {
+                  $(this)
+                    .css("background-color", "#56b949")
+                    .css("color", "#fff")
+                    .css("cursor", "pointer");
+                } else if (event.type == "mouseout") {
+                  $(this)
+                    .css("background-color", "#fff")
+                    .css("color", "#000")
+                    .css("cursor", "pointer");
+                }
+              }
+            );
+            $(".my_raquo").addClass("my_raquo_can");
+            $(".my_last_page").addClass("my_last_page_can");
+          }
         }
-    }
-    
-    function getPagination(num) {
-        var divWrap = $('<div style="text-align:center"></div>');
-        var ulPagi = $('<ul class="pagination"></ul>');
-        var laquo = $('<li class="laquo"><span>&laquo;</span></li>');
-        var raquo = $('<li class="raquo"><span>&raquo;</span></li>');
-
-        var liList = ""
-        for (var i = 1; i <= num; i++) {
-            liList += `<li><span class="page-btn">${i}</span></li>`
-        }
-        ulPagi.append(laquo, liList, raquo);
-        divWrap.append(ulPagi);
-        $(posterType).append(divWrap);
-    }
-
-    $(document).on("click", ".laquo", function () {
-        if (clientPage - 1 <= 0) {
-            clientPage = clientPage;
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        console.info("error.");
+        if (xhr.status == 200) {
+          console.log(ajaxOptions);
         } else {
-            clientPage = clientPage - 1;
+          console.log(xhr.status);
+          console.log(thrownError);
         }
-
-        getAjax(categoryType, clientPage, 12)
-
-    })
-    $(document).on("click", ".raquo", function () {
-        if (clientPage + 1 >= num) {
-            clientPage = clientPage;
-        } else {
-            clientPage = clientPage + 1;
-        }
-        getAjax(categoryType, clientPage, 12)
-
-    })
-    $(document).on("click", ".pagination>li .page-btn", function () {
-        clientPage = $(this).text();
-        getAjax(categoryType, clientPage, 12)
-    })
-    $(".language-list li").click(function () {
+      }
+    });
+  };
+  if (hash != "") {
+    switch (hash) {
+      case "韩语":
         $(".language-list li").removeClass("active");
-        $(this).addClass("active");
-        categoryType = $(".language-list .active span").text();
-        window.location.hash = categoryType;
-        var index = $(this).data("index");
-        $(".test-poster").css('display', 'none');
-        clientPage = 1;
-        switch (index) {
-            case 1:
-                posterType = ".ielts-test-poster";
-                $(".ielts-test-poster").css('display', 'block');
-                break;
-            case 2:
-                posterType = ".toefl-test-poster";
-                $(".toefl-test-poster").css('display', 'block');
-                break;
-            case 3:
-                posterType = ".japan-test-poster";
-                $(".japan-test-poster").css('display', 'block');
-                break;
-            case 4:
-                posterType = ".korea-test-poster";
-                $(".korea-test-poster").css('display', 'block');
-                break;
-        }
-        getAjax(categoryType, 1, 12);
-    })
-})
+        $(".language-list li")
+          .eq(3)
+          .addClass("active");
+        getAjax("韩语", 1, everyPage);
+        break;
+      case "托福":
+        $(".language-list li").removeClass("active");
+        $(".language-list li")
+          .eq(1)
+          .addClass("active");
+        getAjax("托福", 1, everyPage);
+        break;
+      case "日语":
+        $(".language-list li").removeClass("active");
+        $(".language-list li")
+          .eq(2)
+          .addClass("active");
+        getAjax("日语", 1, everyPage);
+        break;
 
+      default:
+        $(".language-list li").removeClass("active");
+        $(".language-list li")
+          .eq(0)
+          .addClass("active");
+        getAjax("雅思", 1, everyPage);
+    }
+  }
+
+  function getPagination(num, clientPage) {
+    var divWrap = $('<div style="text-align:center"></div>');
+    var ulPagi = $('<ul class="my_pagination"></ul>');
+    var firstPage = $('<li class="my_first_page"><span>首页</span></li>');
+    var lastPage = $('<li class="my_last_page"><span>尾页</span></li>');
+    var laquo = $('<li class="my_laquo"><span>上一页</span></li>');
+    var raquo = $('<li class="my_raquo"><span>下一页</span></li>');
+
+    var liList = "";
+    for (var i = 1; i <= num; i++) {
+      if (clientPage == i) {
+        liList += `<li><span class="my_page-btn active">${i}</span></li>`;
+      } else {
+        liList += `<li><span class="my_page-btn">${i}</span></li>`;
+      }
+    }
+    ulPagi.append(firstPage, laquo, liList, raquo, lastPage);
+    divWrap.append(ulPagi);
+    $(posterType).append(divWrap);
+  }
+
+  $(document).on("click", ".my_laquo_can", function() {
+    if (clientPage - 1 <= 0) {
+      clientPage = clientPage;
+    } else {
+      clientPage = clientPage - 1;
+    }
+    getAjax(categoryType, clientPage, everyPage);
+  });
+  $(document).on("click", ".my_first_page_can", function() {
+    getAjax(categoryType, 1, everyPage);
+  });
+  $(document).on("click", ".my_raquo_can", function() {
+    if (clientPage + 1 <= num) {
+      clientPage = Number(clientPage) + 1;
+    } else {
+      clientPage = clientPage;
+    }
+    getAjax(categoryType, clientPage, everyPage);
+  });
+  $(document).on("click", ".my_last_page_can", function() {
+    getAjax(categoryType, num, everyPage);
+  });
+  $(document).on("click", ".my_pagination>li .my_page-btn", function() {
+    clientPage = Number($(this).text());
+    getAjax(categoryType, clientPage, everyPage);
+  });
+  $(".language-list li").click(function() {
+    $(".language-list li").removeClass("active");
+    $(this).addClass("active");
+    categoryType = $(".language-list .active span").text();
+    window.location.hash = categoryType;
+    var index = $(this).data("index");
+    $(".test-poster").css("display", "none");
+    clientPage = 1;
+    switch (index) {
+      case 1:
+        posterType = ".ielts-test-poster";
+        $(".ielts-test-poster").css("display", "block");
+        break;
+      case 2:
+        posterType = ".toefl-test-poster";
+        $(".toefl-test-poster").css("display", "block");
+        break;
+      case 3:
+        posterType = ".japan-test-poster";
+        $(".japan-test-poster").css("display", "block");
+        break;
+      case 4:
+        posterType = ".korea-test-poster";
+        $(".korea-test-poster").css("display", "block");
+        break;
+    }
+    getAjax(categoryType, 1, everyPage);
+  });
+});

@@ -76,6 +76,8 @@ $(document).ready(function() {
       data: {
         nickname: phone,
         userpassword: pwd
+            //     nickname: "admin",
+    // userpassword: "admin123"
       },
       dataType: "json",
       xhrFields: { withCredentials: true },
