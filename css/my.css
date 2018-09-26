@@ -1,34 +1,4 @@
-/* @media (max-width: 1279px) {
-    .stage-card {
-        width: 80%;
-        margin-left: 0;
-        margin-right: 3%;
-    }
-}
 
-@media (min-width: 1280px) and (max-width: 1758px) {
-    .stage-card {
-        min-width: 333px;
-        width: 44%;
-        margin-left: 0;
-        margin-right: 2%;
-    }
-}
-
-@media (min-width: 1759px) {
-    .stage-card {
-        min-width: 333px;
-        width:29%;
-        margin-left: 0;
-        margin-right: 2%;
-    }
-} */
-/* .stage-card {
-    min-width: 333px;
-    width:29%;
-    margin-left: 0;
-    margin-right: 2%;
-} */
 .left-nav{
     float: left;
 }
@@ -127,21 +97,3 @@
     cursor: pointer;
 }
 
-
-/* @media (max-width: 1587px) {
-    .test-card {
-        width: 45%;
-        margin: 0 3% 20px 0;
-    }
-    .test-card img{
-        width: 30%;
-        padding: 20px 10px;
-    }
-}
-@media (min-width: 1587px) {
-    .test-card {
-        width: 31%;
-        margin: 0 20px 20px 0;
-    }
-    
-} */

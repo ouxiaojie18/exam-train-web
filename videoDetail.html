@@ -18,138 +18,6 @@
     <link rel="stylesheet" href="./css/videodetail.css">
     <link href="css/video-js.min.css" rel="stylesheet">
     <style>
-        /* .vjs-paused .vjs-big-play-button,
-        .vjs-paused.vjs-has-started .vjs-big-play-button {
-            display: block;
-        }
-
-        .video-js .vjs-big-play-button {
-            font-size: 2.5em;
-            line-height: 2.3em;
-            height: 2.5em;
-            width: 2.5em;
-            -webkit-border-radius: 2.5em;
-            -moz-border-radius: 2.5em;
-            border-radius: 2.5em;
-            background-color: #73859f;
-            background-color: rgba(115, 133, 159, .5);
-            border-width: 0.15em;
-            margin-top: -1.25em;
-            margin-left: -1.75em;
-        } */
-
-        /* 中间的播放箭头 */
-
-        /* .vjs-big-play-button .vjs-icon-placeholder {
-            font-size: 1.63em;
-        } */
-
-        /* 加载圆圈 */
-
-        /* .vjs-loading-spinner {
-            font-size: 2.5em;
-            width: 2em;
-            height: 2em;
-            border-radius: 1em;
-            margin-top: -1em;
-            margin-left: -1.5em;
-        }
-
-        .video-js .vjs-time-control {
-            display: block;
-        }
-
-        .video-js .vjs-remaining-time {
-            display: none;
-        } */
-
-        /* @media (max-width: 1199px) {
-            .video-part {
-                width: 640px;
-                padding: 10px;
-                margin-right: 10px;
-            }
-            .video-class {
-                width: 288px;
-                margin-left: 670px;
-            }
-            iframe {
-                width: 100%;
-                height: 400px;
-            }
-            .class-list {
-                padding: 11px 15px;
-            }
-            .class-list ul {
-                height: 290px;
-            }
-        }
-
-        @media (min-width: 1200px) and (max-width: 1329px) {
-            .video-part {
-                width: 67%;
-                padding: 1%;
-                margin-right: 1%;
-            }
-            .video-class {
-                width: 30%;
-                margin-left: 70%;
-            }
-            iframe {
-                width: 100%;
-                height: 400px;
-            }
-            .class-list {
-                padding: 4% 4.5%;
-            }
-            .class-list ul {
-                height: 290px;
-            }
-        }
-
-        @media (min-width: 1330px) and (max-width: 1599px) {
-            .video-part {
-                width: 72%;
-                padding: 1%;
-            }
-            .video-class {
-                width: 25%;
-                margin-left: 75%;
-            }
-            iframe {
-                width: 100%;
-                height: 500px;
-            }
-            .class-list {
-                padding: 4% 4.5%;
-            }
-            .class-list ul {
-                height: 395px;
-            }
-        }
-
-        @media (min-width: 1600px) {
-            .video-part {
-                width: 72%;
-                padding: 1%;
-                margin-right: 1%;
-            }
-            .video-class {
-                width: 25%;
-                margin-left: 75%;
-
-            }
-            iframe {
-                width: 100%;
-                height: 600px;
-            }
-            .class-list {
-                padding: 4% 4.5%;
-            }
-            .class-list ul {
-                height: 495px;
-            }
-        } */
         .video-part {
             width: 820px;
             padding: 10px;
@@ -233,21 +101,8 @@
                 <a class="language-test-page active"></a>
             </div>
             <div class="video-wrap">
-                <!-- <div class="video-part video-card">
-                    <video src="https://dl.laobai.com/movie/ebaolife2018072702.mp4" controls="controls">您的浏览器不支持 video 标签。</video>
-                </div> -->
                 <div class="video-part video-card">
                     <iframe id="my-videos" frameborder="0" src="" allowFullScreen="true"></iframe>
-                    <!-- https://kpx.oss-cn-beijing.aliyuncs.com/j0769lrl71g      http://vjs.zencdn.net/v/oceans.mp4-->
-                    <!-- <video id="my-video aaa" class="video-js vjs-big-play-centered" controls preload="auto" poster="./img/m.jpg" data-setup="{}">
-                        <source src="" type="">
-                        <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
-                        <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
-                        <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">
-                        <p class="vjs-no-js"> To view this video please enable JavaScript, and consider upgrading to a web browser that
-                            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                        </p>
-                    </video> -->
 
                 </div>
 
@@ -261,9 +116,6 @@
                 </div>
             </div>
             <div class="card-wrap video-card">
-                <!--<p class="detail-title">第一节 如何辨别正确对待雅思考试</p>
-                <p class="detail-person">主讲人：贾建彬</p>-->
-                <!--<p class="detail-pre">学英语，总是一个看上去简单，做的时候似乎又很难的事情。简单是因为学的时候那些东西你都能看懂，难又是因为，真正动手从零开始接触的时候，又不知道如何运用、从何下手。</p>-->
             </div>
             <div class="comment-wrap video-card">
                 <p class="comment-title">学生评价(
@@ -303,17 +155,6 @@
     <script src="./js/videodetail.js"></script>
     <script src="js/video.min.js"></script>
     <script src="https://vjs.zencdn.net/5.19/lang/zh-CN.js"></script>
-    <script type="text/javascript">
-
-        // var myPlayer = videojs('my-video');
-        // // myPlayer.src(result.data[0].fileaddress);
-        // // player.load();
-        // videojs("my-video").ready(function () {
-        //     var myPlayer = this;
-        //     myPlayer.play();
-        // });
-
-    </script>
 
 </body>
 

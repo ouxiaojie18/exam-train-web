@@ -20,8 +20,6 @@ $(document).ready(function() {
     function(result) {
       if (result.status == "200") {
         let info = result.data[0];
-        // console.log(result);
-        // $("input[name='nickname']").val("mosquito").attr("readonly","readonly");;
         $(".avatar").attr("src", info.headimg);
         $("input[name='nickname']").val(info.nickname);
         $("input[name='username']").val(info.username);

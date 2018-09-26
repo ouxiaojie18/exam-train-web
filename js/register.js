@@ -16,17 +16,6 @@ $(document).ready(function() {
         return;
     };
     _getId();
-    // if(my_code!=""){
-    //     let data={
-    //         appid:"wx2b9c8cd08c79022b",
-    //         secret:"23ce8d416477b572a80edea4ca789bb6",
-    //         code:my_code,
-    //         grant_type:authorization_code
-    //     }
-    //     setAjax("https://api.weixin.qq.com/sns/oauth2/access_token", "GET", data, function (result) {
-    //         console.log(result)
-    //     })
-    // }
   $('input[name="phone"]').change(function(e) {
     var mobile = $(this).val();
     console.log(mobile)

@@ -87,17 +87,14 @@ $(document).ready(function() {
     };
     wetChatAjax("https://kaopeixia.com/webapi/document/getexaminationbysearch","POST",testData,function(result) {
         if (result.status == "200") {
-          // console.info(result);
           $(posterType).text("");
           var data = result.data;
           data.map((item, index) => {
-            // console.log(item);
             const { name, time, id } = item;
             getDocCard(name, time, id);
           });
           num = Math.ceil(result.pager.sumpage / result.pager.everypage);
           getPagination(num, clientPage);
-          // console.log($(`${posterType} .page-btn`).eq(clientPage-1));
           $(`${posterType} .page-btn`)
             .eq(clientPage - 1)
             .css({

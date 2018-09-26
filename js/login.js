@@ -1,28 +1,5 @@
 $(document).ready(function() {
     let my_code=""
-    //   _getId = () => {
-    //     var query = decodeURI(window.location.search.substring(1));
-    //     var vars = query.split("&");
-
-    //     for (var i = 0; i < vars.length; i++) {
-    //         var pair = vars[i].split("=");
-    //         if (pair[0] == "code") {
-    //             my_code = pair[1];
-    //         }
-    //     }
-    //     return;
-    // };
-    // if(my_code!=""){
-    //     let data={
-    //         appid:"wx2b9c8cd08c79022b",
-    //         secret:"23ce8d416477b572a80edea4ca789bb6",
-    //         code:my_code,
-    //         grant_type:authorization_code
-    //     }
-    //     setAjax("https://api.weixin.qq.com/sns/oauth2/access_token", "GET", data, function (result) {
-    //         console.log(result)
-    //     })
-    // }
   $('input[name="phone"]').change(function(e) {
     var mobile = $(this).val();
 

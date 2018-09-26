@@ -47,7 +47,7 @@ $(document).ready(function () {
         let optionStr = "";
         optionArray.push(option1, option2, option3, option4);
         optionArray = optionArray.filter(optionItem => optionItem != "");
-// console.log(optionArray)
+
             optionArray.map((optionItem, index1) => {
                 
                 let imgBtn = "";
@@ -57,7 +57,6 @@ $(document).ready(function () {
                 if (index1 == answer) {
                     imgBtn = `<img style="float:left;"  src="./img/对.png" alt="">`;
                 }
-                // console.log(index, myobj[num], answer);
                 if (index1 == answers[index]) {
                     if (answers[index] != answer) {
                         imgBtn = `<img style="float:left;" src="./img/错.png" alt="">`;
@@ -91,11 +90,9 @@ $(document).ready(function () {
                 errorDate = result.data;
                 answers=result.answers;
                 errorDate.map((testOption, index) => {
-                    // console.log(testOption);
                     test(testOption, index);
                 });
             }
-            // console.log(result);
         })
     }
     _getId();

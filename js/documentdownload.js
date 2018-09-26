@@ -57,8 +57,6 @@ $(document).ready(function() {
   function getDocCard(filename, introduce, fileaddress, index) {
     var name = fileaddress.replace(/.*(\/|\\)/, "");
     var fileExt = /[.]/.exec(name) ? /[^.]+$/.exec(name.toLowerCase()) : "";
-    // console.log(introduce)
-    // ${introduce}
     $(posterType).append(`
                 <div class="video-card test-card">
                     <div class="test-card-left">
@@ -118,18 +116,15 @@ $(document).ready(function() {
       documentData,
       function(result) {
         if (result.status == "200") {
-          // console.info(result);
           $(posterType).text("");
           var data = result.data;
           data.map((item, index) => {
             const { filename, introduce, fileaddress } = item;
-            // console.log(item);
             getDocCard(filename, introduce, fileaddress, index);
           });
           num = Math.ceil(result.pager.sumpage / result.pager.everypage);
           
           getPagination(num, clientPage);
-          // console.log($(`${posterType} .page-btn`).eq(clientPage - 1));
           $(`${posterType} .page-btn`)
             .eq(clientPage - 1)
             .css({
@@ -301,17 +296,4 @@ $(document).ready(function() {
     getAjax(categoryType, 1, everyPage);
   });
 });
-// function getPagination(num) {
-//   var divWrap = $('<div style="text-align:center"></div>');
-//   var ulPagi = $('<ul class="pagination"></ul>');
-//   var laquo = $('<li class="laquo"><span>&laquo;</span></li>');
-//   var raquo = $('<li class="raquo"><span>&raquo;</span></li>');
 
-//   var liList = "";
-//   for (var i = 1; i <= num; i++) {
-//     liList += `<li><span class="page-btn">${i}</span></li>`;
-//   }
-//   ulPagi.append(laquo, liList, raquo);
-//   divWrap.append(ulPagi);
-//   $(posterType).append(divWrap);
-// }

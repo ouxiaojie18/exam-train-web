@@ -27,36 +27,9 @@ $(document).ready(function () {
       "&from=课程";
     window.location.href = url;
   });
-  // getVideoBtn = (videoItem, index) => {
-  //   let videoLen = videoItem.length;
-  //   let videoBtn = "";
-  //   let videoId = 0;
-  //   if (videoLen == 0) {
-  //     videoBtn = "课程即将上线，敬请期待！";
-  //   } else {
-  //     let video_one = videoItem[0].id;
-  //     for (let i = 0; i < videoLen; i++) {
-  //       videoId = videoItem[i].id;
-  //       if (i == 0) {
-  //         videoBtn += `<div data-videoid=${videoId} class="video-btn active">1</div>`;
-  //       } else {
-  //         videoBtn += `<div data-videoid=${videoId} class="video-btn">${i +
-  //           1}</div>`;
-  //       }
-  //       if (i >= videoNum - 1) {
-  //         videoBtn += `<div data-videoid=${video_one} class="video-btn">全部</div>`;
-  //         break;
-  //       }
-  //     }
-  //   }
 
-  //   $(".video-btn-wrap")
-  //     .eq(index)
-  //     .append(videoBtn);
-  // };
   getCourseTop = (stage, categoryType, coursename, Courselist) => {
-    // const { course_left, course } = course_line;
-    // const { coursename, teacher } = course_left;
+
     const teacher_poster = Courselist[0].teacher;
     let constLen = Courselist.length;
     let str = "", str1 = "";
@@ -123,7 +96,6 @@ $(document).ready(function () {
       }
 
     });
-    // debugger;
     $(posterType).append(`
             <div class="course-content-wrap">
                 <div class="stage-title">
@@ -159,35 +131,6 @@ $(document).ready(function () {
         `);
   };
 
-  // getCourseLeft = (item, num, video_num) => {
-  //   $.ajax({
-  //     url: "https://kaopeixia.com/webapi/courselist/getcourselistbyid",
-  //     type: "GET",
-  //     async: false,
-  //     headers: {
-  //       Authorization: "wechat"
-  //     },
-  //     data: {
-  //       id: item.id
-  //     },
-  //     dataType: "json",
-  //     xhrFields: { withCredentials: true },
-  //     success: function(result) {
-  //       if (result.status == "200") {
-  //         getCourseRight(item, num, result.data);
-  //       }
-  //     },
-  //     error: function(xhr, ajaxOptions, thrownError) {
-  //       console.info("error.");
-  //       if (xhr.status == 200) {
-  //         console.log(ajaxOptions);
-  //       } else {
-  //         console.log(xhr.status);
-  //         console.log(thrownError);
-  //       }
-  //     }
-  //   });
-  // };
   getCourseRight = (course_info, index, index1) => {
     $.ajax({
       url:
@@ -200,24 +143,14 @@ $(document).ready(function () {
       dataType: "json",
       xhrFields: { withCredentials: true },
       success: function (result) {
-        // console.log("video",result)
         courseData[index].Courselist[index1].video = [];
         if (result.status == "200") {
           videoArr.push(result.data);
 
-          // let obj = {
-          //   course_info,
-          //   course_video: result.data
-          // };
 
           courseData[index].Courselist[index1].video.push(result.data);
         } else {
           videoArr.push([]);
-          // let obj = {
-          //   course_info,
-          //   course_video: []
-          // };
-          // courseData[num].course_line.course.push(obj);
         }
       },
       error: function (xhr, ajaxOptions, thrownError) {
@@ -255,49 +188,10 @@ $(document).ready(function () {
             if (item.Courselist != null) {
               let stage = item.Courselist[0].courselistname.match(reg)[0];
               courseData[index].stage = stage;
-              ///////////////////////////////////////////////////////////////////////////
-              let big = item.Courselist;
-              big.map((item1, index1) => {
-                item.Courselist.push(item1);
-              })
-              console.log(big)
-
-
-
-
-              ////////////////////////////////////////////////////////////////////////////
               item.Courselist.map((courseItem, index1) => {
-                // console.log(item.id,index,courseItem)
                 getCourseRight(courseItem, index, index1);
               })
             }
-
-            //     let isHas = false;
-            //     let num = 0,
-            //       video_num = 0;
-            //     for (let i = 0; i < courseData.length; i++) {
-            //       if (stage == courseData[i].stage) {
-            //         isHas = true;
-            //         num = i;
-            //         break;
-            //       }
-            //     }
-            //     if (!isHas) {
-            //       let obj = {
-            //         stage: "",
-            //         course_line: {
-            //           course_left: {},
-            //           course: []
-            //         }
-            //       };
-            //       obj.stage = stage;
-            //       obj.course_line.course_left = item;
-            //       courseData.push(obj);
-            //       num = courseData.length - 1;
-            //     }
-
-            //     video_num = courseData[num].course_line.course.length - 1;
-            //     getCourseLeft(item, num, video_num);
           });
           $(posterType).append(`
                         <div class="language-poster-big">
@@ -312,11 +206,7 @@ $(document).ready(function () {
             }
 
           });
-          //   let videoBoxWidth = $(".video-btn-wrap").width();
-          //   videoNum = Math.floor(videoBoxWidth / 41);
-          //   videoArr.map((videoItem, index) => {
-          //     getVideoBtn(videoItem, index);
-          //   });
+
             num = Math.ceil(result.pager.sumpage / result.pager.everypage);
             getPagination(num, clientPage);
             $(`${posterType} .page-btn`)

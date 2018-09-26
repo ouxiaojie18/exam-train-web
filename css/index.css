@@ -1,22 +1,4 @@
-/* @media (max-width: 1329px) {
-    .stage-card{
-        width:60%;
-        margin-left:5%;  
-    }
-}
-@media (min-width: 1329px) and (max-width: 1776px) {
-    .stage-card{
-        width:46%;
-        margin-left:3%;  
-    }
-}
-@media (min-width: 1776px) {
-    .stage-card{
-        width: 333px;
-        margin-left:30px;  
-    }
-    
-} */
+
 .stage-card{
     width: 340px;
     /* margin-left:30px;   */
