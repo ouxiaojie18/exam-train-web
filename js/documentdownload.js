@@ -87,7 +87,7 @@ $(document).ready(function() {
 
   function getPagination(num, clientPage) {
     
-    var divWrap = $('<div style="text-align:center"></div>');
+    var divWrap = $('<div style="text-align:center;margin-top:30px;width:1120px;"></div>');
     var ulPagi = $('<ul class="my_pagination"></ul>');
     var firstPage = $('<li class="my_first_page"><span>首页</span></li>');
     var lastPage = $('<li class="my_last_page"><span>尾页</span></li>');

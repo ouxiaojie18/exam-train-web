@@ -1,9 +1,10 @@
- /* jshint esversion: 6 */
+/* jshint esversion: 6 */
 $(document).ready(function () {
 	let uid = sessionStorage.getItem("uid"),
 		categoryType = $(".language-list .active span").text(),
 		posterType = ".ielts-test-poster",
 		clientPage = 1,
+		everyPage = 12,
 		num = 1,
 		courseData = [];
 	$(document).on("click", ".video-btn", function () {
@@ -28,22 +29,26 @@ $(document).ready(function () {
 			let videoLen = course_video.length;
 			let videoBtn = "";
 			let videoId = 0;
-
-			for (let i = 0; i < videoLen; i++) {
-				if (i > 6) {
-					videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`;
-					break;
-				}
-				videoId = course_video[i].id;
-				if (i == 0) {
-					videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn active">1</div>`;
-				} else if (i == videoLen - 1) {
-					videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`;
-				} else {
-					videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn">${i +
-						1}</div>`;
+			if (videoLen == 0) {
+				videoBtn = "课程即将上线，敬请期待！"
+			} else {
+				for (let i = 0; i < videoLen; i++) {
+					if (i > 6) {
+						videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`;
+						break;
+					}
+					videoId = course_video[i].id;
+					if (i == 0) {
+						videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn active">1</div>`;
+					} else if (i == videoLen - 1) {
+						videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`;
+					} else {
+						videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn">${i +
+							1}</div>`;
+					}
 				}
 			}
+
 
 			str += `
                 <div class="stage-card video-card">
@@ -180,7 +185,7 @@ $(document).ready(function () {
 						getCourseTop(item);
 					});
 					num = Math.ceil(result.pager.sumpage / result.pager.everypage);
-					getPagination(num);
+					getPagination(num, clientPage);
 					$(`${posterType} .page-btn`)
 						.eq(clientPage - 1)
 						.css({
@@ -191,26 +196,106 @@ $(document).ready(function () {
 						});
 
 					if (clientPage == 1) {
-						$(".laquo")
+						$(".my_laquo")
 							.children()
-							.css("color", "#ddd");
-						$(".laquo").addClass("disabled");
+							.css("color", "#888888");
+						$(".my_first_page")
+							.children()
+							.css("color", "#888888");
+						$(
+							document
+						).on(
+							"mouseover mouseout",
+							".my_laquo span,.my_first_page span",
+							function (event) {
+								if (event.type == "mouseover") {
+									$(this)
+										.css("background-color", "#fff")
+										.css("color", "#888888")
+										.css("cursor", "no-drop");
+								} else if (event.type == "mouseout") {
+									$(this)
+										.css("background-color", "#fff")
+										.css("cursor", "no-drop")
+										.css("color", "#888888");
+								}
+							}
+						);
+						$(".my_laquo").removeClass("my_laquo_can");
+						$(".my_first_page").removeClass("my_first_page_can");
 					} else {
-						$(".laquo")
+						$(".my_laquo")
 							.children()
-							.css("color", "#337ab7");
-						$(".laquo").removeClass("disabled");
+							.css("color", "#000");
+						$(".my_first_page")
+							.children()
+							.css("color", "#000");
+						$(
+							document
+						).on(
+							"mouseover mouseout",
+							".my_laquo span,.my_first_page span",
+							function (event) {
+								if (event.type == "mouseover") {
+									$(this)
+										.css("background-color", "#56b949")
+										.css("color", "#fff")
+										.css("cursor", "pointer");
+								} else if (event.type == "mouseout") {
+									$(this)
+										.css("background-color", "#fff")
+										.css("color", "#000")
+										.css("cursor", "pointer");
+								}
+							}
+						);
+						$(".my_laquo").addClass("my_laquo_can");
+						$(".my_first_page").addClass("my_first_page_can");
 					}
 					if (clientPage == num) {
-						$(".raquo")
+						$(".my_raquo")
 							.children()
-							.css("color", "#ddd");
-						$(".raquo").addClass("disabled");
+							.css("color", "#888888");
+						$(".my_last_page")
+							.children()
+							.css("color", "#888888");
+						$(
+							document
+						).on(
+							"mouseover mouseout",
+							".my_raquo span,.my_last_page span",
+							function (event) {
+								if (event.type == "mouseover") {
+									$(this).css("background-color", "#fff").css("color", "#888888").css("cursor", "no-drop");
+								} else if (event.type == "mouseout") {
+									$(this).css("background-color", "#fff").css("color", "#888888").css("cursor", "no-drop");
+								}
+							}
+						);
+						$(".my_raquo").removeClass("my_raquo_can");
+						$(".my_last_page").removeClass("my_last_page_can");
 					} else {
-						$(".raquo")
+						$(".my_raquo")
 							.children()
-							.css("color", "#337ab7");
-						$(".raquo").removeClass("disabled");
+							.css("color", "#000");
+						$(".my_last_page")
+							.children()
+							.css("color", "#000");
+						$(
+							document
+						).on(
+							"mouseover mouseout",
+							".my_raquo span,.my_last_page span",
+							function (event) {
+								if (event.type == "mouseover") {
+									$(this).css("background-color", "#56b949").css("color", "#fff").css("cursor", "pointer");
+								} else if (event.type == "mouseout") {
+									$(this).css("background-color", "#fff").css("color", "#000").css("cursor", "pointer");
+								}
+							}
+						);
+						$(".my_raquo").addClass("my_raquo_can");
+						$(".my_last_page").addClass("my_last_page_can");
 					}
 				}
 			},
@@ -225,42 +310,55 @@ $(document).ready(function () {
 			}
 		});
 	};
-	getAjax(categoryType, 1, 100);
-	function getPagination(num) {
-		var divWrap = $('<div style="text-align:center"></div>');
-		var ulPagi = $('<ul class="pagination"></ul>');
-		var laquo = $('<li class="laquo"><span>&laquo;</span></li>');
-		var raquo = $('<li class="raquo"><span>&raquo;</span></li>');
+	getAjax(categoryType, 1, everyPage);
+	function getPagination(num, clientPage) {
+
+		var divWrap = $('<div style="text-align:center;margin-top:30px;width:1120px;"></div>');
+		var ulPagi = $('<ul class="my_pagination"></ul>');
+		var firstPage = $('<li class="my_first_page"><span>首页</span></li>');
+		var lastPage = $('<li class="my_last_page"><span>尾页</span></li>');
+		var laquo = $('<li class="my_laquo"><span>上一页</span></li>');
+		var raquo = $('<li class="my_raquo"><span>下一页</span></li>');
 
 		var liList = "";
 		for (var i = 1; i <= num; i++) {
-			liList += `<li><span class="page-btn">${i}</span></li>`;
+			if (clientPage == i) {
+				liList += `<li><span class="my_page-btn active">${i}</span></li>`;
+			} else {
+				liList += `<li><span class="my_page-btn">${i}</span></li>`;
+			}
 		}
-		ulPagi.append(laquo, liList, raquo);
+		ulPagi.append(firstPage, laquo, liList, raquo, lastPage);
 		divWrap.append(ulPagi);
 		$(posterType).append(divWrap);
 	}
 
-	$(document).on("click", ".laquo", function () {
+	$(document).on("click", ".my_laquo_can", function () {
 		if (clientPage - 1 <= 0) {
 			clientPage = clientPage;
 		} else {
 			clientPage = clientPage - 1;
 		}
-
-		getAjax(categoryType, clientPage, 4);
+		getAjax(categoryType, clientPage, everyPage);
 	});
-	$(document).on("click", ".raquo", function () {
-		if (clientPage + 1 >= num) {
-			clientPage = clientPage;
+	$(document).on("click", ".my_first_page_can", function () {
+		getAjax(categoryType, 1, everyPage);
+	});
+	$(document).on("click", ".my_raquo_can", function () {
+		if (clientPage + 1 <= num) {
+			clientPage = Number(clientPage) + 1;
 		} else {
-			clientPage = clientPage + 1;
+			clientPage = clientPage;
+
 		}
-		getAjax(categoryType, clientPage, 4);
+		getAjax(categoryType, clientPage, everyPage);
 	});
-	$(document).on("click", ".pagination>li .page-btn", function () {
-		clientPage = $(this).text();
-		getAjax(categoryType, clientPage, 4);
+	$(document).on("click", ".my_last_page_can", function () {
+		getAjax(categoryType, num, everyPage);
+	});
+	$(document).on("click", ".my_pagination>li .my_page-btn", function () {
+		clientPage = Number($(this).text());
+		getAjax(categoryType, clientPage, everyPage);
 	});
 	$(".language-list li").click(function () {
 		$(posterType).text("");
@@ -288,6 +386,6 @@ $(document).ready(function () {
 				$(".korea-test-poster").css("display", "block");
 				break;
 		}
-		getAjax(categoryType, 1, 100);
+		getAjax(categoryType, 1, everyPage);
 	});
 });

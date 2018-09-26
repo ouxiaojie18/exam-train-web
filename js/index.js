@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   var categoryType = $(".language-list .active span").text();
   var posterType = ".ielts-test-poster";
   var clientPage = 1;
@@ -7,12 +7,12 @@ $(document).ready(function() {
   var hash;
   let videoArr = [];
   let videoNum = 7;
-  let everyPage = 4;
+  let everyPage = 3;
   hash = window.location.hash
     ? decodeURI(window.location.hash).substring(1)
     : "雅思";
 
-  $(document).on("click", ".video-btn", function() {
+  $(document).on("click", ".video-btn", function () {
     let url =
       "./videoDetail.html?videoid=" +
       this.dataset.videoid +
@@ -27,75 +27,101 @@ $(document).ready(function() {
       "&from=课程";
     window.location.href = url;
   });
-  getVideoBtn = (videoItem, index) => {
-    let videoLen = videoItem.length;
-    let videoBtn = "";
-    let videoId = 0;
-    if (videoLen == 0) {
-      videoBtn = "课程即将上线，敬请期待！";
-    } else {
-      let video_one = videoItem[0].id;
-      for (let i = 0; i < videoLen; i++) {
-        videoId = videoItem[i].id;
-        if (i == 0) {
-          videoBtn += `<div data-videoid=${videoId} class="video-btn active">1</div>`;
-        } else {
-          videoBtn += `<div data-videoid=${videoId} class="video-btn">${i +
-            1}</div>`;
-        }
-        if (i >= videoNum - 1) {
-          videoBtn += `<div data-videoid=${video_one} class="video-btn">全部</div>`;
-          break;
+  // getVideoBtn = (videoItem, index) => {
+  //   let videoLen = videoItem.length;
+  //   let videoBtn = "";
+  //   let videoId = 0;
+  //   if (videoLen == 0) {
+  //     videoBtn = "课程即将上线，敬请期待！";
+  //   } else {
+  //     let video_one = videoItem[0].id;
+  //     for (let i = 0; i < videoLen; i++) {
+  //       videoId = videoItem[i].id;
+  //       if (i == 0) {
+  //         videoBtn += `<div data-videoid=${videoId} class="video-btn active">1</div>`;
+  //       } else {
+  //         videoBtn += `<div data-videoid=${videoId} class="video-btn">${i +
+  //           1}</div>`;
+  //       }
+  //       if (i >= videoNum - 1) {
+  //         videoBtn += `<div data-videoid=${video_one} class="video-btn">全部</div>`;
+  //         break;
+  //       }
+  //     }
+  //   }
+
+  //   $(".video-btn-wrap")
+  //     .eq(index)
+  //     .append(videoBtn);
+  // };
+  getCourseTop = (stage, categoryType, coursename, Courselist) => {
+    // const { course_left, course } = course_line;
+    // const { coursename, teacher } = course_left;
+    const teacher_poster = Courselist[0].teacher;
+    let constLen = Courselist.length;
+    let str = "", str1 = "";
+
+    Courselist.map((courseItem, index) => {
+      const { teacher, courselistname, id, video = [] } = courseItem;
+      let courseType = courselistname.substring(courselistname.length - 2);
+      let videoLen = video[0].length;
+      let videoBtn = '';
+      let videoId = 0;
+      if(videoLen==0){
+        videoBtn="课程即将上线，敬请期待！"
+      }else{
+        for (let i = 0; i < videoLen; i++) {
+          if (i > 6) {
+            videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
+            break;
+          }
+          videoId = video[0][i].id;
+          if (i == 0) {
+
+            videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn active">1</div>`
+          } else if (i == (videoLen - 1)) {
+            videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid="all" class="video-btn">全部</div>`
+          } else {
+            videoBtn += `<div data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} data-videoid=${videoId} class="video-btn">${i + 1}</div>`
+          }
         }
       }
-    }
 
-    $(".video-btn-wrap")
-      .eq(index)
-      .append(videoBtn);
-  };
-  getCourseTop = (stage, categoryType, course_line) => {
-    const { course_left, course } = course_line;
-    const { coursename, teacher } = course_left;
-    let constLen = course.length;
-    let str = "";
+      let temp=`
+      <div class="stage-card video-card">
+          <div class="stage-card-left">
+              <h5>${coursename}</h5>
+              <div class="teacher-wrap">${teacher}</div>
+              <div class="info-row">
+                  <img src="./img/订单.png" alt="">
+                  <span>课 程：共${videoLen}课</span>
+              </div>
+              <div class="info-row">
+                  <img src="./img/约课.png" alt="">
+                  <span>课 时：约45分钟/课</span>
+              </div>
+              <div class="info-row">
+                  <img src="./img/开课指导.png" alt="">
+                  <span>类 别：${courseType}</span>
+              </div>
+              <div class="info-row">
+                  <img src="./img/播放.png" alt="">
+                  <span>课程播放</span>
+                  <img src="./img/下 拉.png" alt="">
+              </div>
+          </div>
+          <img src="./img/图层 7.png" alt="">
+          <div  data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} class="video-btn-wrap">
+              ${videoBtn}
+          </div>
+      </div>
+      `;
+      if (index < 4) {
+        str += temp;
+      } else {
+        str1+=temp;
+      }
 
-    course.map((courseItem, index) => {
-      const { course_info, course_video = [] } = courseItem;
-      const { teacher, courselistname, id } = course_info[0];
-      let courseType = courselistname.substring(courselistname.length - 2);
-
-      let videoLen = course_video.length;
-      str += `
-                <div class="stage-card video-card">
-                    <div class="stage-card-left">
-                        <h5>${coursename}</h5>
-                        <div class="teacher-wrap">${teacher}</div>
-                        <div class="info-row">
-                            <img src="./img/订单.png" alt="">
-                            <span>课 程：共${videoLen}课</span>
-                        </div>
-                        <div class="info-row">
-                            <img src="./img/约课.png" alt="">
-                            <span>课 时：约45分钟/课</span>
-                        </div>
-                        <div class="info-row">
-                            <img src="./img/开课指导.png" alt="">
-                            <span>类 别：${courseType}</span>
-                        </div>
-                        <div class="info-row">
-                            <img src="./img/播放.png" alt="">
-                            <span>课程播放</span>
-                            <img src="./img/下 拉.png" alt="">
-                        </div>
-                    </div>
-                    <img src="./img/图层 7.png" alt="">
-                    <div  data-coursename=${coursename} data-teacher=${teacher} data-parentid=${id} class="video-btn-wrap">
-                        
-                    </div>
-                </div>
-
-            `;
     });
     // debugger;
     $(posterType).append(`
@@ -115,7 +141,7 @@ $(document).ready(function() {
                         </div>
                         <div class="stage-left-info">
                             <h4>${coursename}</h4>
-                            <div class="teacher-wrap">${teacher}等</div>
+                            <div class="teacher-wrap">${teacher_poster}等</div>
                             <div class="info-row row1">
                                 <img src="./img/订单.png" alt="">
                                 <span>课程：共${constLen}门课 每门课节数不同</span>
@@ -128,72 +154,73 @@ $(document).ready(function() {
                     </div>
                 </div>
                 <div class="stage-card-list">${str}</div>
+                <div>${str1}</div>
             </div>
         `);
   };
 
-  getCourseLeft = (item, num, video_num) => {
-    $.ajax({
-      url: "https://kaopeixia.com/webapi/courselist/getcourselistbyid",
-      type: "GET",
-      async: false,
-      headers: {
-        Authorization: "wechat"
-      },
-      data: {
-        id: item.id
-      },
-      dataType: "json",
-      xhrFields: { withCredentials: true },
-      success: function(result) {
-        if (result.status == "200") {
-          getCourseRight(item, num, result.data);
-        }
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-        console.info("error.");
-        if (xhr.status == 200) {
-          console.log(ajaxOptions);
-        } else {
-          console.log(xhr.status);
-          console.log(thrownError);
-        }
-      }
-    });
-  };
-  getCourseRight = (item, num, course_info) => {
+  // getCourseLeft = (item, num, video_num) => {
+  //   $.ajax({
+  //     url: "https://kaopeixia.com/webapi/courselist/getcourselistbyid",
+  //     type: "GET",
+  //     async: false,
+  //     headers: {
+  //       Authorization: "wechat"
+  //     },
+  //     data: {
+  //       id: item.id
+  //     },
+  //     dataType: "json",
+  //     xhrFields: { withCredentials: true },
+  //     success: function(result) {
+  //       if (result.status == "200") {
+  //         getCourseRight(item, num, result.data);
+  //       }
+  //     },
+  //     error: function(xhr, ajaxOptions, thrownError) {
+  //       console.info("error.");
+  //       if (xhr.status == 200) {
+  //         console.log(ajaxOptions);
+  //       } else {
+  //         console.log(xhr.status);
+  //         console.log(thrownError);
+  //       }
+  //     }
+  //   });
+  // };
+  getCourseRight = (course_info, index, index1) => {
     $.ajax({
       url:
         "https://kaopeixia.com/webapi/coursedetail/getcoursedetailbycourselistidp",
       type: "GET",
-      headers: {
-        Authorization: "wechat"
-      },
       async: false,
       data: {
-        courselist_id: item.id
+        courselist_id: course_info.id
       },
       dataType: "json",
       xhrFields: { withCredentials: true },
-      success: function(result) {
+      success: function (result) {
+        // console.log("video",result)
+        courseData[index].Courselist[index1].video = [];
         if (result.status == "200") {
           videoArr.push(result.data);
 
-          let obj = {
-            course_info,
-            course_video: result.data
-          };
-          courseData[num].course_line.course.push(obj);
+          // let obj = {
+          //   course_info,
+          //   course_video: result.data
+          // };
+
+          courseData[index].Courselist[index1].video.push(result.data);
         } else {
           videoArr.push([]);
-          let obj = {
-            course_info,
-            course_video: []
-          };
-          courseData[num].course_line.course.push(obj);
+          // let obj = {
+          //   course_info,
+          //   course_video: []
+          // };
+          // courseData[num].course_line.course.push(obj);
         }
       },
-      error: function(xhr, ajaxOptions, thrownError) {
+      error: function (xhr, ajaxOptions, thrownError) {
         console.info("error.");
         if (xhr.status == 200) {
           console.log(ajaxOptions);
@@ -206,7 +233,7 @@ $(document).ready(function() {
   };
   getAjax = (categoryType, clientPage, everyPage) => {
     $.ajax({
-      url: "https://kaopeixia.com/webapi/course/getcoursebysearchv2",
+      url: "https://kaopeixia.com/webapi/course/getcoursebysearchv3",
       type: "GET",
       headers: {
         Authorization: "wechat"
@@ -216,40 +243,61 @@ $(document).ready(function() {
         clientPage: clientPage,
         everyPage: everyPage
       },
-      success: function(result) {
+      success: function (result) {
+        console.log(result)
         if (result.status == "200") {
           $(posterType).text("");
           courseData.length = 0;
-
+          courseData = result.data;
+          let reg = /[A-Z]/g;
           result.data.map((item, index) => {
-            let reg = /[A-Z]/g;
-            let stage = item.courselistname.match(reg)[0];
-            let isHas = false;
-            let num = 0,
-              video_num = 0;
-            for (let i = 0; i < courseData.length; i++) {
-              if (stage == courseData[i].stage) {
-                isHas = true;
-                num = i;
-                break;
-              }
-            }
-            if (!isHas) {
-              let obj = {
-                stage: "",
-                course_line: {
-                  course_left: {},
-                  course: []
-                }
-              };
-              obj.stage = stage;
-              obj.course_line.course_left = item;
-              courseData.push(obj);
-              num = courseData.length - 1;
+            console.log(item)
+            if (item.Courselist != null) {
+              let stage = item.Courselist[0].courselistname.match(reg)[0];
+              courseData[index].stage = stage;
+              ///////////////////////////////////////////////////////////////////////////
+              let big = item.Courselist;
+              big.map((item1, index1) => {
+                item.Courselist.push(item1);
+              })
+              console.log(big)
+
+
+
+
+              ////////////////////////////////////////////////////////////////////////////
+              item.Courselist.map((courseItem, index1) => {
+                // console.log(item.id,index,courseItem)
+                getCourseRight(courseItem, index, index1);
+              })
             }
 
-            video_num = courseData[num].course_line.course.length - 1;
-            getCourseLeft(item, num, video_num);
+            //     let isHas = false;
+            //     let num = 0,
+            //       video_num = 0;
+            //     for (let i = 0; i < courseData.length; i++) {
+            //       if (stage == courseData[i].stage) {
+            //         isHas = true;
+            //         num = i;
+            //         break;
+            //       }
+            //     }
+            //     if (!isHas) {
+            //       let obj = {
+            //         stage: "",
+            //         course_line: {
+            //           course_left: {},
+            //           course: []
+            //         }
+            //       };
+            //       obj.stage = stage;
+            //       obj.course_line.course_left = item;
+            //       courseData.push(obj);
+            //       num = courseData.length - 1;
+            //     }
+
+            //     video_num = courseData[num].course_line.course.length - 1;
+            //     getCourseLeft(item, num, video_num);
           });
           $(posterType).append(`
                         <div class="language-poster-big">
@@ -258,142 +306,144 @@ $(document).ready(function() {
                     `);
           console.log(courseData);
           courseData.map((item, index) => {
-            const { stage, course_line } = item;
-            getCourseTop(stage, categoryType, course_line);
+            const { stage, coursename, Courselist } = item;
+            if (Courselist != null) {
+              getCourseTop(stage, categoryType, coursename, Courselist);
+            }
+
           });
-          let videoBoxWidth = $(".video-btn-wrap").width();
-          videoNum = Math.floor(videoBoxWidth / 41);
-          videoArr.map((videoItem, index) => {
-            getVideoBtn(videoItem, index);
-          });
-          num = Math.ceil(result.pager.sumpage / result.pager.everypage);
-        //   console.log(result.pager.sumpage,result.pager.everypage,num);
-          getPagination(num, clientPage);
-          $(`${posterType} .page-btn`)
-            .eq(clientPage - 1)
-            .css({
-              zIndex: "2",
-              color: "#23527c",
-              backgroundColor: "#eee",
-              borderColor: "#ddd"
-            });
-          if (clientPage == 1) {
-            $(".my_laquo")
-              .children()
-              .css("color", "#888888");
-            $(".my_first_page")
-              .children()
-              .css("color", "#888888");
-            $(
-              document
-            ).on(
-              "mouseover mouseout",
-              ".my_laquo span,.my_first_page span",
-              function(event) {
-                if (event.type == "mouseover") {
-                  $(this)
-                    .css("background-color", "#fff")
-                    .css("color", "#888888")
-                    .css("cursor", "no-drop");
-                } else if (event.type == "mouseout") {
-                  $(this)
-                    .css("background-color", "#fff")
-                    .css("cursor", "no-drop")
-                    .css("color", "#888888");
+          //   let videoBoxWidth = $(".video-btn-wrap").width();
+          //   videoNum = Math.floor(videoBoxWidth / 41);
+          //   videoArr.map((videoItem, index) => {
+          //     getVideoBtn(videoItem, index);
+          //   });
+            num = Math.ceil(result.pager.sumpage / result.pager.everypage);
+            getPagination(num, clientPage);
+            $(`${posterType} .page-btn`)
+              .eq(clientPage - 1)
+              .css({
+                zIndex: "2",
+                color: "#23527c",
+                backgroundColor: "#eee",
+                borderColor: "#ddd"
+              });
+            if (clientPage == 1) {
+              $(".my_laquo")
+                .children()
+                .css("color", "#888888");
+              $(".my_first_page")
+                .children()
+                .css("color", "#888888");
+              $(
+                document
+              ).on(
+                "mouseover mouseout",
+                ".my_laquo span,.my_first_page span",
+                function(event) {
+                  if (event.type == "mouseover") {
+                    $(this)
+                      .css("background-color", "#fff")
+                      .css("color", "#888888")
+                      .css("cursor", "no-drop");
+                  } else if (event.type == "mouseout") {
+                    $(this)
+                      .css("background-color", "#fff")
+                      .css("cursor", "no-drop")
+                      .css("color", "#888888");
+                  }
                 }
-              }
-            );
-            $(".my_laquo").removeClass("my_laquo_can");
-            $(".my_first_page").removeClass("my_first_page_can");
-          } else {
-            $(".my_laquo")
-              .children()
-              .css("color", "#000");
-            $(".my_first_page")
-              .children()
-              .css("color", "#000");
-            $(
-              document
-            ).on(
-              "mouseover mouseout",
-              ".my_laquo span,.my_first_page span",
-              function(event) {
-                if (event.type == "mouseover") {
-                  $(this)
-                    .css("background-color", "#56b949")
-                    .css("color", "#fff")
-                    .css("cursor", "pointer");
-                } else if (event.type == "mouseout") {
-                  $(this)
-                    .css("background-color", "#fff")
-                    .css("color", "#000")
-                    .css("cursor", "pointer");
+              );
+              $(".my_laquo").removeClass("my_laquo_can");
+              $(".my_first_page").removeClass("my_first_page_can");
+            } else {
+              $(".my_laquo")
+                .children()
+                .css("color", "#000");
+              $(".my_first_page")
+                .children()
+                .css("color", "#000");
+              $(
+                document
+              ).on(
+                "mouseover mouseout",
+                ".my_laquo span,.my_first_page span",
+                function(event) {
+                  if (event.type == "mouseover") {
+                    $(this)
+                      .css("background-color", "#56b949")
+                      .css("color", "#fff")
+                      .css("cursor", "pointer");
+                  } else if (event.type == "mouseout") {
+                    $(this)
+                      .css("background-color", "#fff")
+                      .css("color", "#000")
+                      .css("cursor", "pointer");
+                  }
                 }
-              }
-            );
-            $(".my_laquo").addClass("my_laquo_can");
-            $(".my_first_page").addClass("my_first_page_can");
-          }
-          if (clientPage == num) {
-            $(".my_raquo")
-              .children()
-              .css("color", "#888888");
-            $(".my_last_page")
-              .children()
-              .css("color", "#888888");
-            $(
-              document
-            ).on(
-              "mouseover mouseout",
-              ".my_raquo span,.my_last_page span",
-              function(event) {
-                if (event.type == "mouseover") {
-                  $(this)
-                    .css("background-color", "#fff")
-                    .css("color", "#888888")
-                    .css("cursor", "no-drop");
-                } else if (event.type == "mouseout") {
-                  $(this)
-                    .css("background-color", "#fff")
-                    .css("color", "#888888")
-                    .css("cursor", "no-drop");
+              );
+              $(".my_laquo").addClass("my_laquo_can");
+              $(".my_first_page").addClass("my_first_page_can");
+            }
+            if (clientPage == num) {
+              $(".my_raquo")
+                .children()
+                .css("color", "#888888");
+              $(".my_last_page")
+                .children()
+                .css("color", "#888888");
+              $(
+                document
+              ).on(
+                "mouseover mouseout",
+                ".my_raquo span,.my_last_page span",
+                function(event) {
+                  if (event.type == "mouseover") {
+                    $(this)
+                      .css("background-color", "#fff")
+                      .css("color", "#888888")
+                      .css("cursor", "no-drop");
+                  } else if (event.type == "mouseout") {
+                    $(this)
+                      .css("background-color", "#fff")
+                      .css("color", "#888888")
+                      .css("cursor", "no-drop");
+                  }
                 }
-              }
-            );
-            $(".my_raquo").removeClass("my_raquo_can");
-            $(".my_last_page").removeClass("my_last_page_can");
-          } else {
-            $(".my_raquo")
-              .children()
-              .css("color", "#000");
-            $(".my_last_page")
-              .children()
-              .css("color", "#000");
-            $(
-              document
-            ).on(
-              "mouseover mouseout",
-              ".my_raquo span,.my_last_page span",
-              function(event) {
-                if (event.type == "mouseover") {
-                  $(this)
-                    .css("background-color", "#56b949")
-                    .css("color", "#fff")
-                    .css("cursor", "pointer");
-                } else if (event.type == "mouseout") {
-                  $(this)
-                    .css("background-color", "#fff")
-                    .css("color", "#000")
-                    .css("cursor", "pointer");
+              );
+              $(".my_raquo").removeClass("my_raquo_can");
+              $(".my_last_page").removeClass("my_last_page_can");
+            } else {
+              $(".my_raquo")
+                .children()
+                .css("color", "#000");
+              $(".my_last_page")
+                .children()
+                .css("color", "#000");
+              $(
+                document
+              ).on(
+                "mouseover mouseout",
+                ".my_raquo span,.my_last_page span",
+                function(event) {
+                  if (event.type == "mouseover") {
+                    $(this)
+                      .css("background-color", "#56b949")
+                      .css("color", "#fff")
+                      .css("cursor", "pointer");
+                  } else if (event.type == "mouseout") {
+                    $(this)
+                      .css("background-color", "#fff")
+                      .css("color", "#000")
+                      .css("cursor", "pointer");
+                  }
                 }
-              }
-            );
-            $(".my_raquo").addClass("my_raquo_can");
-            $(".my_last_page").addClass("my_last_page_can");
-          }
+              );
+              $(".my_raquo").addClass("my_raquo_can");
+              $(".my_last_page").addClass("my_last_page_can");
+            }
         }
       },
-      error: function(xhr, ajaxOptions, thrownError) {
+      error: function (xhr, ajaxOptions, thrownError) {
         console.info("error.");
         if (xhr.status == 200) {
           console.log(ajaxOptions);
@@ -438,7 +488,7 @@ $(document).ready(function() {
   }
 
   function getPagination(num, clientPage) {
-    var divWrap = $('<div style="text-align:center"></div>');
+    var divWrap = $('<div style="text-align:center;margin-top:30px;width:1120px;"></div>');
     var ulPagi = $('<ul class="my_pagination"></ul>');
     var firstPage = $('<li class="my_first_page"><span>首页</span></li>');
     var lastPage = $('<li class="my_last_page"><span>尾页</span></li>');
@@ -458,7 +508,7 @@ $(document).ready(function() {
     $(posterType).append(divWrap);
   }
 
-  $(document).on("click", ".my_laquo_can", function() {
+  $(document).on("click", ".my_laquo_can", function () {
     if (clientPage - 1 <= 0) {
       clientPage = clientPage;
     } else {
@@ -466,10 +516,10 @@ $(document).ready(function() {
     }
     getAjax(categoryType, clientPage, everyPage);
   });
-  $(document).on("click", ".my_first_page_can", function() {
+  $(document).on("click", ".my_first_page_can", function () {
     getAjax(categoryType, 1, everyPage);
   });
-  $(document).on("click", ".my_raquo_can", function() {
+  $(document).on("click", ".my_raquo_can", function () {
     if (clientPage + 1 <= num) {
       clientPage = Number(clientPage) + 1;
     } else {
@@ -477,14 +527,14 @@ $(document).ready(function() {
     }
     getAjax(categoryType, clientPage, everyPage);
   });
-  $(document).on("click", ".my_last_page_can", function() {
+  $(document).on("click", ".my_last_page_can", function () {
     getAjax(categoryType, num, everyPage);
   });
-  $(document).on("click", ".my_pagination>li .my_page-btn", function() {
+  $(document).on("click", ".my_pagination>li .my_page-btn", function () {
     clientPage = Number($(this).text());
     getAjax(categoryType, clientPage, everyPage);
   });
-  $(".language-list li").click(function() {
+  $(".language-list li").click(function () {
     $(".language-list li").removeClass("active");
     $(this).addClass("active");
     categoryType = $(".language-list .active span").text();

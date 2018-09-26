@@ -64,8 +64,9 @@ body{
     background:#f8f8f8;
 }
 .wrap-content{
-    min-width: 960px;
-    width:80%;
+    /* min-width: 960px; */
+    width:1120px;
+    /* width:80%; */
     margin: 0 auto;
 }
 

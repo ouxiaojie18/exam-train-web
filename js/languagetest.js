@@ -2,6 +2,7 @@ $(document).ready(function() {
   var categoryType = $(".language-list .active span").text();
   var posterType = ".ielts-test-poster";
   var clientPage = 1;
+  let everyPage =12;
   var num = 1;
   var hash;
   hash = window.location.hash
@@ -16,28 +17,28 @@ $(document).ready(function() {
           .eq(1)
           .addClass("active");
 
-        getAjax("托福", 1, 12);
+        getAjax("托福", 1, everyPage);
         break;
       case "日语":
         $(".language-list li").removeClass("active");
         $(".language-list li")
           .eq(2)
           .addClass("active");
-        getAjax("日语", 1, 12);
+        getAjax("日语", 1, everyPage);
         break;
       case "韩语":
         $(".language-list li").removeClass("active");
         $(".language-list li")
           .eq(3)
           .addClass("active");
-        getAjax("韩语", 1, 12);
+        getAjax("韩语", 1, everyPage);
         break;
       default:
         $(".language-list li").removeClass("active");
         $(".language-list li")
           .eq(0)
           .addClass("active");
-        getAjax("雅思", 1, 12);
+        getAjax("雅思", 1, everyPage);
     }
   }
 
@@ -59,7 +60,7 @@ $(document).ready(function() {
 
   function getPagination(num, clientPage) {
     
-    var divWrap = $('<div style="text-align:center"></div>');
+    var divWrap = $('<div style="text-align:center;margin-top:30px;width:1120px;"></div>');
     var ulPagi = $('<ul class="my_pagination"></ul>');
     var firstPage = $('<li class="my_first_page"><span>首页</span></li>');
     var lastPage = $('<li class="my_last_page"><span>尾页</span></li>');
@@ -277,6 +278,6 @@ $(document).ready(function() {
         $(".korea-test-poster").css("display", "block");
         break;
     }
-    getAjax(categoryType, 1, 12);
+    getAjax(categoryType, 1, everyPage);
   });
 });
